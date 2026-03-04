@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MTech Solutions | Premium IT & Software</title>
+  <title>MTech Solutions | Premium IT Systems</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -12,144 +12,91 @@
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
   <style>
-    :root {
-      --primary: #0066ff;
-      --dark: #0f172a;
-      --light: #f8fafc;
-      --glass: rgba(255, 255, 255, 0.85);
-    }
-
+    :root { --primary: #0066ff; --dark: #0f172a; --light: #f8fafc; --glass: rgba(255, 255, 255, 0.85); }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--dark); overflow-x: hidden; scroll-behavior: smooth; }
 
-    /* --- Navbar --- */
+    /* Navbar */
     header {
       position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-      width: 90%; max-width: 1100px; z-index: 1000;
-      background: var(--glass); backdrop-filter: blur(15px);
-      padding: 12px 30px; border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.3);
-      display: flex; justify-content: space-between; align-items: center;
+      width: 90%; max-width: 1100px; z-index: 1000; background: var(--glass);
+      backdrop-filter: blur(15px); padding: 12px 30px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.3); display: flex; justify-content: space-between; align-items: center;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
     .logo img { height: 35px; }
     .nav-links { display: flex; gap: 25px; list-style: none; align-items: center; }
-    .nav-links a { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
-    .btn-cta { background: var(--dark); color: white !important; padding: 10px 22px; border-radius: 999px; }
+    .nav-links a { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 0.9rem; }
 
-    /* --- Dynamic Hero --- */
+    /* Hero */
     #hero {
-      height: 100vh; width: 100%;
-      display: flex; align-items: center; justify-content: center;
-      text-align: center; color: white; position: relative;
-      background-size: cover; background-position: center;
-      transition: background 1s ease-in-out;
+      height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; color: white; position: relative; background-size: cover; background-position: center;
     }
-    #hero::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(rgba(15,23,42,0.6), rgba(15,23,42,0.85));
-      z-index: 1;
-    }
+    #hero::before { content: ''; position: absolute; inset: 0; background: rgba(15,23,42,0.75); z-index: 1; }
     .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 0 20px; }
-    .badge {
-      display: inline-block; padding: 6px 18px; border-radius: 999px;
-      background: rgba(0, 102, 255, 0.15); border: 1px solid var(--primary);
-      color: #60a5fa; font-weight: 700; font-size: 0.8rem; margin-bottom: 25px;
-    }
-    .hero-content h1 { font-family: 'Manrope'; font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.1; margin-bottom: 20px; }
+    .badge { display: inline-block; padding: 6px 18px; border-radius: 999px; background: rgba(0,102,255,0.2); border: 1px solid var(--primary); color: #60a5fa; font-weight: 700; margin-bottom: 20px; }
+    h1 { font-family: 'Manrope'; font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 20px; }
     .text-gradient { background: linear-gradient(135deg, #60a5fa, #0066ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero-content p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto 40px; }
 
-    /* --- Services --- */
-    #services { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-    .service-card { background: white; padding: 40px; border-radius: 24px; border: 1px solid #e2e8f0; transition: 0.4s; }
-    .service-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-    .service-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 25px; display: block; }
+    /* Stats Section */
+    #stats { background: var(--dark); padding: 60px 20px; color: white; }
+    .stats-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center; }
 
-    /* --- Footer --- */
-    footer { background: white; padding: 80px 20px 40px; border-top: 1px solid #e2e8f0; }
-    .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 50px; }
-    .footer-col h4 { font-family: 'Manrope'; margin-bottom: 25px; font-size: 1.1rem; }
-    .footer-col p { color: #64748b; line-height: 1.6; font-size: 0.95rem; }
-    .footer-links { list-style: none; }
-    .footer-links li { margin-bottom: 12px; }
-    .footer-links a { text-decoration: none; color: #64748b; transition: 0.3s; }
-    .footer-links a:hover { color: var(--primary); }
-    .social-links { display: flex; gap: 15px; margin-top: 20px; }
-    .social-links a { width: 40px; height: 40px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--dark); }
+    /* Services & Testimonials */
+    .section-padding { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
     
-    .footer-bottom { max-width: 1200px; margin: 60px auto 0; padding-top: 30px; border-top: 1px solid #f1f5f9; text-align: center; color: #94a3b8; font-size: 0.85rem; }
+    .service-card { 
+      background: white; padding: 40px; border-radius: 24px; border: 1px solid #e2e8f0; 
+      transition: 0.4s; position: relative; 
+    }
+    .service-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 20px 40px rgba(0,102,255,0.1); }
+    .icon-box { width: 60px; height: 60px; background: #f1f5f9; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.5rem; margin-bottom: 20px; transition: 0.3s; }
+    .service-card:hover .icon-box { background: var(--primary); color: white; }
 
-    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; text-align: center; } .social-links { justify-content: center; } }
+    .testimonial-card { background: white; padding: 30px; border-radius: 20px; border-left: 5px solid var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+    .client-info { display: flex; align-items: center; gap: 15px; margin-top: 20px; }
+    .client-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+
+    footer { background: white; padding: 60px 20px; border-top: 1px solid #e2e8f0; text-align: center; }
   </style>
 </head>
 <body>
 
   <header>
-    <a href="#" class="logo"><img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png" alt="MTech"></a>
+    <div class="logo"><img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png"></div>
     <ul class="nav-links">
       <li><a href="#hero">Home</a></li>
       <li><a href="#services">Services</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="#" class="btn-cta">Contact</a></li>
+      <li><a href="shop.html" style="background:var(--dark); color:white; padding:8px 20px; border-radius:20px;">Shop</a></li>
     </ul>
   </header>
 
   <section id="hero">
     <div class="hero-content">
-      <span id="db-badge" class="badge">Innovation Ready</span>
-      <h1 id="hero-title">
-        <span id="db-title-main">Powering Your</span><br>
-        <span id="db-title-gradient" class="text-gradient">Digital Success</span>
-      </h1>
-      <p id="db-description">MTech Solutions provides enterprise-grade IT services and software for Mokopane businesses.</p>
-      <a href="shop.html" class="btn-cta" style="padding: 16px 40px; text-decoration: none; font-size: 1rem; display: inline-block;">Browse Solutions</a>
+      <span id="db-badge" class="badge">...</span>
+      <h1><span id="db-titleMain">...</span> <span id="db-titleGradient" class="text-gradient">...</span></h1>
+      <p id="db-description" style="font-size: 1.2rem; margin-bottom: 30px;">Loading...</p>
     </div>
   </section>
 
-  <section id="services">
-    <h2 style="text-align: center; font-family: 'Manrope'; font-size: 2.5rem; margin-bottom: 50px;">Our Specialized Expertise</h2>
-    <div class="services-grid" id="services-container"></div>
+  <section id="stats">
+    <div class="stats-grid" id="stats-container"></div>
+  </section>
+
+  <section id="services" class="section-padding">
+    <h2 style="text-align:center; font-family:'Manrope'; margin-bottom:50px;">Our Services</h2>
+    <div class="grid" id="services-container"></div>
+  </section>
+
+  <section id="testimonials" class="section-padding" style="background: #f1f5f9;">
+    <h2 style="text-align:center; font-family:'Manrope'; margin-bottom:50px;">Client Feedback</h2>
+    <div class="grid" id="testimonials-container"></div>
   </section>
 
   <footer>
-    <div class="footer-grid">
-      <div class="footer-col">
-        <img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png" height="40" style="margin-bottom: 20px;">
-        <p>Your partner in high-performance computing and custom software development. Based in Mokopane, serving the future.</p>
-        <div class="social-links">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul class="footer-links">
-          <li><a href="#">About Us</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="shop.html">Shop</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Support</h4>
-        <ul class="footer-links">
-          <li><a href="#">Help Center</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <p><i class="fas fa-map-marker-alt"></i> Mokopane, Limpopo, ZA</p>
-        <p style="margin: 10px 0;"><i class="fas fa-envelope"></i> info@mtechsolutions.co.za</p>
-        <p><i class="fas fa-phone"></i> +27 (000) 000-0000</p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      &copy; 2026 MTech Solutions. All rights reserved. Designed with precision.
-    </div>
+    <p>&copy; 2026 MTech Solutions. All rights reserved.</p>
   </footer>
 
   <script>
@@ -162,40 +109,49 @@
       messagingSenderId: "708458917827",
       appId: "1:708458917827:web:375de278577df0adcf9776"
     };
-
     const CLOUD_NAME = "dqkujefxj";
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // Sync Hero Section
-    db.ref('homepage/hero').on('value', (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        document.getElementById('db-badge').innerText = data.badge;
-        document.getElementById('db-title-main').innerText = data.titleMain;
-        document.getElementById('db-title-gradient').innerText = data.titleGradient;
-        document.getElementById('db-description').innerText = data.description;
-        
-        // Update Hero BG from Cloudinary
-        const hero = document.getElementById('hero');
-        const imgUrl = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_1920/${data.bgImageId}`;
-        hero.style.backgroundImage = `url('${imgUrl}')`;
+    // Sync Hero
+    db.ref('homepage/hero').on('value', snap => {
+      const d = snap.val();
+      if(d){
+        document.getElementById('db-badge').innerText = d.badge;
+        document.getElementById('db-titleMain').innerText = d.titleMain;
+        document.getElementById('db-titleGradient').innerText = d.titleGradient;
+        document.getElementById('db-description').innerText = d.description;
+        document.getElementById('hero').style.backgroundImage = `url('https://res.cloudinary.com/${CLOUD_NAME}/image/upload/f_auto,q_auto,w_1920/${d.bgImageId}')`;
       }
     });
 
+    // Sync Stats
+    db.ref('homepage/stats').on('value', snap => {
+      const s = snap.val();
+      if(s) document.getElementById('stats-container').innerHTML = s.map(i => `<div><h2 style="color:var(--primary); font-size:2.5rem;">${i.value}</h2><p>${i.label}</p></div>`).join('');
+    });
+
     // Sync Services
-    db.ref('homepage/services').on('value', (snapshot) => {
-      const services = snapshot.val();
-      const container = document.getElementById('services-container');
-      if (services) {
-        container.innerHTML = services.map(s => `
-          <div class="service-card">
-            <i class="fas ${s.icon}"></i>
-            <h3>${s.title}</h3>
-            <p>${s.desc}</p>
+    db.ref('homepage/services').on('value', snap => {
+      const s = snap.val();
+      if(s) document.getElementById('services-container').innerHTML = s.map(i => `
+        <div class="service-card">
+          <div class="icon-box">${i.logoId ? `<img src="https://res.cloudinary.com/${CLOUD_NAME}/image/upload/w_50/${i.logoId}" style="width:30px;">` : `<i class="fas ${i.icon}"></i>`}</div>
+          <h3>${i.title}</h3><p style="color:#64748b; margin-top:10px;">${i.desc}</p>
+        </div>`).join('');
+    });
+
+    // Sync Testimonials
+    db.ref('homepage/testimonials').on('value', snap => {
+      const t = snap.val();
+      if(t) document.getElementById('testimonials-container').innerHTML = t.map(i => `
+        <div class="testimonial-card">
+          <p style="font-style:italic; color:#475569;">"${i.text}"</p>
+          <div class="client-info">
+            <img src="https://res.cloudinary.com/${CLOUD_NAME}/image/upload/w_100,h_100,c_thumb,g_face/${i.imgId}" class="client-img">
+            <div><strong>${i.name}</strong><br><small>${i.company}</small></div>
           </div>
-        `).join('');
-      }
+        </div>`).join('');
     });
   </script>
 </body>
