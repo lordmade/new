@@ -12,91 +12,157 @@
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
   <style>
-    :root { --primary: #0066ff; --dark: #0f172a; --light: #f8fafc; --glass: rgba(255, 255, 255, 0.85); }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--dark); overflow-x: hidden; scroll-behavior: smooth; }
+    /* Default Variables - Will be overridden by Firebase */
+    :root { 
+      --primary: #0066ff; 
+      --primary-soft: rgba(0, 102, 255, 0.1);
+      --dark: #0f172a; 
+      --light: #f8fafc; 
+      --glass: rgba(255, 255, 255, 0.8); 
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-    /* Navbar */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Inter', sans-serif; 
+      background: var(--light); 
+      color: var(--dark); 
+      line-height: 1.6;
+      overflow-x: hidden; 
+      scroll-behavior: smooth; 
+    }
+
+    /* --- UI Components --- */
+    .btn {
+      padding: 12px 28px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 20px var(--primary-soft); }
+
+    /* --- Navbar --- */
     header {
       position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-      width: 90%; max-width: 1100px; z-index: 1000; background: var(--glass);
-      backdrop-filter: blur(15px); padding: 12px 30px; border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.3); display: flex; justify-content: space-between; align-items: center;
+      width: 90%; max-width: 1200px; z-index: 1000; 
+      background: var(--glass); backdrop-filter: blur(12px); 
+      padding: 12px 30px; border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.2); 
+      display: flex; justify-content: space-between; align-items: center;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
-    .logo img { height: 35px; }
     .nav-links { display: flex; gap: 25px; list-style: none; align-items: center; }
-    .nav-links a { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 0.9rem; }
+    .nav-links a { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 0.9rem; transition: var(--transition); }
+    .nav-links a:hover { color: var(--primary); }
 
-    /* Hero */
+    /* --- Hero --- */
     #hero {
       height: 100vh; display: flex; align-items: center; justify-content: center;
-      text-align: center; color: white; position: relative; background-size: cover; background-position: center;
+      text-align: center; color: white; position: relative; 
+      background-size: cover; background-position: center;
     }
-    #hero::before { content: ''; position: absolute; inset: 0; background: rgba(15,23,42,0.75); z-index: 1; }
-    .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 0 20px; }
-    .badge { display: inline-block; padding: 6px 18px; border-radius: 999px; background: rgba(0,102,255,0.2); border: 1px solid var(--primary); color: #60a5fa; font-weight: 700; margin-bottom: 20px; }
-    h1 { font-family: 'Manrope'; font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 20px; }
-    .text-gradient { background: linear-gradient(135deg, #60a5fa, #0066ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-    /* Stats Section */
-    #stats { background: var(--dark); padding: 60px 20px; color: white; }
-    .stats-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center; }
-
-    /* Services & Testimonials */
-    .section-padding { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    #hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(15,23,42,0.8), rgba(15,23,42,0.4)); z-index: 1; }
+    .hero-content { position: relative; z-index: 2; max-width: 850px; padding: 0 20px; }
     
-    .service-card { 
-      background: white; padding: 40px; border-radius: 24px; border: 1px solid #e2e8f0; 
-      transition: 0.4s; position: relative; 
+    .badge { 
+      display: inline-block; padding: 6px 16px; border-radius: 999px; 
+      background: var(--primary-soft); border: 1px solid var(--primary); 
+      color: #fff; font-size: 0.8rem; font-weight: 700; margin-bottom: 20px;
+      text-transform: uppercase; letter-spacing: 1px;
     }
-    .service-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 20px 40px rgba(0,102,255,0.1); }
-    .icon-box { width: 60px; height: 60px; background: #f1f5f9; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.5rem; margin-bottom: 20px; transition: 0.3s; }
-    .service-card:hover .icon-box { background: var(--primary); color: white; }
 
-    .testimonial-card { background: white; padding: 30px; border-radius: 20px; border-left: 5px solid var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
-    .client-info { display: flex; align-items: center; gap: 15px; margin-top: 20px; }
-    .client-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+    h1 { font-family: 'Manrope'; font-size: clamp(2.8rem, 7vw, 4.5rem); line-height: 1.1; margin-bottom: 24px; font-weight: 800; }
+    .text-gradient { background: linear-gradient(135deg, #fff 30%, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-    footer { background: white; padding: 60px 20px; border-top: 1px solid #e2e8f0; text-align: center; }
+    /* --- Stats --- */
+    #stats { background: var(--dark); padding: 80px 20px; color: white; }
+    .stats-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: center; }
+
+    /* --- Sections General --- */
+    .section-padding { padding: 120px 20px; max-width: 1200px; margin: 0 auto; }
+    .section-title { text-align: center; font-family: 'Manrope'; font-size: 2.5rem; margin-bottom: 60px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+
+    /* --- Service Cards --- */
+    .service-card { 
+      background: white; padding: 50px 40px; border-radius: 30px; 
+      border: 1px solid #eef2f6; transition: var(--transition);
+    }
+    .service-card:hover { transform: translateY(-12px); box-shadow: 0 30px 60px rgba(0,0,0,0.05); border-color: var(--primary); }
+    .icon-box { 
+      width: 70px; height: 70px; background: var(--primary-soft); 
+      border-radius: 20px; display: flex; align-items: center; 
+      justify-content: center; color: var(--primary); font-size: 1.8rem; margin-bottom: 25px; 
+    }
+
+    /* --- CTA Section --- */
+    .cta-banner {
+      background: var(--primary); border-radius: 40px; padding: 80px 40px;
+      text-align: center; color: white; margin: 0 20px;
+    }
+
+    /* --- Footer --- */
+    footer { background: #fff; padding: 80px 20px 40px; border-top: 1px solid #eef2f6; text-align: center; }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="logo"><img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png"></div>
+    <div class="logo"><img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png" height="40"></div>
     <ul class="nav-links">
       <li><a href="#hero">Home</a></li>
       <li><a href="#services">Services</a></li>
-      <li><a href="shop.html" style="background:var(--dark); color:white; padding:8px 20px; border-radius:20px;">Shop</a></li>
+      <li><a href="#testimonials">Clients</a></li>
+      <li><a href="shop.html" class="btn btn-primary" style="color:white; padding:10px 25px;">Browse Shop</a></li>
     </ul>
   </header>
 
   <section id="hero">
     <div class="hero-content">
-      <span id="db-badge" class="badge">...</span>
-      <h1><span id="db-titleMain">...</span> <span id="db-titleGradient" class="text-gradient">...</span></h1>
-      <p id="db-description" style="font-size: 1.2rem; margin-bottom: 30px;">Loading...</p>
+      <span id="db-badge" class="badge">PRO VERSION</span>
+      <h1><span id="db-titleMain">Next-Gen</span> <br> <span id="db-titleGradient" class="text-gradient">IT Infrastructure</span></h1>
+      <p id="db-description" style="font-size: 1.25rem; margin-bottom: 35px; opacity: 0.9;">Building the digital backbone for tomorrow's industry leaders.</p>
+      <div class="hero-btns">
+        <a href="#services" class="btn btn-primary">Our Solutions</a>
+      </div>
     </div>
   </section>
 
   <section id="stats">
-    <div class="stats-grid" id="stats-container"></div>
+    <div class="stats-grid" id="stats-container">
+      </div>
   </section>
 
   <section id="services" class="section-padding">
-    <h2 style="text-align:center; font-family:'Manrope'; margin-bottom:50px;">Our Services</h2>
-    <div class="grid" id="services-container"></div>
+    <h2 class="section-title">Specialized Services</h2>
+    <div class="grid" id="services-container">
+      </div>
   </section>
 
-  <section id="testimonials" class="section-padding" style="background: #f1f5f9;">
-    <h2 style="text-align:center; font-family:'Manrope'; margin-bottom:50px;">Client Feedback</h2>
-    <div class="grid" id="testimonials-container"></div>
+  <section class="section-padding" style="padding-top: 0;">
+    <div class="cta-banner">
+      <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Ready to Scale Your Business?</h2>
+      <p style="margin-bottom: 30px; font-size: 1.1rem; opacity: 0.9;">Join 500+ companies trusting MTech for their technical infrastructure.</p>
+      <a href="mailto:hello@mtech.com" class="btn" style="background: white; color: var(--primary);">Contact Specialist</a>
+    </div>
+  </section>
+
+  <section id="testimonials" class="section-padding" style="background: #f8fafc;">
+    <h2 class="section-title">Client Success</h2>
+    <div class="grid" id="testimonials-container">
+      </div>
   </section>
 
   <footer>
-    <p>&copy; 2026 MTech Solutions. All rights reserved.</p>
+    <div style="margin-bottom: 30px;">
+        <img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png" height="40" style="filter: grayscale(1);">
+    </div>
+    <p>&copy; 2026 MTech Solutions. Designed for Excellence.</p>
   </footer>
 
   <script>
@@ -109,15 +175,30 @@
       messagingSenderId: "708458917827",
       appId: "1:708458917827:web:375de278577df0adcf9776"
     };
+    
     const CLOUD_NAME = "dqkujefxj";
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // Sync Hero
+    // 1. DYNAMIC THEME SYNC
+    // Expects database structure: settings/theme: { primary: '#0066ff', dark: '#0f172a' }
+    db.ref('settings/theme').on('value', snap => {
+      const colors = snap.val();
+      if(colors) {
+        const root = document.documentElement;
+        if(colors.primary) {
+            root.style.setProperty('--primary', colors.primary);
+            root.style.setProperty('--primary-soft', colors.primary + '1A'); // Adds transparency
+        }
+        if(colors.dark) root.style.setProperty('--dark', colors.dark);
+      }
+    });
+
+    // 2. HERO SYNC
     db.ref('homepage/hero').on('value', snap => {
       const d = snap.val();
       if(d){
-        document.getElementById('db-badge').innerText = d.badge;
+        document.getElementById('db-badge').innerText = d.badge || 'New';
         document.getElementById('db-titleMain').innerText = d.titleMain;
         document.getElementById('db-titleGradient').innerText = d.titleGradient;
         document.getElementById('db-description').innerText = d.description;
@@ -125,31 +206,42 @@
       }
     });
 
-    // Sync Stats
+    // 3. STATS SYNC
     db.ref('homepage/stats').on('value', snap => {
       const s = snap.val();
-      if(s) document.getElementById('stats-container').innerHTML = s.map(i => `<div><h2 style="color:var(--primary); font-size:2.5rem;">${i.value}</h2><p>${i.label}</p></div>`).join('');
+      if(s) document.getElementById('stats-container').innerHTML = s.map(i => `
+        <div>
+            <h2 style="color:var(--primary); font-size:3rem; font-family:'Manrope';">${i.value}</h2>
+            <p style="text-transform:uppercase; font-size:0.8rem; letter-spacing:1px; opacity:0.7;">${i.label}</p>
+        </div>`).join('');
     });
 
-    // Sync Services
+    // 4. SERVICES SYNC
     db.ref('homepage/services').on('value', snap => {
       const s = snap.val();
       if(s) document.getElementById('services-container').innerHTML = s.map(i => `
         <div class="service-card">
-          <div class="icon-box">${i.logoId ? `<img src="https://res.cloudinary.com/${CLOUD_NAME}/image/upload/w_50/${i.logoId}" style="width:30px;">` : `<i class="fas ${i.icon}"></i>`}</div>
-          <h3>${i.title}</h3><p style="color:#64748b; margin-top:10px;">${i.desc}</p>
+          <div class="icon-box">
+            ${i.logoId ? `<img src="https://res.cloudinary.com/${CLOUD_NAME}/image/upload/w_50/${i.logoId}" style="width:35px;">` : `<i class="fas ${i.icon || 'fa-cog'}"></i>`}
+          </div>
+          <h3 style="font-size:1.4rem; margin-bottom:15px;">${i.title}</h3>
+          <p style="color:#64748b;">${i.desc}</p>
         </div>`).join('');
     });
 
-    // Sync Testimonials
+    // 5. TESTIMONIALS SYNC
     db.ref('homepage/testimonials').on('value', snap => {
       const t = snap.val();
       if(t) document.getElementById('testimonials-container').innerHTML = t.map(i => `
-        <div class="testimonial-card">
-          <p style="font-style:italic; color:#475569;">"${i.text}"</p>
-          <div class="client-info">
-            <img src="https://res.cloudinary.com/${CLOUD_NAME}/image/upload/w_100,h_100,c_thumb,g_face/${i.imgId}" class="client-img">
-            <div><strong>${i.name}</strong><br><small>${i.company}</small></div>
+        <div class="service-card" style="padding:40px;">
+          <p style="font-size:1.1rem; color:#475569; margin-bottom:25px; line-height:1.8;">"${i.text}"</p>
+          <div style="display:flex; align-items:center; gap:15px;">
+            <img src="https://res.cloudinary.com/${CLOUD_NAME}/image/upload/w_100,h_100,c_thumb,g_face/${i.imgId}" 
+                 style="width:50px; height:50px; border-radius:50%; object-fit:cover;">
+            <div>
+                <strong style="display:block;">${i.name}</strong>
+                <small style="color:var(--primary);">${i.company}</small>
+            </div>
           </div>
         </div>`).join('');
     });
