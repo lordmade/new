@@ -4,178 +4,345 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MTech Solutions — IT Services</title>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 7 Free (all icons in one file) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
     :root {
-      --primary: #0066ff;       /* bright blue accent */
-      --dark: #0f172a;           /* navy/dark bg */
-      --dark-2: #1e293b;
-      --light: #f8fafc;
+      --primary: #0066ff;
+      --primary-dark: #0055dd;
+      --dark: #0f172a;
       --gray: #64748b;
-      --gradient: linear-gradient(135deg, #0066ff, #00d4ff);
+      --light: #ffffff;
+      --light-2: #f8fafc;
+      --border: #e2e8f0;
+      --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.06);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.12);
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--dark);
-      color: #fff;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--light-2);
+      color: var(--dark);
       line-height: 1.6;
     }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-    /* Header / Nav */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ────────────────────────────────────────
+       Navbar - Modern tech style
+    ──────────────────────────────────────── */
     header {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(10px);
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 1000;
-      padding: 1rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.3s ease;
+      padding: 1.2rem 0;
     }
+
+    header.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+    }
+
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
     .logo {
       font-family: 'Manrope', sans-serif;
-      font-size: 1.8rem;
+      font-size: 1.9rem;
       font-weight: 700;
-      background: var(--gradient);
+      background: linear-gradient(90deg, var(--primary), #00aaff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    .nav-links a {
-      color: #e2e8f0;
-      text-decoration: none;
-      margin-left: 2rem;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-    .nav-links a:hover { color: var(--primary); }
 
-    /* Hero */
-    #hero {
-      min-height: 100vh;
+    .nav-links {
       display: flex;
       align-items: center;
-      background: var(--dark-2);
-      position: relative;
-      overflow: hidden;
+      gap: 2.2rem;
     }
-    #hero::before {
-      content: "";
+
+    .nav-links a {
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
       position: absolute;
-      top: -50%; left: -50%; right: -50%; bottom: -50%;
-      background: radial-gradient(circle at 30% 20%, rgba(0,102,255,0.15), transparent 40%);
-      pointer-events: none;
+      width: 0;
+      height: 2px;
+      bottom: -6px;
+      left: 0;
+      background: var(--primary);
+      transition: width 0.3s ease;
     }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
     }
-    .hero-content h1 {
-      font-family: 'Manrope', sans-serif;
-      font-size: clamp(3.5rem, 8vw, 6rem);
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+
+    .nav-links a:hover::after {
+      width: 100%;
     }
-    .hero-content p {
-      font-size: 1.4rem;
-      color: #cbd5e1;
-      margin-bottom: 2.5rem;
-    }
-    .btn {
-      display: inline-block;
+
+    .nav-cta .btn {
       background: var(--primary);
       color: white;
-      padding: 1rem 2.2rem;
+      padding: 0.7rem 1.6rem;
       border-radius: 50px;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.3s;
-      box-shadow: 0 10px 30px rgba(0,102,255,0.3);
-    }
-    .btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0,102,255,0.4);
-      background: #0055dd;
+      box-shadow: var(--shadow-sm);
     }
 
-    /* Sections */
-    section { padding: 120px 0; }
-    h2 {
-      font-family: 'Manrope', sans-serif;
-      font-size: 3.2rem;
-      text-align: center;
-      margin-bottom: 4rem;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .nav-cta .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 102, 255, 0.35);
+      background: var(--primary-dark);
     }
 
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
-    }
-    .service-card {
-      background: rgba(30,41,59,0.6);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 2.5rem;
-      transition: all 0.4s;
-      backdrop-filter: blur(10px);
-    }
-    .service-card:hover {
-      transform: translateY(-12px);
-      border-color: var(--primary);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    }
-    .service-card h3 { font-size: 1.6rem; margin-bottom: 1rem; }
-    .service-card p { color: #94a3b8; }
-
-    /* Stats */
-    .stats {
+    /* ────────────────────────────────────────
+       Hero Section
+    ──────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
       display: flex;
-      justify-content: center;
-      gap: 4rem;
-      flex-wrap: wrap;
+      align-items: center;
+      background: linear-gradient(135deg, #f0f7ff 0%, #e0f0ff 100%);
+      position: relative;
     }
-    .stat-item {
-      text-align: center;
+
+    .hero-content {
+      max-width: 780px;
     }
-    .stat-number {
-      font-size: 3.5rem;
+
+    .hero-content h1 {
+      font-family: 'Manrope', sans-serif;
+      font-size: clamp(3.8rem, 9vw, 6.2rem);
       font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 1.6rem;
+      color: var(--dark);
+    }
+
+    .hero-content .highlight {
       color: var(--primary);
     }
 
-    footer {
-      background: #0a0f1a;
-      padding: 4rem 0 2rem;
-      text-align: center;
-      color: #94a3b8;
+    .hero-content p {
+      font-size: 1.35rem;
+      color: var(--gray);
+      margin-bottom: 2.5rem;
+      max-width: 580px;
     }
-    footer a { color: var(--primary); text-decoration: none; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: var(--primary);
+      color: white;
+      padding: 1.1rem 2.4rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 30px rgba(0, 102, 255, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 102, 255, 0.35);
+      background: var(--primary-dark);
+    }
+
+    /* ────────────────────────────────────────
+       General Section Styling
+    ──────────────────────────────────────── */
+    section {
+      padding: 140px 0 100px;
+    }
+
+    h2 {
+      font-family: 'Manrope', sans-serif;
+      font-size: 3.4rem;
+      text-align: center;
+      margin-bottom: 4rem;
+      color: var(--dark);
+    }
+
+    /* ────────────────────────────────────────
+       Services Grid
+    ──────────────────────────────────────── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2.8rem;
+      box-shadow: var(--shadow);
+      transition: all 0.4s ease;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .service-card:hover {
+      transform: translateY(-12px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+
+    .icon-tech {
+      font-size: 2.8rem;
+      color: var(--primary);
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .service-card h3 {
+      font-size: 1.65rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+
+    .service-card p {
+      color: var(--gray);
+    }
+
+    /* ────────────────────────────────────────
+       Stats - Interactive count-up + fade-in
+    ──────────────────────────────────────── */
+    #stats {
+      background: var(--light);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    #stats.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 5rem;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .stat-item {
+      min-width: 180px;
+    }
+
+    .stat-item .stat-number {
+      font-size: 4.2rem;
+      font-weight: 800;
+      color: var(--primary);
+      display: block;
+      margin-bottom: 0.6rem;
+      font-family: 'Manrope', sans-serif;
+    }
+
+    .stat-item p {
+      color: var(--gray);
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    /* ────────────────────────────────────────
+       Contact Section
+    ──────────────────────────────────────── */
+    #contact {
+      background: linear-gradient(135deg, #f0f7ff, #e6f0ff);
+      text-align: center;
+    }
+
+    #contact p {
+      font-size: 1.35rem;
+      max-width: 680px;
+      margin: 0 auto 2.8rem;
+      color: var(--gray);
+    }
+
+    /* ────────────────────────────────────────
+       Footer
+    ──────────────────────────────────────── */
+    footer {
+      background: var(--dark);
+      color: #cbd5e1;
+      padding: 5rem 0 2rem;
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ────────────────────────────────────────
+       Responsive Adjustments
+    ──────────────────────────────────────── */
+    @media (max-width: 992px) {
+      .stats { gap: 3.5rem; }
+    }
 
     @media (max-width: 768px) {
-      .nav-links { display: none; } /* add mobile menu later if needed */
-      h2 { font-size: 2.5rem; }
+      .nav-links { display: none; } /* ← add hamburger menu JS/CSS here later if needed */
+      h2 { font-size: 2.8rem; }
+      .hero-content h1 { font-size: 3.5rem; }
+      .stat-item .stat-number { font-size: 3.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .btn-primary { padding: 1rem 2rem; }
     }
   </style>
 </head>
 <body>
 
-  <header>
+  <header id="header">
     <div class="container">
       <nav>
         <div class="logo">MTech Solutions</div>
@@ -183,6 +350,9 @@
           <a href="#services">Services</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
+          <span class="nav-cta">
+            <a href="#contact" class="btn">Get Started</a>
+          </span>
         </div>
       </nav>
     </div>
@@ -191,73 +361,124 @@
   <section id="hero">
     <div class="container">
       <div class="hero-content">
-        <h1>Innovate. Secure. Grow.</h1>
-        <p>Forward-thinking IT solutions that power businesses with reliability, security, and next-gen technology.</p>
-        <a href="#contact" class="btn">Get Started →</a>
+        <h1>Innovate.<span class="highlight"> Secure.</span> Scale.</h1>
+        <p>Next-generation IT services powering businesses with cutting-edge cloud, cybersecurity, and digital transformation solutions.</p>
+        <a href="#contact" class="btn-primary"><i class="fas fa-rocket"></i> Let's Talk</a>
       </div>
     </div>
   </section>
 
-  <section id="services" style="background:#0f172a;">
+  <section id="services">
     <div class="container">
       <h2>Our Core Services</h2>
       <div class="services-grid">
         <div class="service-card">
-          <h3>Cloud Solutions</h3>
-          <p>Scalable cloud infrastructure, migration, and managed services built for performance and cost-efficiency.</p>
+          <i class="fas fa-cloud icon-tech"></i>
+          <h3>Cloud & Infrastructure</h3>
+          <p>Seamless cloud migration, hybrid setups, and optimized infrastructure that scales with your growth.</p>
         </div>
         <div class="service-card">
-          <h3>Cybersecurity</h3>
-          <p>Advanced threat protection, compliance, penetration testing — keeping your data safe 24/7.</p>
+          <i class="fas fa-shield-halved icon-tech"></i>
+          <h3>Cybersecurity & Compliance</h3>
+          <p>Enterprise-grade protection, threat detection, and regulatory compliance to keep your data secure.</p>
         </div>
         <div class="service-card">
-          <h3>IT Consulting</h3>
-          <p>Strategic advisory to transform your tech stack and drive digital innovation.</p>
+          <i class="fas fa-lightbulb icon-tech"></i>
+          <h3>IT Strategy & Consulting</h3>
+          <p>Tailored digital roadmaps and advisory to future-proof your technology stack.</p>
         </div>
         <div class="service-card">
-          <h3>Managed IT</h3>
-          <p>Proactive monitoring, support, and maintenance so you focus on your business.</p>
+          <i class="fas fa-headset icon-tech"></i>
+          <h3>Managed Services</h3>
+          <p>24/7 proactive monitoring, support, and maintenance — so you focus on your core business.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section style="background: linear-gradient(to bottom, #0f172a, #02050a);">
+  <section id="stats">
     <div class="container">
-      <h2>Proven Results</h2>
+      <h2>Trusted Results</h2>
       <div class="stats">
         <div class="stat-item">
-          <div class="stat-number">98%</div>
-          <p>Client Satisfaction</p>
+          <div class="stat-number" data-target="98">0</div>
+          <p>Client Retention</p>
         </div>
         <div class="stat-item">
-          <div class="stat-number">150+</div>
+          <div class="stat-number" data-target="200">0</div>
           <p>Projects Delivered</p>
         </div>
         <div class="stat-item">
-          <div class="stat-number">24/7</div>
-          <p>Support Coverage</p>
+          <div class="stat-number" data-target="24">24</div>
+          <p>Expert Support</p>
         </div>
       </div>
     </div>
   </section>
 
   <section id="contact">
-    <div class="container" style="text-align:center;">
-      <h2>Ready to Transform Your IT?</h2>
-      <p style="font-size:1.3rem; max-width:600px; margin:0 auto 2.5rem; color:#cbd5e1;">
-        Let's discuss how we can help your business scale securely and efficiently.
-      </p>
-      <a href="mailto:info@mtechsolutions.com" class="btn" style="font-size:1.3rem; padding:1.2rem 3rem;">Contact Us Today</a>
+    <div class="container">
+      <h2>Ready to Elevate Your IT?</h2>
+      <p>Partner with us to build secure, scalable, and innovative technology that drives real business results.</p>
+      <a href="mailto:info@mtechsolutions.com" class="btn-primary" style="font-size:1.3rem; padding:1.2rem 3rem;">
+        <i class="fas fa-envelope"></i> Contact Our Team
+      </a>
     </div>
   </section>
 
   <footer>
     <div class="container">
-      <p>&copy; 2026 MTech Solutions. All rights reserved.</p>
+      <p>© 2026 MTech Solutions. Built for the future.</p>
       <p><a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a></p>
     </div>
   </footer>
+
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      document.getElementById('header').classList.toggle('scrolled', window.scrollY > 100);
+    });
+
+    // Interactive stats animation
+    const statsSection = document.getElementById('stats');
+    const statNumbers = document.querySelectorAll('.stat-number');
+
+    function countUp(el) {
+      const target = parseInt(el.getAttribute('data-target'));
+      const duration = 2200;
+      const stepTime = 35;
+      const increment = target / (duration / stepTime);
+      let current = 0;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        el.textContent = Math.floor(current) + (target === 98 ? '%' : (target === 200 ? '+' : ''));
+      }, stepTime);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          statsSection.classList.add('visible');
+
+          statNumbers.forEach(num => {
+            if (!num.classList.contains('animated')) {
+              num.classList.add('animated');
+              countUp(num);
+            }
+          });
+
+          observer.unobserve(statsSection);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    observer.observe(statsSection);
+  </script>
 
 </body>
 </html>
