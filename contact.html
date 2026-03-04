@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+  <title>Contact Us — MTech Solutions | Mokopane</title>
+  <meta name="description" content="Get in touch with MTech Solutions in Mokopane, Limpopo. Request a quote for custom software, web development, cybersecurity, cloud services or hardware.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --primary: #0066ff;
+      --primary-dark: #0055dd;
+      --primary-light: #4d94ff;
+      --dark: #0f172a;
+      --gray: #64748b;
+      --light: #ffffff;
+      --light-2: #f8fafc;
+      --border: #e2e8f0;
+      --shadow-pill: 0 8px 32px rgba(0,102,255,.18);
+      --shadow-card: 0 20px 40px rgba(15, 23, 42, 0.08);
+      --shadow-glow: 0 0 40px rgba(0,102,255,0.15);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; outline: none; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--light-2); color: var(--dark); line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+    a { text-decoration: none; color: inherit; }
+
+    /* Navbar – same as homepage */
+    header {
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1000;
+      width: fit-content; max-width: 95vw; padding: 0.7rem 2rem;
+      background: rgba(255,255,255,0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      border-radius: 999px; box-shadow: var(--shadow-pill); border: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    header.stuck { top: 10px; padding: 0.5rem 1.8rem; background: rgba(255,255,255,0.95); transform: translateX(-50%) scale(0.95); }
+    nav { display: flex; align-items: center; gap: 2.4rem; }
+    .logo img { height: 38px; width: auto; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a { font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-cta .btn { background: var(--primary); color: white; padding: 0.6rem 1.4rem; border-radius: 999px; font-weight: 700; }
+    .hamburger { display: none; cursor: pointer; font-size: 1.4rem; }
+
+    /* Hero / Banner */
+    #contact-hero {
+      position: relative; min-height: 70vh; display: flex; align-items: center; justify-content: center;
+      background: var(--dark); padding: 140px 0 100px; text-align: center; overflow: hidden;
+    }
+    #contact-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=2048') center/cover;
+      opacity: 0.15; z-index: 1;
+    }
+    .hero-overlay { position: absolute; inset: 0; background: radial-gradient(circle, rgba(0,102,255,0.08) 0%, rgba(15,23,42,0.92) 100%); z-index: 2; }
+    .hero-content { position: relative; z-index: 3; max-width: 800px; }
+    .badge { display: inline-block; padding: 0.5rem 1.2rem; background: rgba(0,102,255,0.15); border: 1px solid rgba(0,102,255,0.4); color: #60a5fa; border-radius: 999px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.5rem; letter-spacing: 1px; }
+    .hero-content h1 { font-family: 'Manrope'; font-size: clamp(2.4rem, 7vw, 4.5rem); font-weight: 800; line-height: 1.1; color: white; margin-bottom: 1.5rem; }
+    .text-gradient { background: linear-gradient(135deg, #60a5fa, #0066ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    /* Contact Form Section */
+    #contact-form-section { padding: 100px 0; background: white; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .contact-info h3 { font-family: 'Manrope'; font-size: 1.8rem; margin-bottom: 1.8rem; color: var(--dark); }
+    .contact-info p { color: var(--gray); margin-bottom: 1.2rem; font-size: 1.05rem; }
+    .contact-detail { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+    .contact-detail i { font-size: 1.6rem; color: var(--primary); width: 40px; }
+    .map-embed { margin-top: 2.5rem; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-card); border: 1px solid var(--border); }
+
+    form { display: flex; flex-direction: column; gap: 1.4rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    label { font-weight: 600; color: var(--dark); font-size: 0.95rem; }
+    input, textarea {
+      padding: 1rem 1.3rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 1rem;
+      background: var(--light-2);
+      transition: all 0.3s ease;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0,102,255,0.12);
+      background: white;
+    }
+    textarea { min-height: 160px; resize: vertical; }
+    .btn-submit {
+      background: var(--primary);
+      color: white;
+      padding: 1.1rem 2.2rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      align-self: flex-start;
+      box-shadow: 0 10px 25px rgba(0,102,255,0.3);
+    }
+    .btn-submit:hover { transform: translateY(-3px); background: var(--primary-dark); }
+
+    /* Footer – same as homepage */
+    footer {
+      background: var(--dark);
+      color: #94a3b8;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    footer::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,102,255,0.5), transparent);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 4rem;
+      padding: 5rem 0 3rem;
+      position: relative; z-index: 2;
+    }
+    .footer-brand img { height: 45px; margin-bottom: 1.5rem; filter: brightness(0) invert(1); }
+    .footer-brand p { color: #94a3b8; line-height: 1.8; margin-bottom: 2rem; max-width: 300px; }
+    .social-links { display: flex; gap: 1rem; }
+    .social-links a {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.1rem; transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .social-links a:hover {
+      background: var(--primary); transform: translateY(-3px);
+      border-color: var(--primary); box-shadow: 0 10px 20px rgba(0,102,255,0.3);
+    }
+    .footer-column h4 { color: white; font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem; font-family: 'Manrope'; }
+    .footer-links a { color: #94a3b8; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .footer-links a:hover { color: white; transform: translateX(5px); }
+    .footer-contact p { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; color: #94a3b8; }
+    .footer-contact i { color: var(--primary); width: 20px; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 2rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      position: relative; z-index: 2;
+    }
+    .footer-bottom p { font-size: 0.9rem; }
+    .footer-bottom-links { display: flex; gap: 2rem; }
+    .footer-bottom-links a { color: #64748b; font-size: 0.9rem; transition: color 0.3s ease; }
+    .footer-bottom-links a:hover { color: white; }
+
+    @media (max-width: 1024px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: block; }
+      #contact-hero { padding-top: 160px; min-height: 60vh; }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .social-links { justify-content: center; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .footer-bottom-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <nav>
+      <div class="logo">
+        <img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png" alt="MTech Solutions">
+      </div>
+      <div class="nav-links">
+        <a href="index.html#services">Services</a>
+        <a href="index.html#shop-teaser">Hardware</a>
+        <a href="index.html#stats">Results</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <a href="contact.html" class="btn">Get Quote</a>
+      </div>
+      <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+    </nav>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#services">Services</a>
+    <a href="index.html#shop-teaser">Hardware</a>
+    <a href="contact.html">Contact</a>
+    <div id="closeMenu" style="position:absolute; top:30px; right:30px; font-size:2rem;"><i class="fas fa-times"></i></div>
+  </div>
+
+  <section id="contact-hero">
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="badge">Get in Touch</div>
+        <h1>Let's Start Your <span class="text-gradient">Project</span></h1>
+        <p style="color: #cbd5e1; font-size: 1.25rem; max-width: 680px; margin: 1.5rem auto;">
+          Tell us about your idea, challenge or goal — whether it's custom software, better security, cloud migration or premium hardware.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact-form-section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Reach Out Today</h3>
+          <p>Our team typically responds within 4–12 hours during business days.</p>
+
+          <div class="contact-detail">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>Mokopane, Limpopo, South Africa</div>
+          </div>
+          <div class="contact-detail">
+            <i class="fas fa-phone"></i>
+            <div>+27 (0) 15 123 4567</div>
+          </div>
+          <div class="contact-detail">
+            <i class="fas fa-envelope"></i>
+            <div>info@mtechsolutions.com</div>
+          </div>
+          <div class="contact-detail">
+            <i class="fas fa-clock"></i>
+            <div>Mon – Fri: 08:00 – 17:00</div>
+          </div>
+
+          <div class="map-embed">
+            <!-- You can replace with real Google Maps embed -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114748.123456789!2d23.789!3d-23.789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDQ3JzIwLjQiUyAyM8KwNDcnMjAuMCJF!5e0!3m2!1sen!2sza!4v1699999999999" width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+        </div>
+
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required placeholder="Your name">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="your@email.com">
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number (optional)</label>
+            <input type="tel" id="phone" name="phone" placeholder="+27 ...">
+          </div>
+
+          <div class="form-group">
+            <label for="service">Interested In</label>
+            <select id="service" name="service" required>
+              <option value="" disabled selected>Select service you're interested in</option>
+              <option value="software">Custom Software / App Development</option>
+              <option value="web">Website / E-commerce Development</option>
+              <option value="cyber">Cybersecurity & Protection</option>
+              <option value="cloud">Cloud Solutions & Migration</option>
+              <option value="hardware">Hardware / Laptops / Networking</option>
+              <option value="other">Other / General Enquiry</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" required placeholder="Tell us about your project or question..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">Send Message →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png" alt="MTech Solutions">
+          <p>Premium IT services, custom software development, and tech hardware solutions based in Mokopane, Limpopo. Building the future of technology in South Africa.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#services">Software Development</a></li>
+            <li><a href="index.html#services">Web Development</a></li>
+            <li><a href="index.html#services">Cybersecurity</a></li>
+            <li><a href="index.html#services">Cloud Solutions</a></li>
+            <li><a href="index.html#shop-teaser">Hardware Sales</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Team</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Contact Us</h4>
+          <div class="footer-contact">
+            <p><i class="fas fa-map-marker-alt"></i> Mokopane, Limpopo, South Africa</p>
+            <p><i class="fas fa-phone"></i> +27 (0) 15 123 4567</p>
+            <p><i class="fas fa-envelope"></i> info@mtechsolutions.com</p>
+            <p><i class="fas fa-clock"></i> Mon - Fri: 08:00 - 17:00</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 MTech Solutions. All rights reserved. South Africa.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    hamburger.onclick = () => mobileMenu.classList.add('active');
+    closeMenu.onclick = () => mobileMenu.classList.remove('active');
+
+    // Sticky header
+    const header = document.getElementById('header');
+    window.onscroll = () => header.classList.toggle('stuck', window.scrollY > 50);
+
+    // Very basic form feedback (you can connect to Firebase/Formspree later)
+    document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert("✅ Thank you! Your message has been sent. We'll get back to you soon.");
+      this.reset();
+    });
+  </script>
+</body>
+</html>
