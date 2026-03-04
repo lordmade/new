@@ -49,7 +49,7 @@
       top: 0; left: 0; right: 0;
       z-index: 1000;
       transition: all 0.35s ease;
-      padding: 1.25rem 0;
+      padding: 1rem 0;
       background: rgba(255,255,255,0.96);
       backdrop-filter: blur(16px);
       box-shadow: var(--shadow);
@@ -61,13 +61,10 @@
       align-items: center;
     }
 
-    .logo {
-      font-family: 'Manrope', sans-serif;
-      font-size: 2rem;
-      font-weight: 800;
-      background: linear-gradient(90deg, var(--primary), #00aaff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .logo img {
+      height: 45px;          /* Adjust size as needed */
+      width: auto;
+      display: block;
     }
 
     .nav-links {
@@ -115,7 +112,7 @@
       background: var(--primary-dark);
     }
 
-    /* Hamburger */
+    /* Hamburger (mobile) */
     .hamburger {
       display: none;
       font-size: 1.8rem;
@@ -143,9 +140,7 @@
       padding: 80px 20px;
     }
 
-    .mobile-menu.active {
-      right: 0;
-    }
+    .mobile-menu.active { right: 0; }
 
     .mobile-menu a {
       font-size: 1.8rem;
@@ -160,13 +155,13 @@
 
     .mobile-menu .nav-cta { margin-top: 2rem; }
 
-    /* Hero with Image */
+    /* Hero with your image */
     #hero {
       min-height: 95vh;
       display: flex;
       align-items: center;
-      background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.5)),
-                  url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=2940') center/cover no-repeat fixed;
+      background: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.55)),
+                  url('https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png') center/cover no-repeat fixed;
       color: white;
       padding-top: 100px;
       position: relative;
@@ -184,7 +179,7 @@
       font-weight: 800;
       line-height: 1.05;
       margin-bottom: 1.4rem;
-      text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+      text-shadow: 0 4px 12px rgba(0,0,0,0.7);
     }
 
     .hero-content p {
@@ -215,6 +210,7 @@
       background: var(--primary-dark);
     }
 
+    /* Remaining styles (services, stats, shop-teaser, contact, footer, responsive) */
     section { padding: 160px 0 110px; }
 
     h2 {
@@ -226,7 +222,6 @@
       font-weight: 800;
     }
 
-    /* Services */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
@@ -263,7 +258,6 @@
 
     .service-card p { color: var(--gray); font-size: 1.05rem; }
 
-    /* Stats */
     #stats {
       background: var(--light);
       opacity: 0;
@@ -299,7 +293,6 @@
       margin-top: 0.6rem;
     }
 
-    /* Shop Teaser */
     #shop-teaser {
       background: white;
       padding: 140px 0 100px;
@@ -344,7 +337,6 @@
 
     .product-card p { color: var(--gray); font-size: 1.05rem; }
 
-    /* Contact */
     #contact {
       background: linear-gradient(135deg, #f0f7ff, #e6f2ff);
       text-align: center;
@@ -358,7 +350,6 @@
       color: var(--gray);
     }
 
-    /* Footer */
     footer {
       background: var(--dark);
       color: #cbd5e1;
@@ -383,6 +374,7 @@
       .stat-item .stat-number { font-size: 4rem; }
       section { padding: 120px 0 80px; }
       #hero { min-height: 80vh; background-attachment: scroll; }
+      .logo img { height: 38px; }
     }
   </style>
 </head>
@@ -391,7 +383,9 @@
   <header id="header">
     <div class="container">
       <nav>
-        <div class="logo">MTech Solutions</div>
+        <div class="logo">
+          <img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png" alt="MTech Solutions Logo">
+        </div>
 
         <div class="nav-links">
           <a href="#services">Services</a>
@@ -553,7 +547,7 @@
       });
     });
 
-    // Stats count-up
+    // Stats animation
     const statsSection = document.getElementById('stats');
     const statNumbers = document.querySelectorAll('.stat-number');
 
