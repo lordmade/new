@@ -1,1 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+  <title>Services — MTech Solutions | Mokopane</title>
+  <meta name="description" content="Custom Software Development, Web Solutions, Cybersecurity, Cloud Services and more. Premium IT services in Mokopane, Limpopo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Firebase (kept same as your original) -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
 
+  <style>
+    :root {
+      --primary: #0066ff;
+      --primary-dark: #0055dd;
+      --primary-light: #4d94ff;
+      --dark: #0f172a;
+      --gray: #64748b;
+      --light: #ffffff;
+      --light-2: #f8fafc;
+      --border: #e2e8f0;
+      --shadow-pill: 0 8px 32px rgba(0,102,255,.18);
+      --shadow-card: 0 20px 40px rgba(15, 23, 42, 0.08);
+      --shadow-glow: 0 0 40px rgba(0,102,255,0.15);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; outline: none; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--light-2); color: var(--dark); line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Header (same as original) ── */
+    header {
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1000;
+      width: fit-content; max-width: 95vw; padding: 0.7rem 2rem;
+      background: rgba(255,255,255,0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      border-radius: 999px; box-shadow: var(--shadow-pill); border: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    header.stuck { top: 10px; padding: 0.5rem 1.8rem; background: rgba(255,255,255,0.95); transform: translateX(-50%) scale(0.95); }
+    nav { display: flex; align-items: center; gap: 2.4rem; }
+    .logo img { height: 38px; width: auto; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a { font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-cta .btn { background: var(--primary); color: white; padding: 0.6rem 1.4rem; border-radius: 999px; font-weight: 700; }
+    .hamburger { display: none; cursor: pointer; font-size: 1.4rem; }
+
+    /* ── Hero (smaller version for subpage) ── */
+    #hero {
+      position: relative; min-height: 60svh; display: flex; align-items: center; justify-content: center;
+      background: #0f172a; padding: 140px 0 100px; text-align: center; overflow: hidden;
+    }
+    #hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=2048') center/cover;
+      opacity: 0.18; z-index: 1;
+    }
+    .hero-overlay { position: absolute; inset: 0; background: radial-gradient(circle, rgba(0,102,255,0.08) 0%, rgba(15,23,42,0.94) 100%); z-index: 2; }
+    .hero-content { position: relative; z-index: 3; max-width: 860px; }
+    .badge { display: inline-block; padding: 0.5rem 1.2rem; background: rgba(0,102,255,0.15); border: 1px solid rgba(0,102,255,0.4); color: #60a5fa; border-radius: 999px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.5rem; letter-spacing: 1px; }
+    .hero-content h1 { font-family: 'Manrope'; font-size: clamp(2.4rem, 7vw, 4.6rem); font-weight: 800; line-height: 1.1; color: white; margin-bottom: 1.5rem; }
+    .text-gradient { background: linear-gradient(135deg, #60a5fa, #0066ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    /* ── Main content ── */
+    section { padding: 100px 0; }
+    h2 { font-family: 'Manrope'; font-size: clamp(2rem, 5vw, 3.2rem); text-align: center; margin-bottom: 3.5rem; font-weight: 800; }
+    h3 { font-family: 'Manrope'; font-size: 2.1rem; margin-bottom: 1.4rem; color: var(--dark); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.2rem;
+      perspective: 1000px;
+    }
+
+    .service-card {
+      position: relative;
+      background: white;
+      padding: 0;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      transform: scaleX(0);
+      transition: transform 0.5s ease;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon-wrapper {
+      position: relative;
+      padding: 3.5rem 2rem 1.8rem;
+      background: linear-gradient(135deg, rgba(0,102,255,0.04) 0%, rgba(0,102,255,0.09) 100%);
+      overflow: hidden;
+    }
+    .service-icon-wrapper::after {
+      content: '';
+      position: absolute;
+      top: -50%; right: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(0,102,255,0.12) 0%, transparent 65%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .service-card:hover .service-icon-wrapper::after { opacity: 1; }
+
+    .service-card i {
+      font-size: 3.2rem;
+      color: var(--primary);
+      position: relative;
+      z-index: 2;
+      transition: all 0.4s ease;
+    }
+    .service-card:hover i {
+      transform: scale(1.15) rotate(-6deg);
+      color: var(--primary-dark);
+    }
+
+    .service-content {
+      padding: 1.8rem 2.2rem 3rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .service-content p {
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 1.8rem;
+      flex: 1;
+    }
+    .service-features {
+      margin: 1.5rem 0 2rem;
+      color: var(--gray);
+    }
+    .service-features li {
+      margin-bottom: 0.9rem;
+      padding-left: 1.6rem;
+      position: relative;
+    }
+    .service-features li::before {
+      content: '✓';
+      color: var(--primary);
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
+    .service-card:hover {
+      transform: translateY(-14px) rotateX(3deg);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-glow), 0 35px 70px rgba(0,102,255,0.14);
+    }
+
+    /* ── Footer (same as original) ── */
+    footer {
+      background: var(--dark);
+      color: #94a3b8;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0,102,255,0.5), transparent);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 4rem;
+      padding: 5rem 0 3rem;
+      position: relative;
+      z-index: 2;
+    }
+    .footer-brand img {
+      height: 45px;
+      margin-bottom: 1.5rem;
+      filter: brightness(0) invert(1);
+    }
+    .footer-brand p { color: #94a3b8; line-height: 1.8; margin-bottom: 2rem; max-width: 300px; }
+    .social-links { display: flex; gap: 1rem; }
+    .social-links a {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.1rem;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .social-links a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+      border-color: var(--primary);
+      box-shadow: 0 10px 20px rgba(0,102,255,0.3);
+    }
+
+    .footer-column h4 {
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      font-family: 'Manrope';
+    }
+    .footer-links li { margin-bottom: 0.8rem; }
+    .footer-links a {
+      color: #94a3b8;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .footer-links a::before {
+      content: '→';
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s ease;
+      color: var(--primary);
+    }
+    .footer-links a:hover {
+      color: white;
+      transform: translateX(5px);
+    }
+    .footer-links a:hover::before {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .footer-contact p {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+      color: #94a3b8;
+    }
+    .footer-contact i { color: var(--primary); width: 20px; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 2rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+    .footer-bottom p { font-size: 0.9rem; }
+    .footer-bottom-links { display: flex; gap: 2rem; }
+    .footer-bottom-links a { color: #64748b; font-size: 0.9rem; transition: color 0.3s ease; }
+    .footer-bottom-links a:hover { color: white; }
+
+    .footer-decoration {
+      position: absolute;
+      bottom: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(0,102,255,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .fade-up { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1024px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: block; }
+      #hero { padding-top: 140px; min-height: 50svh; }
+      .services-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
+      .social-links { justify-content: center; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .footer-bottom-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header ── same as homepage -->
+  <header id="header">
+    <nav>
+      <div class="logo">
+        <img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png" alt="MTech Solutions">
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="index.html#shop-teaser">Hardware</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <a href="index.html#contact" class="btn">Get Quote</a>
+      </div>
+      <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+    </nav>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="index.html#shop-teaser">Hardware</a>
+    <a href="index.html#contact">Contact</a>
+    <div id="closeMenu" style="position:absolute; top:30px; right:30px; font-size:2rem;"><i class="fas fa-times"></i></div>
+  </div>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="badge">Our Expertise</div>
+        <h1>Professional <span class="text-gradient">IT Services</span></h1>
+        <p style="color: #cbd5e1; font-size: 1.25rem; max-width: 720px; margin: 1.8rem auto;">
+          Custom software, secure infrastructure, modern websites and cloud excellence — built for businesses in Limpopo and beyond.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Detail -->
+  <section id="services-detail" style="background: white;">
+    <div class="container">
+      <div class="services-grid">
+
+        <div class="service-card fade-up">
+          <div class="service-icon-wrapper">
+            <i class="fas fa-code"></i>
+          </div>
+          <div class="service-content">
+            <h3>Custom Software & Mobile Apps</h3>
+            <p>We develop tailored software solutions and mobile applications that solve real business problems and scale with your growth.</p>
+            <ul class="service-features">
+              <li>Native iOS & Android apps</li>
+              <li>Cross-platform (Flutter / React Native)</li>
+              <li>Enterprise resource planning systems</li>
+              <li>Inventory & CRM custom solutions</li>
+              <li>API integrations & automation</li>
+            </ul>
+            <span class="service-link" style="color:var(--primary); font-weight:600;">Ready to build? <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </div>
+
+        <div class="service-card fade-up">
+          <div class="service-icon-wrapper">
+            <i class="fas fa-globe"></i>
+          </div>
+          <div class="service-content">
+            <h3>Web Development</h3>
+            <p>Fast, modern, conversion-focused websites — from corporate presences to powerful e-commerce platforms.</p>
+            <ul class="service-features">
+              <li>Responsive & mobile-first design</li>
+              <li>Next.js / React / Vue applications</li>
+              <li>WordPress + headless CMS solutions</li>
+              <li>E-commerce (WooCommerce / Shopify / Custom)</li>
+              <li>SEO optimization & performance tuning</li>
+            </ul>
+            <span class="service-link" style="color:var(--primary); font-weight:600;">Launch your site <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </div>
+
+        <div class="service-card fade-up">
+          <div class="service-icon-wrapper">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="service-content">
+            <h3>Cybersecurity & Data Protection</h3>
+            <p>Proactive security services to protect your business from modern cyber threats.</p>
+            <ul class="service-features">
+              <li>24/7 monitoring & threat detection</li>
+              <li>Penetration testing & vulnerability scans</li>
+              <li>Endpoint protection & firewall management</li>
+              <li>Compliance (POPIA, GDPR readiness)</li>
+              <li>Incident response planning</li>
+            </ul>
+            <span class="service-link" style="color:var(--primary); font-weight:600;">Secure your business <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </div>
+
+        <div class="service-card fade-up">
+          <div class="service-icon-wrapper">
+            <i class="fas fa-cloud"></i>
+          </div>
+          <div class="service-content">
+            <h3>Cloud Solutions & Infrastructure</h3>
+            <p>Modern, secure and cost-efficient cloud architecture — migration, optimization and management.</p>
+            <ul class="service-features">
+              <li>AWS, Azure & Google Cloud expertise</li>
+              <li>Cloud migration & hybrid setups</li>
+              <li>Serverless & container solutions</li>
+              <li>Backup, disaster recovery & redundancy</li>
+              <li>Cost optimization & monitoring</li>
+            </ul>
+            <span class="service-link" style="color:var(--primary); font-weight:600;">Move to the cloud <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contact" style="background: white; text-align: center; padding: 140px 0 120px;">
+    <div class="container">
+      <h2 style="margin-bottom: 1.8rem;">Ready to Transform Your Technology?</h2>
+      <p style="color: var(--gray); font-size: 1.2rem; max-width: 680px; margin: 0 auto 2.5rem;">Let's discuss your project — whether it's a custom app, new website, security audit or cloud migration.</p>
+      <a href="mailto:info@mtechsolutions.com" class="btn-primary" style="font-size: 1.3rem; padding: 1.4rem 3.2rem; display: inline-flex; align-items: center; gap: 0.9rem;">
+        <i class="fas fa-envelope"></i> Get in Touch Today
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer ── same as original -->
+  <footer>
+    <div class="footer-decoration"></div>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png" alt="MTech Solutions">
+          <p>Premium IT services, custom software development, and tech hardware solutions based in Mokopane, Limpopo. Building the future of technology in South Africa.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="services.html">Software Development</a></li>
+            <li><a href="services.html">Web Development</a></li>
+            <li><a href="services.html">Cybersecurity</a></li>
+            <li><a href="services.html">Cloud Solutions</a></li>
+            <li><a href="index.html#shop-teaser">Hardware Sales</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Team</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Contact Us</h4>
+          <div class="footer-contact">
+            <p><i class="fas fa-map-marker-alt"></i> Mokopane, Limpopo, South Africa</p>
+            <p><i class="fas fa-phone"></i> +27 (0) 15 123 4567</p>
+            <p><i class="fas fa-envelope"></i> info@mtechsolutions.com</p>
+            <p><i class="fas fa-clock"></i> Mon - Fri: 08:00 - 17:00</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 MTech Solutions. All rights reserved. South Africa.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Header stuck effect
+    const header = document.getElementById('header');
+    window.onscroll = () => header.classList.toggle('stuck', window.scrollY > 50);
+
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    hamburger.onclick = () => mobileMenu.classList.add('active');
+    closeMenu.onclick = () => mobileMenu.classList.remove('active');
+
+    // Fade-up animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Firebase newsletter (same as original)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAxBT0oESoL62oz_x_Z8cMtdENWZPx4tMI",
+      authDomain: "pinotp-d7ef5.firebaseapp.com",
+      databaseURL: "https://pinotp-d7ef5-default-rtdb.firebaseio.com",
+      projectId: "pinotp-d7ef5",
+      storageBucket: "pinotp-d7ef5.firebasestorage.app",
+      messagingSenderId: "708458917827",
+      appId: "1:708458917827:web:375de278577df0adcf9776"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</body>
+</html>
