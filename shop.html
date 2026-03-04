@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop Tech & Software — MTech Solutions</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --primary: #0066ff;
+      --dark: #0f172a;
+      --light-bg: #f8fafc;
+      --border: #e2e8f0;
+      --text-gray: #64748b;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--light-bg); color: var(--dark); overflow-x: hidden; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* Header & Cart Trigger */
+    header { padding: 1.2rem 0; background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    nav { display: flex; justify-content: space-between; align-items: center; }
+    .logo img { height: 35px; }
+    
+    .cart-trigger { 
+      position: relative; font-size: 1.4rem; cursor: pointer; padding: 10px; 
+      background: var(--light-bg); border-radius: 50%; transition: 0.3s;
+    }
+    .cart-trigger:hover { background: #eef2ff; color: var(--primary); }
+    .cart-count { 
+      position: absolute; top: -2px; right: -2px; 
+      background: var(--primary); color: white; 
+      font-size: 0.7rem; width: 20px; height: 20px; 
+      display: flex; align-items: center; justify-content: center; border-radius: 50%; 
+      font-weight: 700;
+    }
+
+    /* --- CART SIDEBAR STYLES --- */
+    .cart-overlay {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(4px); z-index: 999; opacity: 0; visibility: hidden; transition: 0.4s;
+    }
+    .cart-overlay.active { opacity: 1; visibility: visible; }
+
+    .cart-sidebar {
+      position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100vh;
+      background: white; z-index: 1000; box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+      display: flex; flex-direction: column; transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .cart-sidebar.active { right: 0; }
+
+    .cart-header { padding: 25px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .cart-header h2 { font-family: 'Manrope'; font-size: 1.5rem; }
+    .close-cart { cursor: pointer; font-size: 1.5rem; color: var(--text-gray); }
+
+    .cart-items-list { flex-grow: 1; padding: 20px; overflow-y: auto; }
+    .cart-item { 
+      display: flex; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; 
+      border-bottom: 1px solid var(--light-bg); align-items: center;
+    }
+    .cart-item img { width: 70px; height: 70px; object-fit: cover; border-radius: 12px; }
+    .cart-item-info { flex-grow: 1; }
+    .cart-item-info h4 { font-size: 0.95rem; margin-bottom: 4px; }
+    .cart-item-info p { color: var(--primary); font-weight: 700; font-size: 0.9rem; }
+    .remove-item { color: #ff4d4d; cursor: pointer; font-size: 0.8rem; font-weight: 600; margin-top: 5px; display: inline-block; }
+
+    .cart-footer { padding: 25px; border-top: 1px solid var(--border); background: var(--light-bg); }
+    .total-row { display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 1.2rem; font-weight: 800; }
+    .checkout-btn { 
+      width: 100%; padding: 16px; background: var(--primary); color: white; 
+      border: none; border-radius: 15px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: 0.3s;
+    }
+    .checkout-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+    /* Product Grid Styles */
+    .shop-intro { padding: 60px 0 40px; text-align: center; }
+    .filters { display: flex; justify-content: center; gap: 10px; margin-bottom: 50px; flex-wrap: wrap; }
+    .filter-btn { padding: 10px 24px; border-radius: 999px; border: 1px solid var(--border); background: white; cursor: pointer; font-weight: 600; transition: 0.3s; }
+    .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-bottom: 80px; }
+    .product-card { background: white; border-radius: 20px; overflow: hidden; transition: 0.4s; border: 1px solid var(--border); display: flex; flex-direction: column; }
+    .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow); border-color: var(--primary); }
+    .img-container { width: 100%; height: 200px; overflow: hidden; }
+    .img-container img { width: 100%; height: 100%; object-fit: cover; }
+    .content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+    .price { font-size: 1.3rem; font-weight: 800; color: var(--dark); margin: 10px 0 15px; }
+    .add-btn { width: 100%; padding: 12px; background: var(--dark); color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <a href="index.html" class="logo"><img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png" alt="MTech"></a>
+        <div class="cart-trigger" id="openCart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h2>Your Cart</h2>
+      <div class="close-cart" id="closeCart"><i class="fas fa-times"></i></div>
+    </div>
+    <div class="cart-items-list" id="cartItemsList">
+      <p style="text-align:center; color:var(--text-gray); margin-top:50px;">Your cart is empty.</p>
+    </div>
+    <div class="cart-footer">
+      <div class="total-row">
+        <span>Total</span>
+        <span id="cartTotal">R 0.00</span>
+      </div>
+      <button class="checkout-btn">Secure Checkout</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="shop-intro">
+      <h1>MTech Shop</h1>
+      <p>Equip your business with premium tech and software solutions.</p>
+    </div>
+
+    <div class="filters">
+      <button class="filter-btn active">All Tech</button>
+      <button class="filter-btn">Hardware</button>
+      <button class="filter-btn">Software</button>
+    </div>
+
+    <div class="product-grid">
+      <div class="product-card" data-name="MTech Pro Book 15" data-price="18500" data-img="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800">
+        <div class="img-container"><img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800"></div>
+        <div class="content">
+          <h3>MTech Pro Book 15"</h3>
+          <p class="price">R 18,500.00</p>
+          <button class="add-btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-name="1TB NVMe High-Speed SSD" data-price="2450" data-img="https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&q=80&w=800">
+        <div class="img-container"><img src="https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&q=80&w=800"></div>
+        <div class="content">
+          <h3>1TB NVMe High-Speed SSD</h3>
+          <p class="price">R 2,450.00</p>
+          <button class="add-btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-name="Custom Web App Dev" data-price="12000" data-img="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800">
+        <div class="img-container"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"></div>
+        <div class="content">
+          <h3>Custom Web App Dev</h3>
+          <p class="price">From R 12,000.00</p>
+          <button class="add-btn">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+    const cartSidebar = document.getElementById('cartSidebar');
+    const cartOverlay = document.getElementById('cartOverlay');
+    const cartItemsList = document.getElementById('cartItemsList');
+    const cartTotalDisplay = document.getElementById('cartTotal');
+    const cartCountDisplay = document.getElementById('cartCount');
+
+    // Toggle Sidebar
+    document.getElementById('openCart').onclick = () => {
+      cartSidebar.classList.add('active');
+      cartOverlay.classList.add('active');
+    };
+    document.getElementById('closeCart').onclick = closeCart;
+    cartOverlay.onclick = closeCart;
+
+    function closeCart() {
+      cartSidebar.classList.remove('active');
+      cartOverlay.classList.remove('active');
+    }
+
+    // Add to Cart Logic
+    document.querySelectorAll('.add-btn').forEach(button => {
+      button.onclick = (e) => {
+        const card = e.target.closest('.product-card');
+        const item = {
+          id: Date.now(),
+          name: card.getAttribute('data-name'),
+          price: parseFloat(card.getAttribute('data-price')),
+          img: card.getAttribute('data-img')
+        };
+        cart.push(item);
+        updateCartUI();
+        cartSidebar.classList.add('active'); // Auto-open cart when adding
+        cartOverlay.classList.add('active');
+      };
+    });
+
+    function updateCartUI() {
+      cartCountDisplay.innerText = cart.length;
+      
+      if (cart.length === 0) {
+        cartItemsList.innerHTML = '<p style="text-align:center; color:var(--text-gray); margin-top:50px;">Your cart is empty.</p>';
+        cartTotalDisplay.innerText = 'R 0.00';
+        return;
+      }
+
+      cartItemsList.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <img src="${item.img}" alt="${item.name}">
+          <div class="cart-item-info">
+            <h4>${item.name}</h4>
+            <p>R ${item.price.toLocaleString()}</p>
+            <span class="remove-item" onclick="removeItem(${item.id})">Remove</span>
+          </div>
+        </div>
+      `).join('');
+
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      cartTotalDisplay.innerText = `R ${total.toLocaleString()}`;
+    }
+
+    window.removeItem = (id) => {
+      cart = cart.filter(item => item.id !== id);
+      updateCartUI();
+    };
+  </script>
+</body>
+</html>
