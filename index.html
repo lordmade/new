@@ -43,7 +43,7 @@
       padding: 0 24px;
     }
 
-    /* Header */
+    /* Header (unchanged) */
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -62,7 +62,7 @@
     }
 
     .logo img {
-      height: 45px;          /* Adjust size as needed */
+      height: 45px;
       width: auto;
       display: block;
     }
@@ -112,7 +112,6 @@
       background: var(--primary-dark);
     }
 
-    /* Hamburger (mobile) */
     .hamburger {
       display: none;
       font-size: 1.8rem;
@@ -155,13 +154,18 @@
 
     .mobile-menu .nav-cta { margin-top: 2rem; }
 
-    /* Hero with your image */
+    /* Hero with Parallax */
     #hero {
       min-height: 95vh;
       display: flex;
       align-items: center;
-      background: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.55)),
-                  url('https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png') center/cover no-repeat fixed;
+      background-image: 
+        linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.65)),
+        url('https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png');
+      background-position: center;
+      background-size: 110%;               /* Slight oversize for parallax depth feel */
+      background-repeat: no-repeat;
+      background-attachment: fixed;        /* Core parallax magic */
       color: white;
       padding-top: 100px;
       position: relative;
@@ -210,7 +214,19 @@
       background: var(--primary-dark);
     }
 
-    /* Remaining styles (services, stats, shop-teaser, contact, footer, responsive) */
+    /* Fallback for mobile/performance */
+    @media (max-width: 768px) {
+      #hero {
+        background-attachment: scroll;     /* Disable fixed on mobile for smooth scrolling */
+        background-size: cover;            /* Better fit on small screens */
+        min-height: 80vh;
+      }
+      .logo img { height: 38px; }
+      h2 { font-size: 2.6rem; }
+      section { padding: 120px 0 80px; }
+    }
+
+    /* Remaining styles (services, stats, shop-teaser, contact, footer) */
     section { padding: 160px 0 110px; }
 
     h2 {
@@ -360,22 +376,6 @@
     footer a { color: var(--primary); text-decoration: none; }
 
     footer a:hover { text-decoration: underline; }
-
-    @media (max-width: 992px) {
-      .stats { gap: 4rem; }
-      h2 { font-size: 3rem; }
-    }
-
-    @media (max-width: 768px) {
-      .nav-links, .nav-cta { display: none; }
-      .hamburger { display: block; }
-      h2 { font-size: 2.6rem; }
-      .hero-content h1 { font-size: 3.8rem; }
-      .stat-item .stat-number { font-size: 4rem; }
-      section { padding: 120px 0 80px; }
-      #hero { min-height: 80vh; background-attachment: scroll; }
-      .logo img { height: 38px; }
-    }
   </style>
 </head>
 <body>
