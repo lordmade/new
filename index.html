@@ -3,242 +3,103 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
-  <title>MTech Solutions — IT Services & Tech Shop | Mokopane</title>
-  <meta name="description" content="Premium IT services, cybersecurity, cloud solutions + hardware shop in Mokopane, Limpopo. Secure and equip your business.">
+  <title>MTech Solutions — IT, Software & Hardware | Mokopane</title>
+  <meta name="description" content="Premium IT services, Custom Software Development, and Tech Hardware Shop in Mokopane, Limpopo.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
     :root {
       --primary: #0066ff;
       --primary-dark: #0055dd;
       --dark: #0f172a;
-      --dark-alt: #1e293b;
       --gray: #64748b;
       --light: #ffffff;
       --light-2: #f8fafc;
       --border: #e2e8f0;
       --shadow-pill: 0 8px 32px rgba(0,102,255,.18);
-      --shadow-card: 0 10px 30px rgba(0,0,0,0.05);
+      --shadow-card: 0 20px 40px rgba(15, 23, 42, 0.08);
     }
 
-    /* Resets & Base */
+    /* Resets */
     * { margin:0; padding:0; box-sizing:border-box; outline: none; }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--light-2);
-      color: var(--dark);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+    body { font-family: 'Inter', sans-serif; background: var(--light-2); color: var(--dark); line-height: 1.6; overflow-x: hidden; }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+    a { text-decoration: none; color: inherit; }
 
-    .container {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* Sticky Pill Navbar */
+    /* Navbar */
     header {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1000;
-      width: fit-content;
-      max-width: 95vw;
-      padding: 0.7rem 2rem;
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border-radius: 999px;
-      box-shadow: var(--shadow-pill);
-      border: 1px solid rgba(255,255,255,0.3);
+      position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1000;
+      width: fit-content; max-width: 95vw; padding: 0.7rem 2rem;
+      background: rgba(255,255,255,0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      border-radius: 999px; box-shadow: var(--shadow-pill); border: 1px solid rgba(255,255,255,0.3);
       transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
-
-    header.stuck {
-      top: 10px;
-      padding: 0.5rem 1.8rem;
-      background: rgba(255,255,255,0.95);
-      transform: translateX(-50%) scale(0.95);
-    }
-
+    header.stuck { top: 10px; padding: 0.5rem 1.8rem; background: rgba(255,255,255,0.95); transform: translateX(-50%) scale(0.95); }
     nav { display: flex; align-items: center; gap: 2.4rem; }
-
     .logo img { height: 38px; width: auto; display: block; }
-
     .nav-links { display: flex; align-items: center; gap: 2rem; }
-    .nav-links a {
-      color: var(--dark);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: color 0.3s;
-    }
+    .nav-links a { font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
     .nav-links a:hover { color: var(--primary); }
-
-    .nav-cta .btn {
-      background: var(--primary);
-      color: white;
-      padding: 0.6rem 1.4rem;
-      border-radius: 999px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.3s;
-    }
-
+    .nav-cta .btn { background: var(--primary); color: white; padding: 0.6rem 1.4rem; border-radius: 999px; font-weight: 700; }
     .hamburger { display: none; cursor: pointer; font-size: 1.4rem; }
 
-    /* REDESIGNED HERO SECTION */
+    /* Hero */
     #hero {
-      position: relative;
-      min-height: 100svh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      background: #0f172a;
-      padding: 120px 0 80px;
-      text-align: center;
+      position: relative; min-height: 100svh; display: flex; align-items: center; justify-content: center;
+      background: #0f172a; padding: 120px 0 80px; text-align: center; overflow: hidden;
     }
-
     #hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url('https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png') center/cover no-repeat;
-      opacity: 0.35;
-      z-index: 1;
+      content: ''; position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=2048') center/cover;
+      opacity: 0.2; z-index: 1;
     }
+    .hero-overlay { position: absolute; inset: 0; background: radial-gradient(circle, rgba(0,102,255,0.1) 0%, rgba(15,23,42,0.95) 100%); z-index: 2; }
+    .hero-content { position: relative; z-index: 3; max-width: 900px; }
+    .badge { display: inline-block; padding: 0.5rem 1.2rem; background: rgba(0,102,255,0.15); border: 1px solid rgba(0,102,255,0.4); color: #60a5fa; border-radius: 999px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.5rem; letter-spacing: 1px; }
+    .hero-content h1 { font-family: 'Manrope'; font-size: clamp(2.5rem, 8vw, 5.2rem); font-weight: 800; line-height: 1.1; color: white; margin-bottom: 1.5rem; }
+    .text-gradient { background: linear-gradient(135deg, #60a5fa, #0066ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
+    .btn-primary { background: var(--primary); color: white; padding: 1.1rem 2.2rem; border-radius: 50px; font-weight: 700; box-shadow: 0 10px 25px rgba(0,102,255,0.4); transition: 0.3s; }
+    .btn-secondary { background: rgba(255, 255, 255, 0.05); color: white; padding: 1.1rem 2.2rem; border-radius: 50px; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); transition: 0.3s; }
+    .btn-primary:hover, .btn-secondary:hover { transform: translateY(-3px); }
 
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, rgba(0, 102, 255, 0.1) 0%, rgba(15, 23, 42, 0.95) 100%);
-      z-index: 2;
-    }
-
-    .hero-content { position: relative; z-index: 3; max-width: 850px; }
-
-    .badge {
-      display: inline-block;
-      padding: 0.5rem 1.2rem;
-      background: rgba(0, 102, 255, 0.15);
-      border: 1px solid rgba(0, 102, 255, 0.4);
-      color: #60a5fa;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      letter-spacing: 1px;
-    }
-
-    .hero-content h1 {
-      font-family: 'Manrope', sans-serif;
-      font-size: clamp(2.5rem, 8vw, 5.2rem);
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-      color: white;
-    }
-
-    .text-gradient {
-      background: linear-gradient(135deg, #60a5fa, #0066ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-content p {
-      font-size: clamp(1.1rem, 2vw, 1.3rem);
-      margin: 0 auto 2.5rem;
-      max-width: 600px;
-      color: #cbd5e1;
-    }
-
-    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-      padding: 1.1rem 2.2rem;
-      border-radius: 50px;
-      font-weight: 700;
-      text-decoration: none;
-      box-shadow: 0 10px 25px rgba(0,102,255,0.4);
-      transition: 0.3s;
-    }
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
-      color: white;
-      padding: 1.1rem 2.2rem;
-      border-radius: 50px;
-      font-weight: 700;
-      text-decoration: none;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      transition: 0.3s;
-    }
-    .btn-primary:hover, .btn-secondary:hover { transform: translateY(-3px); opacity: 0.9; }
-
-    /* Sections Shared */
-    section { padding: 100px 0; }
-    h2 {
-      font-family: 'Manrope', sans-serif;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      text-align: center;
-      margin-bottom: 4rem;
-      font-weight: 800;
-    }
-
-    /* Services Grid */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-    .service-card {
-      background: white;
-      padding: 3rem 2rem;
-      border-radius: 24px;
-      border: 1px solid var(--border);
-      transition: 0.4s;
-      text-align: left;
-    }
+    /* Services Section */
+    section { padding: 120px 0; }
+    h2 { font-family: 'Manrope'; font-size: clamp(2rem, 5vw, 3rem); text-align: center; margin-bottom: 4rem; font-weight: 800; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+    .service-card { background: white; padding: 3rem 2rem; border-radius: 24px; border: 1px solid var(--border); transition: 0.4s; }
     .service-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: var(--shadow-card); }
     .service-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 1.5rem; }
     .service-card h3 { margin-bottom: 1rem; font-size: 1.5rem; }
 
-    /* Stats Section */
-    #stats { background: white; text-align: center; }
+    /* Hardware Shop Section */
+    #shop-teaser { background: white; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; }
+    .product-card { 
+        background: var(--light-2); border-radius: 24px; overflow: hidden; 
+        transition: 0.4s; border: 1px solid var(--border); position: relative;
+    }
+    .product-image { width: 100%; height: 220px; overflow: hidden; }
+    .product-image img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+    .product-info { padding: 1.5rem; text-align: center; }
+    .product-info h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .product-info p { color: var(--gray); font-size: 0.9rem; }
+    
+    .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-card); border-color: var(--primary); }
+    .product-card:hover .product-image img { transform: scale(1.1); }
+    
+    /* Stats */
+    #stats { text-align: center; }
     .stats-flex { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 3rem; }
     .stat-number { font-size: 4rem; font-weight: 800; color: var(--primary); font-family: 'Manrope'; }
-    .stat-item p { font-weight: 600; color: var(--gray); text-transform: uppercase; font-size: 0.9rem; }
-
-    /* Shop Grid */
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-    .product-card {
-      background: var(--light-2);
-      padding: 2rem;
-      border-radius: 20px;
-      text-align: center;
-      border: 1px solid transparent;
-      transition: 0.3s;
-    }
-    .product-card:hover { background: white; border-color: var(--primary); }
-    .product-card i { font-size: 2rem; color: var(--primary); margin-bottom: 1rem; }
+    .stat-label { font-weight: 600; color: var(--gray); text-transform: uppercase; font-size: 0.9rem; }
 
     /* Mobile Menu */
     .mobile-menu {
@@ -247,28 +108,20 @@
       gap: 2rem; transform: translateX(100%); transition: 0.4s ease;
     }
     .mobile-menu.active { transform: translateX(0); }
-    .mobile-menu a { font-size: 1.8rem; font-weight: 800; text-decoration: none; color: var(--dark); }
+    .mobile-menu a { font-size: 2rem; font-weight: 800; }
 
     /* Footer */
     footer { background: var(--dark); color: #94a3b8; padding: 4rem 0; text-align: center; }
-    footer a { color: var(--primary); text-decoration: none; }
 
     /* Animations */
-    .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .fade-up { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-    /* Mobile Optimizations */
     @media (max-width: 768px) {
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: block; }
-      header { width: 90%; padding: 0.6rem 1.2rem; }
       #hero { padding-top: 140px; }
       .hero-btns { flex-direction: column; }
-      .btn-primary, .btn-secondary { width: 100%; }
-      .stats-flex { flex-direction: column; gap: 2rem; }
     }
   </style>
 </head>
@@ -281,8 +134,8 @@
       </div>
       <div class="nav-links">
         <a href="#services">Services</a>
+        <a href="#shop-teaser">Hardware</a>
         <a href="#stats">Results</a>
-        <a href="#shop-teaser">Shop</a>
         <a href="#contact">Contact</a>
       </div>
       <div class="nav-cta">
@@ -294,8 +147,7 @@
 
   <div class="mobile-menu" id="mobileMenu">
     <a href="#services">Services</a>
-    <a href="#stats">Results</a>
-    <a href="#shop-teaser">Shop</a>
+    <a href="#shop-teaser">Hardware</a>
     <a href="#contact">Contact</a>
     <div id="closeMenu" style="position:absolute; top:30px; right:30px; font-size:2rem;"><i class="fas fa-times"></i></div>
   </div>
@@ -304,12 +156,12 @@
     <div class="hero-overlay"></div>
     <div class="container">
       <div class="hero-content">
-        <div class="badge fade-in-up">Trusted in Limpopo</div>
-        <h1 class="fade-in-up">Power Your Business With <span class="text-gradient">Reliable IT</span></h1>
-        <p class="fade-in-up">Premium Cloud, Cybersecurity, and Managed IT Services tailored for growth. Equip your team with the best hardware on the market.</p>
-        <div class="hero-btns fade-in-up">
-          <a href="#contact" class="btn-primary">Get Started Today</a>
-          <a href="#shop-teaser" class="btn-secondary">Browse Hardware</a>
+        <div class="badge">Innovation in Mokopane</div>
+        <h1>Power Your Business With <span class="text-gradient">Reliable IT</span></h1>
+        <p style="color: #cbd5e1; font-size: 1.2rem; max-width: 700px; margin: 0 auto;">From custom <strong>Software & App Development</strong> to premium Hardware and Cloud Security. We build the tech that builds your future.</p>
+        <div class="hero-btns">
+          <a href="#contact" class="btn-primary">Get Started</a>
+          <a href="#shop-teaser" class="btn-secondary">Shop Hardware</a>
         </div>
       </div>
     </div>
@@ -319,21 +171,73 @@
     <div class="container">
       <h2>Solutions Built for Scale</h2>
       <div class="services-grid">
-        <div class="service-card">
-          <i class="fas fa-cloud"></i>
-          <h3>Cloud Infrastructure</h3>
-          <p>Seamless migrations and hybrid cloud setups designed for maximum uptime.</p>
-        </div>
-        <div class="service-card">
+        <a href="shop.html" class="service-card fade-up">
+          <i class="fas fa-code"></i>
+          <h3>Software & Apps</h3>
+          <p>Custom mobile apps and enterprise software tailored to your workflow.</p>
+        </a>
+        <a href="shop.html" class="service-card fade-up">
+          <i class="fas fa-globe"></i>
+          <h3>Web Development</h3>
+          <p>High-performance e-commerce and corporate websites that convert.</p>
+        </a>
+        <a href="shop.html" class="service-card fade-up">
           <i class="fas fa-shield-alt"></i>
           <h3>Cybersecurity</h3>
-          <p>Enterprise-grade threat protection and compliance audits to keep data safe.</p>
-        </div>
-        <div class="service-card">
-          <i class="fas fa-user-tie"></i>
-          <h3>IT Strategy</h3>
-          <p>Expert consulting to align your technology roadmap with business goals.</p>
-        </div>
+          <p>Protecting your business from threats with 24/7 monitoring and audits.</p>
+        </a>
+        <a href="shop.html" class="service-card fade-up">
+          <i class="fas fa-cloud"></i>
+          <h3>Cloud Solutions</h3>
+          <p>Scale effortlessly with our managed cloud and hybrid infrastructure.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="shop-teaser">
+    <div class="container">
+      <h2>Premium Tech Hardware</h2>
+      <div class="products-grid">
+        <a href="shop.html" class="product-card fade-up">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800" alt="Laptops">
+          </div>
+          <div class="product-info">
+            <h3>Laptops & PCs</h3>
+            <p>Workstations for pros and creators.</p>
+          </div>
+        </a>
+
+        <a href="shop.html" class="product-card fade-up">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&q=80&w=800" alt="Monitors">
+          </div>
+          <div class="product-info">
+            <h3>Ultra-Wide Displays</h3>
+            <p>4K clarity for maximum productivity.</p>
+          </div>
+        </a>
+
+        <a href="shop.html" class="product-card fade-up">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&q=80&w=800" alt="Storage">
+          </div>
+          <div class="product-info">
+            <h3>High-Speed Storage</h3>
+            <p>NVMe SSDs and redundant backups.</p>
+          </div>
+        </a>
+
+        <a href="shop.html" class="product-card fade-up">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=800" alt="Networking">
+          </div>
+          <div class="product-info">
+            <h3>Networking Gear</h3>
+            <p>Enterprise WiFi and switch solutions.</p>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -343,51 +247,26 @@
       <div class="stats-flex">
         <div class="stat-item">
           <div class="stat-number" data-target="98">0</div>
-          <p>Client Retention %</p>
+          <div class="stat-label">Retention %</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number" data-target="250">0</div>
-          <p>Projects Done</p>
+          <div class="stat-number" data-target="350">0</div>
+          <div class="stat-label">Clients Served</div>
         </div>
         <div class="stat-item">
           <div class="stat-number" data-target="24">0</div>
-          <p>Hour Support</p>
+          <div class="stat-label">Hour Support</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="shop-teaser">
+  <section id="contact" style="background: white; text-align: center;">
     <div class="container">
-      <h2 style="margin-bottom: 1rem;">The Hardware Shop</h2>
-      <p style="text-align:center; color: var(--gray); margin-bottom: 4rem; max-width: 600px; margin-inline: auto;">Quality devices including laptops, monitors, and ultra-fast SSDs with full local support.</p>
-      <div class="products-grid">
-        <div class="product-card">
-          <i class="fas fa-laptop"></i>
-          <h3>Laptops</h3>
-        </div>
-        <div class="product-card">
-          <i class="fas fa-desktop"></i>
-          <h3>Displays</h3>
-        </div>
-        <div class="product-card">
-          <i class="fas fa-microchip"></i>
-          <h3>Storage</h3>
-        </div>
-        <div class="product-card">
-          <i class="fas fa-keyboard"></i>
-          <h3>Peripherals</h3>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" style="background: white;">
-    <div class="container" style="text-align:center;">
-      <h2>Ready to Upgrade?</h2>
-      <p style="margin-bottom: 3rem; color: var(--gray);">Contact our Mokopane office for a personalized IT assessment.</p>
+      <h2>Let’s Build Something Together</h2>
+      <p style="color: var(--gray); margin-bottom: 3rem;">Ready to upgrade your hardware or build a custom app? Get in touch.</p>
       <a href="mailto:info@mtechsolutions.com" class="btn-primary" style="font-size: 1.2rem; padding: 1.4rem 3rem;">
-        <i class="fas fa-envelope"></i> Send an Inquiry
+        <i class="fas fa-envelope"></i> Contact Us Now
       </a>
     </div>
   </section>
@@ -395,40 +274,25 @@
   <footer>
     <div class="container">
       <p>&copy; 2026 MTech Solutions. South Africa.</p>
-      <p style="margin-top: 1rem;"><a href="#">Privacy</a> | <a href="#">Terms</a> | info@mtechsolutions.com</p>
+      <p style="margin-top: 1rem;"><a href="#" style="color: var(--primary);">Privacy Policy</a> | <a href="#" style="color: var(--primary);">Terms of Service</a></p>
     </div>
   </footer>
 
   <script>
-    // Navigation Logic
-    const header = document.getElementById('header');
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const closeMenu = document.getElementById('closeMenu');
-
-    window.addEventListener('scroll', () => {
-      header.classList.toggle('stuck', window.scrollY > 50);
-    });
-
-    hamburger.onclick = () => mobileMenu.classList.add('active');
-    closeMenu.onclick = () => mobileMenu.classList.remove('active');
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.onclick = () => mobileMenu.classList.remove('active');
-    });
-
-    // Stats Animation
-    const observerOptions = { threshold: 0.5 };
+    // Intersection Observer for Animations
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const stats = entry.target.querySelectorAll('.stat-number');
-          stats.forEach(animateStat);
-          observer.unobserve(entry.target);
+          entry.target.classList.add('visible');
+          if (entry.target.id === 'stats') {
+             const nums = entry.target.querySelectorAll('.stat-number');
+             nums.forEach(animateStat);
+          }
         }
       });
-    }, observerOptions);
+    }, { threshold: 0.2 });
 
-    observer.observe(document.getElementById('stats'));
+    document.querySelectorAll('.fade-up, #stats').forEach(el => observer.observe(el));
 
     function animateStat(el) {
       const target = +el.getAttribute('data-target');
@@ -444,6 +308,16 @@
         }
       }, 30);
     }
+
+    // Header & Menu Logic
+    const header = document.getElementById('header');
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+
+    window.onscroll = () => header.classList.toggle('stuck', window.scrollY > 50);
+    hamburger.onclick = () => mobileMenu.classList.add('active');
+    closeMenu.onclick = () => mobileMenu.classList.remove('active');
   </script>
 </body>
 </html>
