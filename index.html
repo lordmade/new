@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MTech Solutions — IT Services & Tech Solutions | Mokopane</title>
-  <meta name="description" content="Reliable IT services, cybersecurity, cloud solutions, and hardware in Limpopo. Secure your business today.">
+  <title>MTech Solutions — IT Services & Tech Shop | Mokopane</title>
+  <meta name="description" content="IT services, cybersecurity, cloud solutions + laptops, monitors, SSDs & more hardware in Limpopo. Secure & equip your business.">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,16 +43,13 @@
       padding: 0 24px;
     }
 
-    /* Navbar */
+    /* Header */
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1000;
       transition: all 0.35s ease;
       padding: 1.25rem 0;
-    }
-
-    header.scrolled {
       background: rgba(255,255,255,0.96);
       backdrop-filter: blur(16px);
       box-shadow: var(--shadow);
@@ -118,17 +115,67 @@
       background: var(--primary-dark);
     }
 
-    /* Hero */
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      color: var(--dark);
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    .hamburger.open .fa-bars { display: none; }
+    .hamburger.open .fa-xmark { display: inline-block; }
+    .hamburger .fa-xmark { display: none; }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0; right: -100%;
+      width: 100%;
+      height: 100vh;
+      background: var(--light);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: right 0.4s ease-in-out;
+      z-index: 999;
+      padding: 80px 20px;
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu a {
+      font-size: 1.8rem;
+      margin: 1.5rem 0;
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .mobile-menu a:hover { color: var(--primary); }
+
+    .mobile-menu .nav-cta { margin-top: 2rem; }
+
+    /* Hero with Image */
     #hero {
       min-height: 95vh;
       display: flex;
       align-items: center;
-      background: linear-gradient(135deg, #f0f7ff 0%, #e0eaff 100%);
-      padding-top: 80px;
+      background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.5)),
+                  url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=2940') center/cover no-repeat fixed;
+      color: white;
+      padding-top: 100px;
+      position: relative;
     }
 
     .hero-content {
       max-width: 820px;
+      position: relative;
+      z-index: 2;
     }
 
     .hero-content h1 {
@@ -137,16 +184,14 @@
       font-weight: 800;
       line-height: 1.05;
       margin-bottom: 1.4rem;
-      color: var(--dark);
+      text-shadow: 0 4px 12px rgba(0,0,0,0.6);
     }
-
-    .hero-content .highlight { color: var(--primary); }
 
     .hero-content p {
       font-size: 1.4rem;
-      color: var(--gray);
       margin-bottom: 2.8rem;
       max-width: 620px;
+      opacity: 0.95;
     }
 
     .btn-primary {
@@ -154,23 +199,22 @@
       align-items: center;
       gap: 0.9rem;
       background: var(--primary);
-      color: white !important;
+      color: white;
       padding: 1.15rem 2.6rem;
       border-radius: 50px;
       font-weight: 600;
       font-size: 1.15rem;
       text-decoration: none;
       transition: all 0.4s ease;
-      box-shadow: 0 12px 35px rgba(0,102,255,0.28);
+      box-shadow: 0 12px 35px rgba(0,102,255,0.5);
     }
 
     .btn-primary:hover {
       transform: translateY(-5px);
-      box-shadow: 0 22px 45px rgba(0,102,255,0.38);
+      box-shadow: 0 22px 45px rgba(0,102,255,0.6);
       background: var(--primary-dark);
     }
 
-    /* Sections */
     section { padding: 160px 0 110px; }
 
     h2 {
@@ -255,14 +299,57 @@
       margin-top: 0.6rem;
     }
 
-    /* Contact / CTA */
+    /* Shop Teaser */
+    #shop-teaser {
+      background: white;
+      padding: 140px 0 100px;
+      text-align: center;
+    }
+
+    #shop-teaser .intro {
+      font-size: 1.3rem;
+      color: var(--gray);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .product-card {
+      background: var(--light-2);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      transition: all 0.4s ease;
+      text-align: center;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .product-icon {
+      font-size: 3.5rem;
+      color: var(--primary);
+      margin-bottom: 1.2rem;
+    }
+
+    .product-card h3 { font-size: 1.5rem; margin-bottom: 0.8rem; }
+
+    .product-card p { color: var(--gray); font-size: 1.05rem; }
+
+    /* Contact */
     #contact {
       background: linear-gradient(135deg, #f0f7ff, #e6f2ff);
       text-align: center;
       padding: 180px 0 140px;
     }
-
-    #contact h2 { margin-bottom: 2.5rem; }
 
     #contact p {
       font-size: 1.4rem;
@@ -289,11 +376,13 @@
     }
 
     @media (max-width: 768px) {
-      .nav-links { display: none; } /* Hamburger coming later if needed */
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: block; }
       h2 { font-size: 2.6rem; }
       .hero-content h1 { font-size: 3.8rem; }
       .stat-item .stat-number { font-size: 4rem; }
       section { padding: 120px 0 80px; }
+      #hero { min-height: 80vh; background-attachment: scroll; }
     }
   </style>
 </head>
@@ -303,22 +392,42 @@
     <div class="container">
       <nav>
         <div class="logo">MTech Solutions</div>
+
         <div class="nav-links">
           <a href="#services">Services</a>
           <a href="#stats">Results</a>
+          <a href="#shop-teaser">Shop</a>
           <a href="#contact">Contact</a>
-          <span class="nav-cta"><a href="#contact" class="btn">Get Quote</a></span>
+        </div>
+
+        <div class="nav-cta">
+          <a href="#contact" class="btn">Get Quote</a>
+        </div>
+
+        <div class="hamburger" id="hamburger">
+          <i class="fas fa-bars"></i>
+          <i class="fas fa-xmark"></i>
         </div>
       </nav>
     </div>
   </header>
 
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services">Services</a>
+    <a href="#stats">Results</a>
+    <a href="#shop-teaser">Shop</a>
+    <a href="#contact">Contact</a>
+    <div class="nav-cta">
+      <a href="#contact" class="btn">Get Quote</a>
+    </div>
+  </div>
+
   <section id="hero">
     <div class="container">
       <div class="hero-content">
-        <h1>Power Your Business With <span class="highlight">Reliable IT</span></h1>
-        <p>Expert cloud, cybersecurity, managed services & hardware solutions — tailored for businesses in Limpopo and beyond. Secure, scale, and succeed — without the downtime.</p>
-        <a href="#contact" class="btn-primary"><i class="fas fa-rocket"></i> Start Your Project</a>
+        <h1>Power Your Business With <span style="color: var(--primary);">Reliable IT</span></h1>
+        <p>Expert cloud, cybersecurity, managed support — plus quality hardware like laptops, monitors, SSDs & more. Secure, equip, and grow in Limpopo & beyond.</p>
+        <a href="#contact" class="btn-primary"><i class="fas fa-rocket"></i> Get Started Today</a>
       </div>
     </div>
   </section>
@@ -371,6 +480,40 @@
     </div>
   </section>
 
+  <section id="shop-teaser">
+    <div class="container">
+      <h2>Tech Hardware Shop Coming Soon</h2>
+      <p class="intro">Complement your IT setup with reliable devices — laptops, monitors, hard drives/SSDs, accessories, and more. Quality brands at competitive prices, with full support from our team.</p>
+
+      <div class="products-grid">
+        <div class="product-card">
+          <i class="fas fa-laptop product-icon"></i>
+          <h3>Laptops & Notebooks</h3>
+          <p>Business-grade, gaming, ultrabooks — from entry-level to high-performance.</p>
+        </div>
+        <div class="product-card">
+          <i class="fas fa-desktop product-icon"></i>
+          <h3>Monitors & Displays</h3>
+          <p>4K, curved, ultrawide — perfect for productivity or creative work.</p>
+        </div>
+        <div class="product-card">
+          <i class="fas fa-hdd product-icon"></i>
+          <h3>SSDs, HDDs & Storage</h3>
+          <p>Fast NVMe SSDs, large-capacity drives — upgrade your speed & space.</p>
+        </div>
+        <div class="product-card">
+          <i class="fas fa-keyboard product-icon"></i>
+          <h3>Accessories & Peripherals</h3>
+          <p>Mice, keyboards, docking stations, cables — everything to stay connected.</p>
+        </div>
+      </div>
+
+      <a href="#contact" class="btn-primary" style="font-size:1.3rem; padding:1.2rem 3rem;">
+        <i class="fas fa-shopping-cart"></i> Inquire About Hardware
+      </a>
+    </div>
+  </section>
+
   <section id="contact">
     <div class="container">
       <h2>Ready to Strengthen Your IT?</h2>
@@ -391,10 +534,26 @@
   <script>
     // Navbar scroll
     window.addEventListener('scroll', () => {
-      document.getElementById('header').classList.toggle('scrolled', window.scrollY > 80);
+      document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // Stats animation
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('active');
+      });
+    });
+
+    // Stats count-up
     const statsSection = document.getElementById('stats');
     const statNumbers = document.querySelectorAll('.stat-number');
 
