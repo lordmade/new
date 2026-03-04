@@ -10,7 +10,6 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
   <style>
     :root {
       --primary: #0066ff;
@@ -25,13 +24,11 @@
       --shadow-card: 0 20px 40px rgba(15, 23, 42, 0.08);
       --shadow-glow: 0 0 40px rgba(0,102,255,0.15);
     }
-
     * { margin:0; padding:0; box-sizing:border-box; outline: none; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; background: var(--light-2); color: var(--dark); line-height: 1.6; overflow-x: hidden; }
     .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
     a { text-decoration: none; color: inherit; }
-
     /* Navbar – same as homepage */
     header {
       position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1000;
@@ -48,7 +45,6 @@
     .nav-links a:hover { color: var(--primary); }
     .nav-cta .btn { background: var(--primary); color: white; padding: 0.6rem 1.4rem; border-radius: 999px; font-weight: 700; }
     .hamburger { display: none; cursor: pointer; font-size: 1.4rem; }
-
     /* Hero / Banner */
     #contact-hero {
       position: relative; min-height: 70vh; display: flex; align-items: center; justify-content: center;
@@ -64,7 +60,6 @@
     .badge { display: inline-block; padding: 0.5rem 1.2rem; background: rgba(0,102,255,0.15); border: 1px solid rgba(0,102,255,0.4); color: #60a5fa; border-radius: 999px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.5rem; letter-spacing: 1px; }
     .hero-content h1 { font-family: 'Manrope'; font-size: clamp(2.4rem, 7vw, 4.5rem); font-weight: 800; line-height: 1.1; color: white; margin-bottom: 1.5rem; }
     .text-gradient { background: linear-gradient(135deg, #60a5fa, #0066ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
     /* Contact Form Section */
     #contact-form-section { padding: 100px 0; background: white; }
     .contact-grid {
@@ -78,7 +73,6 @@
     .contact-detail { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
     .contact-detail i { font-size: 1.6rem; color: var(--primary); width: 40px; }
     .map-embed { margin-top: 2.5rem; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-card); border: 1px solid var(--border); }
-
     form { display: flex; flex-direction: column; gap: 1.4rem; }
     .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
     label { font-weight: 600; color: var(--dark); font-size: 0.95rem; }
@@ -112,7 +106,6 @@
       box-shadow: 0 10px 25px rgba(0,102,255,0.3);
     }
     .btn-submit:hover { transform: translateY(-3px); background: var(--primary-dark); }
-
     /* Footer – same as homepage */
     footer {
       background: var(--dark);
@@ -164,12 +157,10 @@
     .footer-bottom-links { display: flex; gap: 2rem; }
     .footer-bottom-links a { color: #64748b; font-size: 0.9rem; transition: color 0.3s ease; }
     .footer-bottom-links a:hover { color: white; }
-
     @media (max-width: 1024px) {
       .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
     }
-
     @media (max-width: 768px) {
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: block; }
@@ -182,7 +173,6 @@
   </style>
 </head>
 <body>
-
   <header id="header">
     <nav>
       <div class="logo">
@@ -195,19 +185,17 @@
         <a href="contact.html">Contact</a>
       </div>
       <div class="nav-cta">
-        <a href="contact.html" class="btn">Get Quote</a>
+        <a href="shop.html" class="btn">Shop Now</a>
       </div>
       <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
     </nav>
   </header>
-
   <div class="mobile-menu" id="mobileMenu">
     <a href="index.html#services">Services</a>
     <a href="index.html#shop-teaser">Hardware</a>
     <a href="contact.html">Contact</a>
     <div id="closeMenu" style="position:absolute; top:30px; right:30px; font-size:2rem;"><i class="fas fa-times"></i></div>
   </div>
-
   <section id="contact-hero">
     <div class="hero-overlay"></div>
     <div class="container">
@@ -220,14 +208,12 @@
       </div>
     </div>
   </section>
-
   <section id="contact-form-section">
     <div class="container">
       <div class="contact-grid">
         <div class="contact-info">
           <h3>Reach Out Today</h3>
           <p>Our team typically responds within 4–12 hours during business days.</p>
-
           <div class="contact-detail">
             <i class="fas fa-map-marker-alt"></i>
             <div>Mokopane, Limpopo, South Africa</div>
@@ -244,29 +230,24 @@
             <i class="fas fa-clock"></i>
             <div>Mon – Fri: 08:00 – 17:00</div>
           </div>
-
           <div class="map-embed">
             <!-- You can replace with real Google Maps embed -->
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114748.123456789!2d23.789!3d-23.789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDQ3JzIwLjQiUyAyM8KwNDcnMjAuMCJF!5e0!3m2!1sen!2sza!4v1699999999999" width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
           </div>
         </div>
-
         <form id="contactForm">
           <div class="form-group">
             <label for="name">Full Name</label>
             <input type="text" id="name" name="name" required placeholder="Your name">
           </div>
-
           <div class="form-group">
             <label for="email">Email Address</label>
             <input type="email" id="email" name="email" required placeholder="your@email.com">
           </div>
-
           <div class="form-group">
             <label for="phone">Phone Number (optional)</label>
             <input type="tel" id="phone" name="phone" placeholder="+27 ...">
           </div>
-
           <div class="form-group">
             <label for="service">Interested In</label>
             <select id="service" name="service" required>
@@ -279,18 +260,15 @@
               <option value="other">Other / General Enquiry</option>
             </select>
           </div>
-
           <div class="form-group">
             <label for="message">Your Message</label>
             <textarea id="message" name="message" required placeholder="Tell us about your project or question..."></textarea>
           </div>
-
           <button type="submit" class="btn-submit">Send Message →</button>
         </form>
       </div>
     </div>
   </section>
-
   <footer>
     <div class="container">
       <div class="footer-grid">
@@ -304,7 +282,6 @@
             <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
           </div>
         </div>
-
         <div class="footer-column">
           <h4>Services</h4>
           <ul class="footer-links">
@@ -315,7 +292,6 @@
             <li><a href="index.html#shop-teaser">Hardware Sales</a></li>
           </ul>
         </div>
-
         <div class="footer-column">
           <h4>Company</h4>
           <ul class="footer-links">
@@ -326,7 +302,6 @@
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
-
         <div class="footer-column">
           <h4>Contact Us</h4>
           <div class="footer-contact">
@@ -337,7 +312,6 @@
           </div>
         </div>
       </div>
-
       <div class="footer-bottom">
         <p>© 2026 MTech Solutions. All rights reserved. South Africa.</p>
         <div class="footer-bottom-links">
@@ -348,7 +322,6 @@
       </div>
     </div>
   </footer>
-
   <script>
     // Mobile menu toggle
     const hamburger = document.getElementById('hamburger');
@@ -356,11 +329,9 @@
     const closeMenu = document.getElementById('closeMenu');
     hamburger.onclick = () => mobileMenu.classList.add('active');
     closeMenu.onclick = () => mobileMenu.classList.remove('active');
-
     // Sticky header
     const header = document.getElementById('header');
     window.onscroll = () => header.classList.toggle('stuck', window.scrollY > 50);
-
     // Very basic form feedback (you can connect to Firebase/Formspree later)
     document.getElementById('contactForm')?.addEventListener('submit', function(e) {
       e.preventDefault();
