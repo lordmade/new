@@ -77,17 +77,13 @@
     }
     .nav-links a:hover { color: var(--primary); }
     .nav-links a:hover::after { width: 100%; }
-    .nav-cta .btn { 
-      background: var(--text-main); color: white; padding: 0.7rem 1.5rem; 
-      border-radius: 100px; font-weight: 600; font-size: 0.9rem; 
-      transition: var(--transition); position: relative; overflow: hidden;
-    }
+    .nav-cta .btn { background: #0404d8; color: white; padding: 0.7rem 1.5rem; border-radius: 100px; font-weight: 600; font-size: 0.9rem; transition: var(--transition); position: relative; overflow: hidden; }
     .nav-cta .btn::before {
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(135deg, var(--primary), var(--primary-hover));
       opacity: 0; transition: opacity 0.3s;
     }
-    .nav-cta .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(4, 4, 216, 0.3); }
+    .nav-cta .btn:hover { background: #0303b0; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(4, 4, 216, 0.3); }
     .nav-cta .btn:hover::before { opacity: 1; }
     .nav-cta .btn span { position: relative; z-index: 1; }
     .hamburger { display: none; cursor: pointer; font-size: 1.5rem; color: var(--text-main); }
