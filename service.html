@@ -11,7 +11,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
  
-  <!-- Firebase (kept same as your original) -->
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
   <style>
@@ -33,7 +32,8 @@
     body { font-family: 'Inter', sans-serif; background: var(--light-2); color: var(--dark); line-height: 1.6; overflow-x: hidden; }
     .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
     a { text-decoration: none; color: inherit; }
-    /* ── Header (same as original) ── */
+
+    /* ── Header ── */
     header {
       position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1000;
       width: fit-content; max-width: 95vw; padding: 0.7rem 2rem;
@@ -47,9 +47,21 @@
     .nav-links { display: flex; align-items: center; gap: 2rem; }
     .nav-links a { font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
     .nav-links a:hover { color: var(--primary); }
-    .nav-cta .btn { background: var(--primary); color: white; padding: 0.6rem 1.4rem; border-radius: 999px; font-weight: 700; }
+    .nav-cta .btn { background: var(--primary); color: white; padding: 0.6rem 1.4rem; border-radius: 999px; font-weight: 700; transition: 0.3s; }
+    .nav-cta .btn:hover { background: var(--primary-dark); transform: scale(1.05); }
     .hamburger { display: none; cursor: pointer; font-size: 1.4rem; }
-    /* ── Hero (smaller version for subpage) ── */
+
+    /* ── Mobile Menu (Fixed 404/Missing UI) ── */
+    .mobile-menu {
+      position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+      background: var(--dark); z-index: 2000; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 2rem; transition: 0.4s;
+    }
+    .mobile-menu.active { right: 0; }
+    .mobile-menu a { color: white; font-size: 1.8rem; font-weight: 700; font-family: 'Manrope'; }
+    #closeMenu { color: white; cursor: pointer; }
+
+    /* ── Hero ── */
     #hero {
       position: relative; min-height: 60svh; display: flex; align-items: center; justify-content: center;
       background: #0f172a; padding: 140px 0 100px; text-align: center; overflow: hidden;
@@ -64,10 +76,12 @@
     .badge { display: inline-block; padding: 0.5rem 1.2rem; background: rgba(0,102,255,0.15); border: 1px solid rgba(0,102,255,0.4); color: #60a5fa; border-radius: 999px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.5rem; letter-spacing: 1px; }
     .hero-content h1 { font-family: 'Manrope'; font-size: clamp(2.4rem, 7vw, 4.6rem); font-weight: 800; line-height: 1.1; color: white; margin-bottom: 1.5rem; }
     .text-gradient { background: linear-gradient(135deg, #60a5fa, #0066ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
     /* ── Main content ── */
     section { padding: 100px 0; }
     h2 { font-family: 'Manrope'; font-size: clamp(2rem, 5vw, 3.2rem); text-align: center; margin-bottom: 3.5rem; font-weight: 800; }
     h3 { font-family: 'Manrope'; font-size: 2.1rem; margin-bottom: 1.4rem; color: var(--dark); }
+    
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -138,6 +152,7 @@
     .service-features {
       margin: 1.5rem 0 2rem;
       color: var(--gray);
+      list-style: none;
     }
     .service-features li {
       margin-bottom: 0.9rem;
@@ -156,7 +171,25 @@
       border-color: var(--primary);
       box-shadow: var(--shadow-glow), 0 35px 70px rgba(0,102,255,0.14);
     }
-    /* ── Footer (same as original) ── */
+
+    /* ── CTA Styling ── */
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2.5rem;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,102,255,0.2);
+    }
+
+    /* ── Footer ── */
     footer {
       background: var(--dark);
       color: #94a3b8;
@@ -208,6 +241,7 @@
       margin-bottom: 1.5rem;
       font-family: 'Manrope';
     }
+    .footer-links { list-style: none; }
     .footer-links li { margin-bottom: 0.8rem; }
     .footer-links a {
       color: #94a3b8;
@@ -216,21 +250,7 @@
       align-items: center;
       gap: 0.5rem;
     }
-    .footer-links a::before {
-      content: '→';
-      opacity: 0;
-      transform: translateX(-10px);
-      transition: all 0.3s ease;
-      color: var(--primary);
-    }
-    .footer-links a:hover {
-      color: white;
-      transform: translateX(5px);
-    }
-    .footer-links a:hover::before {
-      opacity: 1;
-      transform: translateX(0);
-    }
+    .footer-links a:hover { color: white; transform: translateX(5px); }
     .footer-contact p {
       display: flex;
       align-items: center;
@@ -254,15 +274,10 @@
     .footer-bottom-links { display: flex; gap: 2rem; }
     .footer-bottom-links a { color: #64748b; font-size: 0.9rem; transition: color 0.3s ease; }
     .footer-bottom-links a:hover { color: white; }
-    .footer-decoration {
-      position: absolute;
-      bottom: -100px; right: -100px;
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(0,102,255,0.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
+    
     .fade-up { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
+
     @media (max-width: 1024px) {
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
     }
@@ -279,11 +294,12 @@
   </style>
 </head>
 <body>
-  <!-- Header ── same as homepage -->
   <header id="header">
     <nav>
       <div class="logo">
-        <img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png" alt="MTech Solutions">
+        <a href="index.html">
+          <img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png" alt="MTech Solutions">
+        </a>
       </div>
       <div class="nav-links">
         <a href="index.html">Home</a>
@@ -297,14 +313,15 @@
       <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
     </nav>
   </header>
+
   <div class="mobile-menu" id="mobileMenu">
+    <div id="closeMenu" style="position:absolute; top:30px; right:30px; font-size:2rem;"><i class="fas fa-times"></i></div>
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
     <a href="index.html#shop-teaser">Hardware</a>
     <a href="index.html#contact">Contact</a>
-    <div id="closeMenu" style="position:absolute; top:30px; right:30px; font-size:2rem;"><i class="fas fa-times"></i></div>
   </div>
-  <!-- Hero -->
+
   <section id="hero">
     <div class="hero-overlay"></div>
     <div class="container">
@@ -317,7 +334,7 @@
       </div>
     </div>
   </section>
-  <!-- Services Detail -->
+
   <section id="services-detail" style="background: white;">
     <div class="container">
       <div class="services-grid">
@@ -392,8 +409,8 @@
       </div>
     </div>
   </section>
-  <!-- CTA -->
-  <section id="contact" style="background: white; text-align: center; padding: 140px 0 120px;">
+
+  <section id="contact-cta" style="background: white; text-align: center; padding: 140px 0 120px;">
     <div class="container">
       <h2 style="margin-bottom: 1.8rem;">Ready to Transform Your Technology?</h2>
       <p style="color: var(--gray); font-size: 1.2rem; max-width: 680px; margin: 0 auto 2.5rem;">Let's discuss your project — whether it's a custom app, new website, security audit or cloud migration.</p>
@@ -402,71 +419,69 @@
       </a>
     </div>
   </section>
-  <!-- Footer ── same as original -->
+
   <footer>
-    <div class="footer-decoration"></div>
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
           <img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png" alt="MTech Solutions">
-          <p>Premium IT services, custom software development, and tech hardware solutions based in Mokopane, Limpopo. Building the future of technology in South Africa.</p>
+          <p>Premium IT services, custom software development, and tech hardware solutions based in Mokopane, Limpopo.</p>
           <div class="social-links">
-            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
           </div>
         </div>
         <div class="footer-column">
           <h4>Services</h4>
           <ul class="footer-links">
-            <li><a href="services.html">Software Development</a></li>
-            <li><a href="services.html">Web Development</a></li>
-            <li><a href="services.html">Cybersecurity</a></li>
-            <li><a href="services.html">Cloud Solutions</a></li>
-            <li><a href="index.html#shop-teaser">Hardware Sales</a></li>
+            <li><a href="services.html">Software</a></li>
+            <li><a href="services.html">Websites</a></li>
+            <li><a href="services.html">Security</a></li>
+            <li><a href="index.html#shop-teaser">Hardware</a></li>
           </ul>
         </div>
         <div class="footer-column">
           <h4>Company</h4>
           <ul class="footer-links">
             <li><a href="#">About Us</a></li>
-            <li><a href="#">Our Team</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Blog</a></li>
             <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="#">Privacy</a></li>
           </ul>
         </div>
         <div class="footer-column">
           <h4>Contact Us</h4>
           <div class="footer-contact">
-            <p><i class="fas fa-map-marker-alt"></i> Mokopane, Limpopo, South Africa</p>
+            <p><i class="fas fa-map-marker-alt"></i> Mokopane, Limpopo</p>
             <p><i class="fas fa-phone"></i> +27 (0) 15 123 4567</p>
             <p><i class="fas fa-envelope"></i> info@mtechsolutions.com</p>
-            <p><i class="fas fa-clock"></i> Mon - Fri: 08:00 - 17:00</p>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 MTech Solutions. All rights reserved. South Africa.</p>
-        <div class="footer-bottom-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-          <a href="#">Cookie Policy</a>
-        </div>
+        <p>© 2026 MTech Solutions. All rights reserved.</p>
       </div>
     </div>
   </footer>
+
   <script>
     // Header stuck effect
     const header = document.getElementById('header');
     window.onscroll = () => header.classList.toggle('stuck', window.scrollY > 50);
-    // Mobile menu
+
+    // Mobile menu logic
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const closeMenu = document.getElementById('closeMenu');
+    
     hamburger.onclick = () => mobileMenu.classList.add('active');
     closeMenu.onclick = () => mobileMenu.classList.remove('active');
+    
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+        link.onclick = () => mobileMenu.classList.remove('active');
+    });
+
     // Fade-up animations
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -476,7 +491,8 @@
       });
     }, { threshold: 0.15 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-    // Firebase newsletter (same as original)
+
+    // Firebase (Keep config)
     const firebaseConfig = {
       apiKey: "AIzaSyAxBT0oESoL62oz_x_Z8cMtdENWZPx4tMI",
       authDomain: "pinotp-d7ef5.firebaseapp.com",
