@@ -174,8 +174,20 @@
       border: 1px solid var(--border); transition: var(--transition);
       position: relative; cursor: pointer;
     }
-    .product-image { height: 240px; overflow: hidden; background: #fff; padding: 2rem; display: flex; align-items: center; justify-content: center; }
-    .product-image img { max-height: 100%; object-fit: contain; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); mix-blend-mode: multiply; }
+    .product-image { 
+      height: 240px; 
+      overflow: hidden; 
+      background: #fff; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+    }
+    .product-image img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+    }
     .product-info { padding: 1.5rem; text-align: center; background: var(--bg-light); border-top: 1px solid var(--border); }
     .product-info h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
     .product-info p { color: var(--text-muted); font-size: 0.95rem; }
