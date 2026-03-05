@@ -17,8 +17,8 @@
   
   <style>
     :root {
-      --primary: #0404d8; /* Updated */
-      --primary-hover: #020084; /* Updated */
+      --primary: #0404d8;
+      --primary-hover: #020084;
       --accent: #38bdf8;
       --bg-light: #f8fafc;
       --bg-white: #ffffff;
@@ -84,7 +84,7 @@
     }
     .nav-cta .btn::before {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
+      background: linear-gradient(135deg, var(--primary), var(--primary-hover));
       opacity: 0; transition: opacity 0.3s;
     }
     .nav-cta .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(4, 4, 216, 0.3); }
@@ -104,7 +104,7 @@
       content: ''; position: absolute; inset: 0;
       background: 
         radial-gradient(circle at 20% 50%, rgba(4, 4, 216, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 50%, rgba(56,189,248,0.1) 0%, transparent 50%);
+        radial-gradient(circle at 80% 50%, rgba(2, 0, 132, 0.1) 0%, transparent 50%);
     }
     .page-header::after {
       content: ''; position: absolute; inset: 0;
@@ -182,7 +182,7 @@
       width: 50px;
       height: 50px;
       border-radius: 12px;
-      background: linear-gradient(135deg, rgba(4, 4, 216, 0.1), rgba(56,189,248,0.1));
+      background: linear-gradient(135deg, rgba(4, 4, 216, 0.1), rgba(2, 0, 132, 0.1));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -349,7 +349,7 @@
     
     .submit-btn::before {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+      background: linear-gradient(135deg, var(--primary), var(--primary-hover));
       opacity: 0; transition: opacity 0.3s;
     }
     
@@ -607,8 +607,7 @@
           
           <div class="social-section" id="socialSection" style="display: none;">
             <h4>Follow Us</h4>
-            <div class="social-links" id="socialLinks">
-              </div>
+            <div class="social-links" id="socialLinks"></div>
           </div>
         </div>
 
@@ -700,13 +699,11 @@
   </footer>
 
   <script>
-    // --- Navbar Logic ---
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
       header.classList.toggle('stuck', window.scrollY > 50);
     });
 
-    // --- Mobile Menu ---
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const closeMenu = document.getElementById('closeMenu');
@@ -717,7 +714,6 @@
       link.onclick = () => mobileMenu.classList.remove('active');
     });
 
-    // --- Firebase Integration ---
     const firebaseConfig = {
       apiKey: "AIzaSyAxBT0oESoL62oz_x_Z8cMtdENWZPx4tMI",
       authDomain: "pinotp-d7ef5.firebaseapp.com",
@@ -733,7 +729,6 @@
     }
     const db = firebase.database();
 
-    // Contact info mapping
     const contactConfig = {
       address: { icon: 'fa-map-marker-alt', label: 'Address', link: null },
       phone: { icon: 'fa-phone', label: 'Phone', link: 'tel:' },
@@ -751,13 +746,8 @@
     function loadContactInfo() {
       db.ref('websiteContent/footer').once('value').then(snapshot => {
         const data = snapshot.val();
-        
-        if (!data) {
-          showDefaultContactInfo();
-          return;
-        }
+        if (!data) { showDefaultContactInfo(); return; }
 
-        // Build info cards
         const infoCards = document.getElementById('infoCards');
         infoCards.innerHTML = '';
         
@@ -767,28 +757,17 @@
             const value = data[key];
             const card = document.createElement('div');
             card.className = 'info-card';
-            
             let contentHtml = `<h4>${config.label}</h4>`;
-            if (config.link) {
-              contentHtml += `<a href="${config.link}${value}">${value}</a>`;
-            } else {
-              contentHtml += `<p>${value.replace(/,/g, '<br>')}</p>`;
-            }
-            
-            card.innerHTML = `
-              <div class="info-icon"><i class="fas ${config.icon}"></i></div>
-              <div class="info-content">${contentHtml}</div>
-            `;
-            
+            if (config.link) { contentHtml += `<a href="${config.link}${value}">${value}</a>`; } 
+            else { contentHtml += `<p>${value.replace(/,/g, '<br>')}</p>`; }
+            card.innerHTML = `<div class="info-icon"><i class="fas ${config.icon}"></i></div><div class="info-content">${contentHtml}</div>`;
             infoCards.appendChild(card);
           }
         });
 
-        // Build social links
         const socialSection = document.getElementById('socialSection');
         const socialLinks = document.getElementById('socialLinks');
         let hasSocial = false;
-        
         Object.keys(socialConfig).forEach(key => {
           if (data[key]) {
             hasSocial = true;
@@ -797,33 +776,18 @@
             link.className = 'social-link';
             link.href = data[key];
             link.target = '_blank';
-            link.setAttribute('aria-label', config.label);
             link.innerHTML = `<i class="fab ${config.icon}"></i>`;
-            link.style.setProperty('--hover-color', config.color);
             socialLinks.appendChild(link);
           }
         });
-        
-        if (hasSocial) {
-          socialSection.style.display = 'block';
-        }
+        if (hasSocial) socialSection.style.display = 'block';
 
-        // Update map address
         if (data.address) {
           document.getElementById('mapAddress').textContent = data.address;
-          const encodedAddress = encodeURIComponent(data.address);
-          document.getElementById('mapLink').href = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+          document.getElementById('mapLink').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.address)}`;
         }
-
-        // Update footer copyright
-        if (data.copyright) {
-          document.getElementById('footerText').textContent = data.copyright;
-        }
-
-      }).catch(error => {
-        console.error('Error loading contact info:', error);
-        showDefaultContactInfo();
-      });
+        if (data.copyright) document.getElementById('footerText').textContent = data.copyright;
+      }).catch(error => { showDefaultContactInfo(); });
     }
 
     function showDefaultContactInfo() {
@@ -833,34 +797,21 @@
         { icon: 'fa-envelope', label: 'Email', value: 'info@mtechsolutions.com', link: 'mailto:info@mtechsolutions.com' },
         { icon: 'fa-clock', label: 'Business Hours', value: 'Mon - Fri: 08:00 - 17:00<br>Sat: 09:00 - 13:00' }
       ];
-
       const infoCards = document.getElementById('infoCards');
       infoCards.innerHTML = '';
-      
       defaults.forEach(item => {
         const card = document.createElement('div');
         card.className = 'info-card';
-        
         let contentHtml = `<h4>${item.label}</h4>`;
-        if (item.link) {
-          contentHtml += `<a href="${item.link}">${item.value}</a>`;
-        } else {
-          contentHtml += `<p>${item.value}</p>`;
-        }
-        
-        card.innerHTML = `
-          <div class="info-icon"><i class="fas ${item.icon}"></i></div>
-          <div class="info-content">${contentHtml}</div>
-        `;
-        
+        if (item.link) contentHtml += `<a href="${item.link}">${item.value}</a>`;
+        else contentHtml += `<p>${item.value}</p>`;
+        card.innerHTML = `<div class="info-icon"><i class="fas ${item.icon}"></i></div><div class="info-content">${contentHtml}</div>`;
         infoCards.appendChild(card);
       });
-
       document.getElementById('mapAddress').textContent = 'Mokopane, Limpopo, South Africa';
       document.getElementById('mapLink').href = 'https://www.google.com/maps/search/?api=1&query=Mokopane,+Limpopo,+South+Africa';
     }
 
-    // --- Form Handling ---
     const contactForm = document.getElementById('contactForm');
     const submitBtn = document.getElementById('submitBtn');
     const toast = document.getElementById('toast');
@@ -869,20 +820,16 @@
       const icon = toast.querySelector('.toast-icon i');
       const titleEl = toast.querySelector('h4');
       const msgEl = toast.querySelector('p');
-      
       toast.className = `toast ${type}`;
       icon.className = type === 'success' ? 'fas fa-check' : 'fas fa-exclamation-circle';
       titleEl.textContent = title;
       msgEl.textContent = message;
-      
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 5000);
     }
 
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
-      // Get form data
       const formData = new FormData(contactForm);
       const data = {
         firstName: formData.get('firstName'),
@@ -894,47 +841,30 @@
         timestamp: firebase.database.ServerValue.TIMESTAMP,
         status: 'new'
       };
-
-      // Validate
       if (!data.firstName || !data.lastName || !data.email || !data.service || !data.message) {
-        showToast('Error', 'Please fill in all required fields.', 'error');
-        return;
+        showToast('Error', 'Please fill in all required fields.', 'error'); return;
       }
-
-      // Show loading state
       submitBtn.classList.add('loading');
       submitBtn.disabled = true;
-
       try {
-        // Save to Firebase
         await db.ref('mtech_contact_submissions').push(data);
-        
-        // Show success
         submitBtn.classList.remove('loading');
         submitBtn.classList.add('success');
         submitBtn.innerHTML = '<span>Message Sent!</span> <i class="fas fa-check"></i>';
-        
         showToast('Message Sent!', 'We\'ll get back to you within 24 hours.');
-        
-        // Reset form
         contactForm.reset();
-        
-        // Reset button after delay
         setTimeout(() => {
           submitBtn.classList.remove('success');
           submitBtn.disabled = false;
           submitBtn.innerHTML = '<span>Send Message</span> <i class="fas fa-paper-plane"></i>';
         }, 3000);
-        
       } catch (error) {
-        console.error('Error submitting form:', error);
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
         showToast('Error', 'Failed to send message. Please try again.', 'error');
       }
     });
 
-    // Load contact info on page load
     document.addEventListener('DOMContentLoaded', loadContactInfo);
   </script>
 </body>
