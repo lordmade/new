@@ -12,8 +12,8 @@
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
   
   <style>
     /* --- CSS Variables & Theming --- */
@@ -56,9 +56,21 @@
     .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
     /* --- Typography --- */
-    h1, h2, h3, h4 { font-family: 'Manrope', sans-serif; font-weight: 800; tracking: -0.02em; }
+    h1, h2, h3, h4 { font-family: 'Manrope', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
     h2 { font-size: clamp(2.2rem, 5vw, 3.5rem); text-align: center; margin-bottom: 1rem; color: var(--text-main); }
     .section-subtitle { text-align: center; color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 4rem; }
+
+    /* --- Loading State --- */
+    .skeleton {
+      background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: 4px;
+    }
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
 
     /* --- Navbar (Glassmorphism) --- */
     header {
@@ -70,7 +82,7 @@
     }
     header.stuck { top: 12px; max-width: 900px; background: rgba(255, 255, 255, 0.9); }
     nav { display: flex; align-items: center; justify-content: space-between; }
-    .logo img { height: 32px; filter: brightness(0); } /* Assuming dark logo for light navbar */
+    .logo img { height: 32px; filter: brightness(0); }
     .nav-links { display: flex; gap: 2.5rem; }
     .nav-links a { font-weight: 500; font-size: 0.95rem; color: var(--text-main); transition: color 0.2s; }
     .nav-links a:hover { color: var(--primary); }
@@ -82,14 +94,14 @@
     #hero {
       position: relative; min-height: 100svh; display: flex; align-items: center; justify-content: center;
       background: var(--dark-surface); padding: 120px 0 80px; text-align: center; overflow: hidden;
+      background-size: cover;
+      background-position: center;
     }
-    /* Modern Mesh/Glow Background */
     #hero::before {
       content: ''; position: absolute; width: 600px; height: 600px;
       background: radial-gradient(circle, rgba(37,99,235,0.4) 0%, transparent 70%);
       top: 50%; left: 50%; transform: translate(-50%, -50%); filter: blur(80px); z-index: 1;
     }
-    /* Subtle Grid Overlay */
     #hero::after {
       content: ''; position: absolute; inset: 0; z-index: 2;
       background-image: linear-gradient(var(--border-dark) 1px, transparent 1px), linear-gradient(90deg, var(--border-dark) 1px, transparent 1px);
@@ -276,145 +288,74 @@
     <div id="closeMenu" style="position:absolute; top:30px; right:30px; font-size:2rem; cursor:pointer;"><i class="fas fa-times"></i></div>
   </div>
 
+  <!-- HERO SECTION - Dynamic from Firebase -->
   <section id="hero">
     <div class="container">
       <div class="hero-content fade-up visible">
-        <div class="badge"><span></span> Innovation in Mokopane</div>
-        <h1>Architecting <span class="text-accent">Digital</span> Futures</h1>
-        <p>From high-performance custom <strong>Software Development</strong> to premium Enterprise Hardware. We engineer the technology that scales your business.</p>
+        <div class="badge" id="heroBadge"><span></span>Loading...</div>
+        <h1 id="heroTitle">Loading...</h1>
+        <p id="heroDesc">Loading content from admin panel...</p>
         <div class="hero-btns">
-          <a href="#contact" class="btn-primary">Start a Project <i class="fas fa-arrow-right"></i></a>
-          <a href="#shop-teaser" class="btn-secondary">Explore Hardware</a>
+          <a href="#contact" class="btn-primary" id="heroBtn1">Loading...</a>
+          <a href="#shop-teaser" class="btn-secondary" id="heroBtn2">Loading...</a>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- SERVICES SECTION - Dynamic from Firebase -->
   <section id="services">
     <div class="container">
       <h2 class="fade-up">Enterprise-Grade Solutions</h2>
       <p class="section-subtitle fade-up">End-to-end technology services designed for scale, security, and exceptional performance.</p>
       
-      <div class="services-bento">
-        <div class="bento-card fade-up">
-          <div class="bento-icon"><i class="fas fa-layer-group"></i></div>
-          <h3>Software & App Development</h3>
-          <p>We build mission-critical mobile apps and enterprise software tailored to your workflow. From initial architecture to deployment, our scalable solutions drive unparalleled efficiency.</p>
-          <a href="service.html" class="bento-link">Explore Capabilities <i class="fas fa-chevron-right"></i></a>
-        </div>
-        
-        <div class="bento-card fade-up" style="transition-delay: 0.1s;">
-          <div class="bento-icon"><i class="fas fa-shield-halved"></i></div>
-          <h3>Cybersecurity</h3>
-          <p>Protecting your infrastructure with 24/7 monitoring, zero-trust architecture, and compliance audits.</p>
-          <a href="service.html" class="bento-link">Secure Your Data <i class="fas fa-chevron-right"></i></a>
-        </div>
-        
-        <div class="bento-card fade-up" style="transition-delay: 0.2s;">
-          <div class="bento-icon"><i class="fas fa-cloud-bolt"></i></div>
-          <h3>Cloud Infrastructure</h3>
-          <p>Seamless AWS, Azure, and Google Cloud migrations with optimized managed hosting.</p>
-          <a href="service.html" class="bento-link">Scale the Cloud <i class="fas fa-chevron-right"></i></a>
-        </div>
-        
-        <div class="bento-card fade-up" style="transition-delay: 0.3s;">
-          <div class="bento-icon"><i class="fas fa-code"></i></div>
-          <h3>Modern Web Experiences</h3>
-          <p>High-conversion e-commerce and corporate platforms built on modern, lightning-fast tech stacks. Integrated SEO, accessibility, and responsive design come standard.</p>
-          <a href="service.html" class="bento-link">View Web Solutions <i class="fas fa-chevron-right"></i></a>
-        </div>
+      <div class="services-bento" id="servicesContainer">
+        <!-- Services injected here by Firebase -->
       </div>
     </div>
   </section>
 
+  <!-- SHOP SECTION - Dynamic from Firebase -->
   <section id="shop-teaser">
     <div class="container">
       <h2 class="fade-up">Premium Hardware Shop</h2>
       <p class="section-subtitle fade-up">Equip your workforce with industry-leading technology, sourced directly for enterprise reliability.</p>
       
-      <div class="products-grid">
-        <div class="product-card fade-up" onclick="window.location.href='shop.html'">
-          <div class="product-image">
-            <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800" alt="Laptops">
-          </div>
-          <div class="product-info">
-            <h3>Pro Workstations</h3>
-            <p>Laptops & PCs for creators.</p>
-          </div>
-        </div>
-        
-        <div class="product-card fade-up" style="transition-delay: 0.1s;" onclick="window.location.href='shop.html'">
-          <div class="product-image">
-            <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&q=80&w=800" alt="Monitors">
-          </div>
-          <div class="product-info">
-            <h3>Ultra-Wide Displays</h3>
-            <p>4K clarity for productivity.</p>
-          </div>
-        </div>
-        
-        <div class="product-card fade-up" style="transition-delay: 0.2s;" onclick="window.location.href='shop.html'">
-          <div class="product-image">
-            <img src="https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&q=80&w=800" alt="Storage">
-          </div>
-          <div class="product-info">
-            <h3>Enterprise Storage</h3>
-            <p>NVMe SSDs & RAID solutions.</p>
-          </div>
-        </div>
-        
-        <div class="product-card fade-up" style="transition-delay: 0.3s;" onclick="window.location.href='shop.html'">
-          <div class="product-image">
-            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=800" alt="Networking">
-          </div>
-          <div class="product-info">
-            <h3>Networking Gear</h3>
-            <p>Switches & Mesh WiFi systems.</p>
-          </div>
-        </div>
+      <div class="products-grid" id="shopContainer">
+        <!-- Products injected here by Firebase -->
       </div>
     </div>
   </section>
 
+  <!-- STATS SECTION - Dynamic from Firebase -->
   <section id="stats">
     <div class="container">
-      <div class="stats-flex">
-        <div class="stat-item fade-up">
-          <div class="stat-number" data-target="98">0</div>
-          <div class="stat-label">Client Retention</div>
-        </div>
-        <div class="stat-item fade-up" style="transition-delay: 0.1s;">
-          <div class="stat-number" data-target="350">0</div>
-          <div class="stat-label">Enterprise Clients</div>
-        </div>
-        <div class="stat-item fade-up" style="transition-delay: 0.2s;">
-          <div class="stat-number" data-target="24">0</div>
-          <div class="stat-label">Hour Support</div>
-        </div>
+      <div class="stats-flex" id="statsContainer">
+        <!-- Stats injected here by Firebase -->
       </div>
     </div>
   </section>
 
+  <!-- CONTACT SECTION -->
   <section id="contact">
     <div class="container fade-up">
       <h2>Ready to Transform Your Business?</h2>
       <p>Whether you need a custom software solution or a complete hardware upgrade, we're here to help.</p>
-      <a href="mailto:info@mtechsolutions.com" class="btn-dark">
+      <a href="mailto:info@mtechsolutions.com" class="btn-dark" id="contactBtn">
         Contact Our Team <i class="fas fa-arrow-right"></i>
       </a>
     </div>
   </section>
 
+  <!-- FOOTER SECTION - Dynamic from Firebase -->
   <footer>
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand fade-up">
           <img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png" alt="MTech Solutions">
-          <p>Premium IT services, custom software development, and tech hardware solutions based in Mokopane, Limpopo. Building the future of technology in South Africa.</p>
-          <div class="social-links">
-            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <p id="footerAbout">Loading...</p>
+          <div class="social-links" id="socialLinks">
+            <!-- Social links injected here -->
           </div>
         </div>
         
@@ -442,9 +383,10 @@
         <div class="footer-column fade-up" style="transition-delay: 0.3s;">
           <h4>Contact Us</h4>
           <div class="footer-contact">
-            <p><i class="fas fa-map-marker-alt"></i> <span>Mokopane, Limpopo,<br>South Africa</span></p>
-            <p><i class="fas fa-phone"></i> <span>+27 (0) 15 123 4567</span></p>
-            <p><i class="fas fa-envelope"></i> <span>info@mtechsolutions.com</span></p>
+            <p><i class="fas fa-map-marker-alt"></i> <span id="footerAddress">Loading...</span></p>
+            <p><i class="fas fa-phone"></i> <span id="footerPhone">Loading...</span></p>
+            <p><i class="fas fa-envelope"></i> <span id="footerEmail">Loading...</span></p>
+            <p><i class="fas fa-clock"></i> <span id="footerHours">Loading...</span></p>
           </div>
           
           <div style="margin-top: 2rem;">
@@ -458,7 +400,7 @@
       </div>
       
       <div class="footer-bottom">
-        <p>&copy; 2026 MTech Solutions. All rights reserved. South Africa.</p>
+        <p id="footerCopyright">Loading...</p>
         <div class="footer-bottom-links">
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Service</a>
@@ -496,7 +438,6 @@
           if (entry.target.id === 'stats') {
              const nums = entry.target.querySelectorAll('.stat-number');
              nums.forEach(animateStat);
-             // Unobserve stats after triggering once
              observer.unobserve(entry.target); 
           }
         }
@@ -511,13 +452,13 @@
       
       const target = +el.getAttribute('data-target');
       let count = 0;
-      const duration = 2000; // 2 seconds
+      const duration = 2000;
       const stepTime = Math.abs(Math.floor(duration / target));
       
       const interval = setInterval(() => {
         count += 1;
         if (count >= target) {
-          el.innerText = target + (target === 98 ? '%' : '+');
+          el.innerText = target + (el.getAttribute('data-suffix') || '');
           clearInterval(interval);
         } else {
           el.innerText = count;
@@ -526,7 +467,6 @@
     }
 
     // ================ FIREBASE REALTIME DATABASE INTEGRATION ================
-    // Your exact logic, untouched but attached to the newly styled form
     const firebaseConfig = {
       apiKey: "AIzaSyAxBT0oESoL62oz_x_Z8cMtdENWZPx4tMI",
       authDomain: "pinotp-d7ef5.firebaseapp.com",
@@ -541,25 +481,174 @@
       firebase.initializeApp(firebaseConfig);
     }
     const db = firebase.database();
-    
+
+    // Helper function to parse [blue]text[/blue] to styled spans
+    function parseStyledText(text) {
+      if (!text) return '';
+      return text.replace(/\[blue\](.*?)\[\/blue\]/g, '<span class="text-accent">$1</span>');
+    }
+
+    // Load Website Content from Firebase
+    function loadWebsiteContent() {
+      db.ref('websiteContent').once('value').then(snapshot => {
+        const data = snapshot.val();
+        if (!data) {
+          console.log('No data found in Firebase, using defaults');
+          return;
+        }
+
+        // --- HERO SECTION ---
+        if (data.hero) {
+          const hero = data.hero;
+          document.getElementById('heroBadge').innerHTML = `<span></span> ${hero.badge || 'Innovation in Mokopane'}`;
+          document.getElementById('heroTitle').innerHTML = parseStyledText(hero.title) || 'Architecting <span class="text-accent">Digital</span> Futures';
+          document.getElementById('heroDesc').textContent = hero.desc || 'From high-performance custom Software Development to premium Enterprise Hardware.';
+          document.getElementById('heroBtn1').innerHTML = `${hero.btn1 || 'Start a Project'} <i class="fas fa-arrow-right"></i>`;
+          document.getElementById('heroBtn2').textContent = hero.btn2 || 'Explore Hardware';
+          
+          // Set background image if exists
+          if (hero.background) {
+            document.getElementById('hero').style.backgroundImage = `linear-gradient(rgba(2,6,23,0.8), rgba(2,6,23,0.8)), url(${hero.background})`;
+          }
+        }
+
+        // --- SERVICES SECTION ---
+        if (data.services && Array.isArray(data.services)) {
+          const servicesContainer = document.getElementById('servicesContainer');
+          servicesContainer.innerHTML = '';
+          
+          data.services.forEach((service, index) => {
+            const delay = index * 0.1;
+            const iconClass = service.icon || 'fa-code';
+            const card = document.createElement('div');
+            card.className = 'bento-card fade-up';
+            card.style.transitionDelay = `${delay}s`;
+            
+            // Determine grid span based on index (matching your CSS)
+            if (index === 0) card.style.gridColumn = 'span 8';
+            else if (index === 1) card.style.gridColumn = 'span 4';
+            else if (index === 2) card.style.gridColumn = 'span 4';
+            else if (index === 3) card.style.gridColumn = 'span 8';
+            
+            card.innerHTML = `
+              <div class="bento-icon"><i class="fas ${iconClass}"></i></div>
+              <h3>${service.title || 'Service Title'}</h3>
+              <p>${service.desc || 'Service description goes here.'}</p>
+              <a href="service.html" class="bento-link">${service.link || 'Learn More'} <i class="fas fa-chevron-right"></i></a>
+            `;
+            servicesContainer.appendChild(card);
+          });
+        }
+
+        // --- SHOP SECTION ---
+        if (data.shop && Array.isArray(data.shop)) {
+          const shopContainer = document.getElementById('shopContainer');
+          shopContainer.innerHTML = '';
+          
+          data.shop.forEach((product, index) => {
+            const delay = index * 0.1;
+            const card = document.createElement('div');
+            card.className = 'product-card fade-up';
+            card.style.transitionDelay = `${delay}s`;
+            card.onclick = () => window.location.href = 'shop.html';
+            
+            card.innerHTML = `
+              <div class="product-image">
+                <img src="${product.image || 'https://via.placeholder.com/400'}" alt="${product.title || 'Product'}">
+              </div>
+              <div class="product-info">
+                <h3>${product.title || 'Product Name'}</h3>
+                <p>${product.desc || 'Product description'}</p>
+              </div>
+            `;
+            shopContainer.appendChild(card);
+          });
+        }
+
+        // --- STATS SECTION ---
+        if (data.stats && Array.isArray(data.stats)) {
+          const statsContainer = document.getElementById('statsContainer');
+          statsContainer.innerHTML = '';
+          
+          data.stats.forEach((stat, index) => {
+            const delay = index * 0.1;
+            const item = document.createElement('div');
+            item.className = 'stat-item fade-up';
+            item.style.transitionDelay = `${delay}s`;
+            
+            const suffix = stat.suffix || (index === 0 ? '%' : '+');
+            const value = stat.num || '0';
+            
+            item.innerHTML = `
+              <div class="stat-number" data-target="${value}" data-suffix="${suffix}">0</div>
+              <div class="stat-label">${stat.label || 'Stat Label'}</div>
+            `;
+            statsContainer.appendChild(item);
+          });
+          
+          // Re-observe stats for animation
+          observer.observe(document.getElementById('stats'));
+        }
+
+        // --- FOOTER SECTION ---
+        if (data.footer) {
+          const f = data.footer;
+          document.getElementById('footerAbout').textContent = f.about || 'Premium IT services and tech solutions.';
+          document.getElementById('footerAddress').innerHTML = f.address || 'Mokopane, Limpopo,<br>South Africa';
+          document.getElementById('footerPhone').textContent = f.phone || '+27 (0) 15 123 4567';
+          document.getElementById('footerEmail').textContent = f.email || 'info@mtechsolutions.com';
+          document.getElementById('footerHours').textContent = f.hours || 'Mon - Fri: 08:00 - 17:00';
+          document.getElementById('footerCopyright').textContent = f.copyright || '© 2026 MTech Solutions. All rights reserved.';
+          
+          // Social Links
+          const socialContainer = document.getElementById('socialLinks');
+          socialContainer.innerHTML = '';
+          
+          const socials = [
+            { url: f.socialFb, icon: 'fa-facebook-f', label: 'Facebook' },
+            { url: f.socialTw, icon: 'fa-twitter', label: 'Twitter' },
+            { url: f.socialLi, icon: 'fa-linkedin-in', label: 'LinkedIn' },
+            { url: f.socialIg, icon: 'fa-instagram', label: 'Instagram' }
+          ];
+          
+          socials.forEach(social => {
+            if (social.url) {
+              const link = document.createElement('a');
+              link.href = social.url;
+              link.setAttribute('aria-label', social.label);
+              link.target = '_blank';
+              link.innerHTML = `<i class="fab ${social.icon}"></i>`;
+              socialContainer.appendChild(link);
+            }
+          });
+        }
+
+        // Re-trigger fade-up animations for new elements
+        document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
+        
+      }).catch(error => {
+        console.error('Error loading Firebase data:', error);
+      });
+    }
+
+    // Load content when page loads
+    document.addEventListener('DOMContentLoaded', loadWebsiteContent);
+
+    // Newsletter Form Handler
     const newsletterForm = document.querySelector('.newsletter-form');
     if (newsletterForm) {
       newsletterForm.addEventListener('submit', function(e) {
         e.preventDefault();
-    
         const emailInput = this.querySelector('input[type="email"]');
         const email = emailInput.value.trim();
         const btn = this.querySelector('button');
-    
         if (!email) return;
         
-        // UX improvement: loading state
         const originalText = btn.innerText;
         btn.innerText = 'Sending...';
         btn.disabled = true;
 
         const newSubscriberRef = db.ref('mtech_newsletter_signups').push();
-    
         newSubscriberRef.set({
           email: email,
           subscribedAt: firebase.database.ServerValue.TIMESTAMP,
@@ -567,7 +656,7 @@
         })
         .then(() => {
           btn.innerText = 'Subscribed!';
-          btn.style.background = '#10b981'; // Success Green
+          btn.style.background = '#10b981';
           emailInput.value = '';
           setTimeout(() => {
             btn.innerText = originalText;
