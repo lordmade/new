@@ -10,7 +10,6 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
- 
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
   <style>
@@ -32,7 +31,6 @@
     body { font-family: 'Inter', sans-serif; background: var(--light-2); color: var(--dark); line-height: 1.6; overflow-x: hidden; }
     .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
     a { text-decoration: none; color: inherit; }
-
     /* ── Header ── */
     header {
       position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1000;
@@ -50,7 +48,6 @@
     .nav-cta .btn { background: var(--primary); color: white; padding: 0.6rem 1.4rem; border-radius: 999px; font-weight: 700; transition: 0.3s; }
     .nav-cta .btn:hover { background: var(--primary-dark); transform: scale(1.05); }
     .hamburger { display: none; cursor: pointer; font-size: 1.4rem; }
-
     /* ── Mobile Menu (Fixed 404/Missing UI) ── */
     .mobile-menu {
       position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
@@ -60,7 +57,6 @@
     .mobile-menu.active { right: 0; }
     .mobile-menu a { color: white; font-size: 1.8rem; font-weight: 700; font-family: 'Manrope'; }
     #closeMenu { color: white; cursor: pointer; }
-
     /* ── Hero ── */
     #hero {
       position: relative; min-height: 60svh; display: flex; align-items: center; justify-content: center;
@@ -76,16 +72,17 @@
     .badge { display: inline-block; padding: 0.5rem 1.2rem; background: rgba(0,102,255,0.15); border: 1px solid rgba(0,102,255,0.4); color: #60a5fa; border-radius: 999px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.5rem; letter-spacing: 1px; }
     .hero-content h1 { font-family: 'Manrope'; font-size: clamp(2.4rem, 7vw, 4.6rem); font-weight: 800; line-height: 1.1; color: white; margin-bottom: 1.5rem; }
     .text-gradient { background: linear-gradient(135deg, #60a5fa, #0066ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    
+   
     /* ── Main content ── */
     section { padding: 100px 0; }
     h2 { font-family: 'Manrope'; font-size: clamp(2rem, 5vw, 3.2rem); text-align: center; margin-bottom: 3.5rem; font-weight: 800; }
-    h3 { font-family: 'Manrope'; font-size: 2.1rem; margin-bottom: 1.4rem; color: var(--dark); }
-    
+    h3 { font-family: 'Manrope'; font-size: 1.4rem; margin-bottom: 1rem; color: var(--dark); font-weight: 700; }
+   
+    /* ── Updated service cards (matched to index.html) ── */
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2.2rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
       perspective: 1000px;
     }
     .service-card {
@@ -103,42 +100,51 @@
     .service-card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       height: 4px;
       background: linear-gradient(90deg, var(--primary), var(--primary-light));
       transform: scaleX(0);
       transition: transform 0.5s ease;
     }
-    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
     .service-icon-wrapper {
       position: relative;
-      padding: 3.5rem 2rem 1.8rem;
-      background: linear-gradient(135deg, rgba(0,102,255,0.04) 0%, rgba(0,102,255,0.09) 100%);
+      padding: 3rem 2rem 1.5rem;
+      background: linear-gradient(135deg, rgba(0,102,255,0.03) 0%, rgba(0,102,255,0.08) 100%);
       overflow: hidden;
     }
     .service-icon-wrapper::after {
       content: '';
       position: absolute;
-      top: -50%; right: -50%;
-      width: 200%; height: 200%;
-      background: radial-gradient(circle, rgba(0,102,255,0.12) 0%, transparent 65%);
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(0,102,255,0.1) 0%, transparent 70%);
       opacity: 0;
       transition: opacity 0.5s ease;
     }
-    .service-card:hover .service-icon-wrapper::after { opacity: 1; }
+    .service-card:hover .service-icon-wrapper::after {
+      opacity: 1;
+    }
     .service-card i {
-      font-size: 3.2rem;
+      font-size: 2.8rem;
       color: var(--primary);
       position: relative;
       z-index: 2;
       transition: all 0.4s ease;
+      display: inline-block;
     }
     .service-card:hover i {
-      transform: scale(1.15) rotate(-6deg);
+      transform: scale(1.1) rotate(-5deg);
       color: var(--primary-dark);
     }
     .service-content {
-      padding: 1.8rem 2.2rem 3rem;
+      padding: 1.5rem 2rem 3rem;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -146,7 +152,7 @@
     .service-content p {
       color: var(--gray);
       line-height: 1.7;
-      margin-bottom: 1.8rem;
+      margin-bottom: 1.5rem;
       flex: 1;
     }
     .service-features {
@@ -166,12 +172,30 @@
       left: 0;
       font-weight: bold;
     }
-    .service-card:hover {
-      transform: translateY(-14px) rotateX(3deg);
-      border-color: var(--primary);
-      box-shadow: var(--shadow-glow), 0 35px 70px rgba(0,102,255,0.14);
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: gap 0.3s ease;
     }
-
+    .service-link i {
+      font-size: 0.9rem;
+      transition: transform 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-12px) rotateX(2deg);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-glow), 0 30px 60px rgba(0,102,255,0.12);
+    }
+    .service-card:hover .service-link {
+      gap: 0.8rem;
+    }
+    .service-card:hover .service-link i {
+      transform: translateX(4px);
+    }
     /* ── CTA Styling ── */
     .btn-primary {
       background: var(--primary);
@@ -188,7 +212,6 @@
       transform: translateY(-3px);
       box-shadow: 0 10px 20px rgba(0,102,255,0.2);
     }
-
     /* ── Footer ── */
     footer {
       background: var(--dark);
@@ -199,8 +222,7 @@
     }
     footer::before {
       content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
+      position: absolute; top: 0; left: 0; right: 0;
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(0,102,255,0.5), transparent);
     }
@@ -274,10 +296,9 @@
     .footer-bottom-links { display: flex; gap: 2rem; }
     .footer-bottom-links a { color: #64748b; font-size: 0.9rem; transition: color 0.3s ease; }
     .footer-bottom-links a:hover { color: white; }
-    
+   
     .fade-up { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
-
     @media (max-width: 1024px) {
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
     }
@@ -313,7 +334,6 @@
       <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
     </nav>
   </header>
-
   <div class="mobile-menu" id="mobileMenu">
     <div id="closeMenu" style="position:absolute; top:30px; right:30px; font-size:2rem;"><i class="fas fa-times"></i></div>
     <a href="index.html">Home</a>
@@ -321,7 +341,6 @@
     <a href="index.html#shop-teaser">Hardware</a>
     <a href="index.html#contact">Contact</a>
   </div>
-
   <section id="hero">
     <div class="hero-overlay"></div>
     <div class="container">
@@ -334,11 +353,10 @@
       </div>
     </div>
   </section>
-
   <section id="services-detail" style="background: white;">
     <div class="container">
       <div class="services-grid">
-        <div class="service-card fade-up">
+        <a href="#" class="service-card fade-up">
           <div class="service-icon-wrapper">
             <i class="fas fa-code"></i>
           </div>
@@ -352,10 +370,11 @@
               <li>Inventory & CRM custom solutions</li>
               <li>API integrations & automation</li>
             </ul>
-            <span class="service-link" style="color:var(--primary); font-weight:600;">Ready to build? <i class="fas fa-arrow-right"></i></span>
+            <span class="service-link">Ready to build? <i class="fas fa-arrow-right"></i></span>
           </div>
-        </div>
-        <div class="service-card fade-up">
+        </a>
+
+        <a href="#" class="service-card fade-up">
           <div class="service-icon-wrapper">
             <i class="fas fa-globe"></i>
           </div>
@@ -369,10 +388,11 @@
               <li>E-commerce (WooCommerce / Shopify / Custom)</li>
               <li>SEO optimization & performance tuning</li>
             </ul>
-            <span class="service-link" style="color:var(--primary); font-weight:600;">Launch your site <i class="fas fa-arrow-right"></i></span>
+            <span class="service-link">Launch your site <i class="fas fa-arrow-right"></i></span>
           </div>
-        </div>
-        <div class="service-card fade-up">
+        </a>
+
+        <a href="#" class="service-card fade-up">
           <div class="service-icon-wrapper">
             <i class="fas fa-shield-alt"></i>
           </div>
@@ -386,10 +406,11 @@
               <li>Compliance (POPIA, GDPR readiness)</li>
               <li>Incident response planning</li>
             </ul>
-            <span class="service-link" style="color:var(--primary); font-weight:600;">Secure your business <i class="fas fa-arrow-right"></i></span>
+            <span class="service-link">Secure your business <i class="fas fa-arrow-right"></i></span>
           </div>
-        </div>
-        <div class="service-card fade-up">
+        </a>
+
+        <a href="#" class="service-card fade-up">
           <div class="service-icon-wrapper">
             <i class="fas fa-cloud"></i>
           </div>
@@ -403,13 +424,12 @@
               <li>Backup, disaster recovery & redundancy</li>
               <li>Cost optimization & monitoring</li>
             </ul>
-            <span class="service-link" style="color:var(--primary); font-weight:600;">Move to the cloud <i class="fas fa-arrow-right"></i></span>
+            <span class="service-link">Move to the cloud <i class="fas fa-arrow-right"></i></span>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </section>
-
   <section id="contact-cta" style="background: white; text-align: center; padding: 140px 0 120px;">
     <div class="container">
       <h2 style="margin-bottom: 1.8rem;">Ready to Transform Your Technology?</h2>
@@ -419,7 +439,6 @@
       </a>
     </div>
   </section>
-
   <footer>
     <div class="container">
       <div class="footer-grid">
@@ -463,25 +482,22 @@
       </div>
     </div>
   </footer>
-
   <script>
     // Header stuck effect
     const header = document.getElementById('header');
     window.onscroll = () => header.classList.toggle('stuck', window.scrollY > 50);
-
     // Mobile menu logic
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const closeMenu = document.getElementById('closeMenu');
-    
+   
     hamburger.onclick = () => mobileMenu.classList.add('active');
     closeMenu.onclick = () => mobileMenu.classList.remove('active');
-    
+   
     // Close mobile menu when clicking a link
     document.querySelectorAll('.mobile-menu a').forEach(link => {
         link.onclick = () => mobileMenu.classList.remove('active');
     });
-
     // Fade-up animations
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -491,7 +507,6 @@
       });
     }, { threshold: 0.15 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
     // Firebase (Keep config)
     const firebaseConfig = {
       apiKey: "AIzaSyAxBT0oESoL62oz_x_Z8cMtdENWZPx4tMI",
