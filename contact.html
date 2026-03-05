@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
   <title>Contact Us | MTech Solutions</title>
   <meta name="description" content="Get in touch with MTech Solutions for IT services, software development, and hardware solutions in Mokopane, Limpopo.">
-  
+ 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-  
+ 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  
+ 
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-  
+ 
   <style>
     :root {
       --primary: #0404d8;
@@ -30,34 +30,32 @@
       --border-dark: rgba(255, 255, 255, 0.1);
       --green: #10b981;
       --red: #ef4444;
-      
+     
       --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
       --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
       --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
       --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      
+     
       --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { 
-      font-family: 'Inter', sans-serif; 
-      background: var(--bg-light); 
-      color: var(--text-main); 
-      line-height: 1.6; 
-      overflow-x: hidden; 
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
     img { max-width: 100%; height: auto; display: block; }
-    
+   
     .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-
     h1, h2, h3, h4 { font-family: 'Manrope', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
-    
+   
     /* --- Navbar --- */
     header {
       position: fixed; top: 24px; left: 50%; transform: translateX(-50%); z-index: 1000;
@@ -87,7 +85,6 @@
     .nav-cta .btn:hover::before { opacity: 1; }
     .nav-cta .btn span { position: relative; z-index: 1; }
     .hamburger { display: none; cursor: pointer; font-size: 1.5rem; color: var(--text-main); }
-
     /* --- Page Header --- */
     .page-header {
       padding: 180px 0 100px;
@@ -98,13 +95,13 @@
     }
     .page-header::before {
       content: ''; position: absolute; inset: 0;
-      background: 
+      background:
         radial-gradient(circle at 20% 50%, rgba(4, 4, 216, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 50%, rgba(2, 0, 132, 0.1) 0%, transparent 50%);
     }
     .page-header::after {
       content: ''; position: absolute; inset: 0;
-      background-image: 
+      background-image:
         linear-gradient(var(--border-dark) 1px, transparent 1px),
         linear-gradient(90deg, var(--border-dark) 1px, transparent 1px);
       background-size: 60px 60px;
@@ -126,37 +123,35 @@
       margin: 0 auto;
       font-weight: 400;
     }
-
     /* --- Contact Section --- */
     .contact-section {
       padding: 80px 0;
     }
-    
+   
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1.5fr;
       gap: 4rem;
       align-items: start;
     }
-
     /* --- Contact Info Cards --- */
     .contact-info h2 {
       font-size: 2rem;
       margin-bottom: 1rem;
     }
-    
+   
     .contact-info > p {
       color: var(--text-muted);
       margin-bottom: 2rem;
       line-height: 1.8;
     }
-    
+   
     .info-cards {
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
     }
-    
+   
     .info-card {
       display: flex;
       align-items: flex-start;
@@ -167,13 +162,13 @@
       border: 1px solid var(--border);
       transition: var(--transition);
     }
-    
+   
     .info-card:hover {
       transform: translateX(10px);
       border-color: var(--primary);
       box-shadow: var(--shadow-md);
     }
-    
+   
     .info-icon {
       width: 50px;
       height: 50px;
@@ -186,44 +181,43 @@
       font-size: 1.25rem;
       flex-shrink: 0;
     }
-    
+   
     .info-card:hover .info-icon {
       background: var(--primary);
       color: white;
     }
-    
+   
     .info-content h4 {
       font-size: 1rem;
       margin-bottom: 0.25rem;
       color: var(--text-main);
     }
-    
+   
     .info-content p, .info-content a {
       color: var(--text-muted);
       font-size: 0.95rem;
       transition: color 0.3s;
     }
-    
+   
     .info-content a:hover {
       color: var(--primary);
     }
-
     /* --- Social Links --- */
     .social-section {
       margin-top: 2rem;
     }
-    
+   
     .social-section h4 {
       font-size: 1rem;
       margin-bottom: 1rem;
       color: var(--text-muted);
     }
-    
+   
     .social-links {
       display: flex;
       gap: 1rem;
     }
-    
+   
     .social-link {
       width: 45px;
       height: 45px;
@@ -237,7 +231,7 @@
       font-size: 1.1rem;
       transition: var(--transition);
     }
-    
+   
     .social-link:hover {
       background: var(--primary);
       color: white;
@@ -245,7 +239,6 @@
       transform: translateY(-5px);
       box-shadow: 0 10px 20px rgba(4, 4, 216, 0.3);
     }
-
     /* --- Contact Form --- */
     .form-container {
       background: var(--bg-white);
@@ -254,27 +247,27 @@
       border: 1px solid var(--border);
       box-shadow: var(--shadow-xl);
     }
-    
+   
     .form-container h2 {
       font-size: 1.75rem;
       margin-bottom: 0.5rem;
     }
-    
+   
     .form-container > p {
       color: var(--text-muted);
       margin-bottom: 2rem;
     }
-    
+   
     .form-group {
       margin-bottom: 1.5rem;
     }
-    
+   
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
     }
-    
+   
     label {
       display: block;
       font-size: 0.875rem;
@@ -282,11 +275,11 @@
       color: var(--text-main);
       margin-bottom: 0.5rem;
     }
-    
+   
     label span {
       color: var(--red);
     }
-    
+   
     input[type="text"],
     input[type="email"],
     input[type="tel"],
@@ -302,19 +295,19 @@
       font-size: 1rem;
       transition: var(--transition);
     }
-    
+   
     input:focus, select:focus, textarea:focus {
       outline: none;
       border-color: var(--primary);
       background: white;
       box-shadow: 0 0 0 4px rgba(4, 4, 216, 0.1);
     }
-    
+   
     textarea {
       resize: vertical;
       min-height: 140px;
     }
-    
+   
     select {
       cursor: pointer;
       appearance: none;
@@ -323,7 +316,7 @@
       background-position: right 1rem center;
       padding-right: 3rem;
     }
-    
+   
     .submit-btn {
       display: inline-flex;
       align-items: center;
@@ -342,33 +335,33 @@
       position: relative;
       overflow: hidden;
     }
-    
+   
     .submit-btn::before {
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(135deg, var(--primary), var(--primary-hover));
       opacity: 0; transition: opacity 0.3s;
     }
-    
+   
     .submit-btn:hover {
       background: var(--primary-hover);
       transform: translateY(-2px);
       box-shadow: 0 10px 30px rgba(4, 4, 216, 0.3);
     }
-    
+   
     .submit-btn:hover::before {
       opacity: 1;
     }
-    
+   
     .submit-btn:disabled {
       opacity: 0.7;
       cursor: not-allowed;
       transform: none;
     }
-    
+   
     .submit-btn.loading {
       color: transparent;
     }
-    
+   
     .submit-btn.loading::after {
       content: '';
       position: absolute;
@@ -379,20 +372,19 @@
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
-    
+   
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-    
+   
     .submit-btn.success {
       background: var(--green);
     }
-
     /* --- Map Section --- */
     .map-section {
       padding: 0 0 80px;
     }
-    
+   
     .map-container {
       border-radius: 24px;
       overflow: hidden;
@@ -402,7 +394,7 @@
       background: var(--bg-light);
       position: relative;
     }
-    
+   
     .map-placeholder {
       width: 100%;
       height: 100%;
@@ -412,14 +404,14 @@
       justify-content: center;
       color: var(--text-muted);
     }
-    
+   
     .map-placeholder i {
       font-size: 3rem;
       margin-bottom: 1rem;
       color: var(--primary);
       opacity: 0.5;
     }
-    
+   
     .map-link {
       display: inline-flex;
       align-items: center;
@@ -432,12 +424,11 @@
       font-weight: 600;
       transition: var(--transition);
     }
-    
+   
     .map-link:hover {
       transform: translateY(-2px);
       box-shadow: 0 10px 20px rgba(4, 4, 216, 0.3);
     }
-
     /* --- Toast Notification --- */
     .toast {
       position: fixed;
@@ -456,19 +447,19 @@
       z-index: 9999;
       max-width: 400px;
     }
-    
+   
     .toast.show {
       transform: translateX(0);
     }
-    
+   
     .toast.success {
       border-left: 4px solid var(--green);
     }
-    
+   
     .toast.error {
       border-left: 4px solid var(--red);
     }
-    
+   
     .toast-icon {
       width: 40px;
       height: 40px;
@@ -479,27 +470,26 @@
       font-size: 1rem;
       flex-shrink: 0;
     }
-    
+   
     .toast.success .toast-icon {
       background: rgba(16, 185, 129, 0.1);
       color: var(--green);
     }
-    
+   
     .toast.error .toast-icon {
       background: rgba(239, 68, 68, 0.1);
       color: var(--red);
     }
-    
+   
     .toast-content h4 {
       font-size: 1rem;
       margin-bottom: 0.25rem;
     }
-    
+   
     .toast-content p {
       font-size: 0.875rem;
       color: var(--text-muted);
     }
-
     /* --- Mobile Menu --- */
     .mobile-menu {
       position: fixed; inset: 0; background: var(--bg-white); z-index: 2000;
@@ -508,7 +498,6 @@
     }
     .mobile-menu.active { transform: translateX(0); }
     .mobile-menu a { font-size: 2rem; font-family: 'Manrope'; font-weight: 700; color: var(--text-main); }
-
     /* --- Footer --- */
     footer {
       background: var(--dark-surface);
@@ -517,9 +506,8 @@
       text-align: center;
       border-top: 1px solid var(--border-dark);
     }
-    
+   
     footer p { font-size: 0.9rem; }
-
     /* --- Responsive --- */
     @media (max-width: 1024px) {
       .contact-grid {
@@ -531,7 +519,7 @@
         grid-template-columns: repeat(2, 1fr);
       }
     }
-    
+   
     @media (max-width: 768px) {
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: block; }
@@ -550,47 +538,44 @@
   </style>
 </head>
 <body>
-
   <header id="header">
     <nav>
       <a href="index.html" class="logo">
         <img src="https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png" alt="MTech Solutions">
       </a>
-      <div class="nav-links"> 
+      <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="service.html">Services</a>
         <a href="gallery.html">Gallery</a>
         <a href="contact.html">Contact</a>
       </div>
       <div class="nav-cta">
-        <a href="contact.html" class="btn"><span>Shop Now</span></a>
+        <a href="shop.html" class="btn"><span>Shop Now</span></a>
       </div>
       <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
     </nav>
   </header>
-
   <div class="mobile-menu" id="mobileMenu">
     <a href="index.html">Home</a>
     <a href="service.html">Services</a>
     <a href="gallery.html">Gallery</a>
     <a href="contact.html">Contact</a>
+    <a href="shop.html" style="color: var(--primary);">Shop Now</a>
     <div id="closeMenu" style="position:absolute; top:30px; right:30px; font-size:2rem; cursor:pointer;"><i class="fas fa-times"></i></div>
   </div>
-
   <section class="page-header">
     <div class="container">
       <h1>Get In Touch</h1>
       <p>Ready to transform your business with technology? Let's discuss how we can help you achieve your goals.</p>
     </div>
   </section>
-
   <section class="contact-section">
     <div class="container">
       <div class="contact-grid">
         <div class="contact-info">
           <h2>Contact Information</h2>
           <p>Fill out the form and our team will get back to you within 24 hours. For urgent inquiries, please call us directly.</p>
-          
+         
           <div class="info-cards" id="infoCards">
             <div class="info-card">
               <div class="info-icon"><i class="fas fa-spinner fa-spin"></i></div>
@@ -600,17 +585,16 @@
               </div>
             </div>
           </div>
-          
+         
           <div class="social-section" id="socialSection" style="display: none;">
             <h4>Follow Us</h4>
             <div class="social-links" id="socialLinks"></div>
           </div>
         </div>
-
         <div class="form-container">
           <h2>Send us a Message</h2>
           <p>Tell us about your project and we'll get back to you shortly.</p>
-          
+         
           <form id="contactForm">
             <div class="form-row">
               <div class="form-group">
@@ -622,7 +606,7 @@
                 <input type="text" name="lastName" required placeholder="Doe">
               </div>
             </div>
-            
+           
             <div class="form-row">
               <div class="form-group">
                 <label>Email <span>*</span></label>
@@ -633,7 +617,7 @@
                 <input type="tel" name="phone" placeholder="+27 12 345 6789">
               </div>
             </div>
-            
+           
             <div class="form-group">
               <label>Service Interest <span>*</span></label>
               <select name="service" required>
@@ -648,12 +632,12 @@
                 <option value="other">Other</option>
               </select>
             </div>
-            
+           
             <div class="form-group">
               <label>Message <span>*</span></label>
               <textarea name="message" required placeholder="Tell us about your project, timeline, and any specific requirements..."></textarea>
             </div>
-            
+           
             <button type="submit" class="submit-btn" id="submitBtn">
               <span>Send Message</span>
               <i class="fas fa-paper-plane"></i>
@@ -663,7 +647,6 @@
       </div>
     </div>
   </section>
-
   <section class="map-section">
     <div class="container">
       <div class="map-container" id="mapContainer">
@@ -679,7 +662,6 @@
       </div>
     </div>
   </section>
-
   <div class="toast" id="toast">
     <div class="toast-icon"><i class="fas fa-check"></i></div>
     <div class="toast-content">
@@ -687,29 +669,25 @@
       <p>Your message has been sent.</p>
     </div>
   </div>
-
   <footer>
     <div class="container">
       <p id="footerText">© 2026 MTech Solutions. All rights reserved.</p>
     </div>
   </footer>
-
   <script>
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
       header.classList.toggle('stuck', window.scrollY > 50);
     });
-
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const closeMenu = document.getElementById('closeMenu');
-    
+   
     hamburger.onclick = () => mobileMenu.classList.add('active');
     closeMenu.onclick = () => mobileMenu.classList.remove('active');
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.onclick = () => mobileMenu.classList.remove('active');
     });
-
     const firebaseConfig = {
       apiKey: "AIzaSyAxBT0oESoL62oz_x_Z8cMtdENWZPx4tMI",
       authDomain: "pinotp-d7ef5.firebaseapp.com",
@@ -719,34 +697,30 @@
       messagingSenderId: "708458917827",
       appId: "1:708458917827:web:375de278577df0adcf9776"
     };
-    
+   
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
     const db = firebase.database();
-
     const contactConfig = {
       address: { icon: 'fa-map-marker-alt', label: 'Address', link: null },
       phone: { icon: 'fa-phone', label: 'Phone', link: 'tel:' },
       email: { icon: 'fa-envelope', label: 'Email', link: 'mailto:' },
       hours: { icon: 'fa-clock', label: 'Business Hours', link: null }
     };
-
     const socialConfig = {
       socialFb: { icon: 'fa-facebook-f', label: 'Facebook', color: '#1877f2' },
       socialTw: { icon: 'fa-twitter', label: 'Twitter', color: '#1da1f2' },
       socialLi: { icon: 'fa-linkedin-in', label: 'LinkedIn', color: '#0077b5' },
       socialIg: { icon: 'fa-instagram', label: 'Instagram', color: '#e4405f' }
     };
-
     function loadContactInfo() {
       db.ref('websiteContent/footer').once('value').then(snapshot => {
         const data = snapshot.val();
         if (!data) { showDefaultContactInfo(); return; }
-
         const infoCards = document.getElementById('infoCards');
         infoCards.innerHTML = '';
-        
+       
         Object.keys(contactConfig).forEach(key => {
           if (data[key]) {
             const config = contactConfig[key];
@@ -754,13 +728,12 @@
             const card = document.createElement('div');
             card.className = 'info-card';
             let contentHtml = `<h4>${config.label}</h4>`;
-            if (config.link) { contentHtml += `<a href="${config.link}${value}">${value}</a>`; } 
+            if (config.link) { contentHtml += `<a href="${config.link}${value}">${value}</a>`; }
             else { contentHtml += `<p>${value.replace(/,/g, '<br>')}</p>`; }
             card.innerHTML = `<div class="info-icon"><i class="fas ${config.icon}"></i></div><div class="info-content">${contentHtml}</div>`;
             infoCards.appendChild(card);
           }
         });
-
         const socialSection = document.getElementById('socialSection');
         const socialLinks = document.getElementById('socialLinks');
         let hasSocial = false;
@@ -777,7 +750,6 @@
           }
         });
         if (hasSocial) socialSection.style.display = 'block';
-
         if (data.address) {
           document.getElementById('mapAddress').textContent = data.address;
           document.getElementById('mapLink').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.address)}`;
@@ -785,7 +757,6 @@
         if (data.copyright) document.getElementById('footerText').textContent = data.copyright;
       }).catch(error => { showDefaultContactInfo(); });
     }
-
     function showDefaultContactInfo() {
       const defaults = [
         { icon: 'fa-map-marker-alt', label: 'Address', value: 'Mokopane, Limpopo<br>South Africa' },
@@ -807,11 +778,9 @@
       document.getElementById('mapAddress').textContent = 'Mokopane, Limpopo, South Africa';
       document.getElementById('mapLink').href = 'https://www.google.com/maps/search/?api=1&query=Mokopane,+Limpopo,+South+Africa';
     }
-
     const contactForm = document.getElementById('contactForm');
     const submitBtn = document.getElementById('submitBtn');
     const toast = document.getElementById('toast');
-
     function showToast(title, message, type = 'success') {
       const icon = toast.querySelector('.toast-icon i');
       const titleEl = toast.querySelector('h4');
@@ -823,7 +792,6 @@
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 5000);
     }
-
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const formData = new FormData(contactForm);
@@ -860,7 +828,6 @@
         showToast('Error', 'Failed to send message. Please try again.', 'error');
       }
     });
-
     document.addEventListener('DOMContentLoaded', loadContactInfo);
   </script>
 </body>
