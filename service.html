@@ -31,7 +31,8 @@
     body { font-family: 'Inter', sans-serif; background: var(--light-2); color: var(--dark); line-height: 1.6; overflow-x: hidden; }
     .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
     a { text-decoration: none; color: inherit; }
-    /* ── Header ── */
+
+    /* Header */
     header {
       position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1000;
       width: fit-content; max-width: 95vw; padding: 0.7rem 2rem;
@@ -48,16 +49,18 @@
     .nav-cta .btn { background: var(--primary); color: white; padding: 0.6rem 1.4rem; border-radius: 999px; font-weight: 700; transition: 0.3s; }
     .nav-cta .btn:hover { background: var(--primary-dark); transform: scale(1.05); }
     .hamburger { display: none; cursor: pointer; font-size: 1.4rem; }
-    /* ── Mobile Menu (Fixed 404/Missing UI) ── */
+
+    /* Mobile Menu - FIXED */
     .mobile-menu {
-      position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
-      background: var(--dark); z-index: 2000; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 2rem; transition: 0.4s;
+      position: fixed; inset: 0; background: white; z-index: 2000;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 2rem; transform: translateX(100%); transition: 0.4s ease;
     }
-    .mobile-menu.active { right: 0; }
-    .mobile-menu a { color: white; font-size: 1.8rem; font-weight: 700; font-family: 'Manrope'; }
-    #closeMenu { color: white; cursor: pointer; }
-    /* ── Hero ── */
+    .mobile-menu.active { transform: translateX(0); }
+    .mobile-menu a { font-size: 2rem; font-weight: 800; color: var(--dark); }
+    #closeMenu { position: absolute; top: 30px; right: 30px; font-size: 2.5rem; color: var(--dark); cursor: pointer; }
+
+    /* Hero */
     #hero {
       position: relative; min-height: 60svh; display: flex; align-items: center; justify-content: center;
       background: #0f172a; padding: 140px 0 100px; text-align: center; overflow: hidden;
@@ -72,13 +75,12 @@
     .badge { display: inline-block; padding: 0.5rem 1.2rem; background: rgba(0,102,255,0.15); border: 1px solid rgba(0,102,255,0.4); color: #60a5fa; border-radius: 999px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.5rem; letter-spacing: 1px; }
     .hero-content h1 { font-family: 'Manrope'; font-size: clamp(2.4rem, 7vw, 4.6rem); font-weight: 800; line-height: 1.1; color: white; margin-bottom: 1.5rem; }
     .text-gradient { background: linear-gradient(135deg, #60a5fa, #0066ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-   
-    /* ── Main content ── */
+
+    /* Main content */
     section { padding: 100px 0; }
     h2 { font-family: 'Manrope'; font-size: clamp(2rem, 5vw, 3.2rem); text-align: center; margin-bottom: 3.5rem; font-weight: 800; }
-    h3 { font-family: 'Manrope'; font-size: 1.4rem; margin-bottom: 1rem; color: var(--dark); font-weight: 700; }
-   
-    /* ── Updated service cards (matched to index.html) ── */
+
+    /* ── Cards now identical to index.html ── */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -149,28 +151,17 @@
       display: flex;
       flex-direction: column;
     }
-    .service-content p {
+    .service-card h3 {
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    .service-card p {
       color: var(--gray);
       line-height: 1.7;
       margin-bottom: 1.5rem;
       flex: 1;
-    }
-    .service-features {
-      margin: 1.5rem 0 2rem;
-      color: var(--gray);
-      list-style: none;
-    }
-    .service-features li {
-      margin-bottom: 0.9rem;
-      padding-left: 1.6rem;
-      position: relative;
-    }
-    .service-features li::before {
-      content: '✓';
-      color: var(--primary);
-      position: absolute;
-      left: 0;
-      font-weight: bold;
     }
     .service-link {
       display: inline-flex;
@@ -196,7 +187,8 @@
     .service-card:hover .service-link i {
       transform: translateX(4px);
     }
-    /* ── CTA Styling ── */
+
+    /* CTA */
     .btn-primary {
       background: var(--primary);
       color: white;
@@ -212,7 +204,8 @@
       transform: translateY(-3px);
       box-shadow: 0 10px 20px rgba(0,102,255,0.2);
     }
-    /* ── Footer ── */
+
+    /* Footer */
     footer {
       background: var(--dark);
       color: #94a3b8;
@@ -221,8 +214,7 @@
       overflow: hidden;
     }
     footer::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(0,102,255,0.5), transparent);
     }
@@ -296,9 +288,10 @@
     .footer-bottom-links { display: flex; gap: 2rem; }
     .footer-bottom-links a { color: #64748b; font-size: 0.9rem; transition: color 0.3s ease; }
     .footer-bottom-links a:hover { color: white; }
-   
+
     .fade-up { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
+
     @media (max-width: 1024px) {
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
     }
@@ -334,13 +327,15 @@
       <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
     </nav>
   </header>
+
   <div class="mobile-menu" id="mobileMenu">
-    <div id="closeMenu" style="position:absolute; top:30px; right:30px; font-size:2rem;"><i class="fas fa-times"></i></div>
+    <div id="closeMenu"><i class="fas fa-times"></i></div>
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
     <a href="index.html#shop-teaser">Hardware</a>
     <a href="index.html#contact">Contact</a>
   </div>
+
   <section id="hero">
     <div class="hero-overlay"></div>
     <div class="container">
@@ -353,6 +348,7 @@
       </div>
     </div>
   </section>
+
   <section id="services-detail" style="background: white;">
     <div class="container">
       <div class="services-grid">
@@ -361,16 +357,9 @@
             <i class="fas fa-code"></i>
           </div>
           <div class="service-content">
-            <h3>Custom Software & Mobile Apps</h3>
-            <p>We develop tailored software solutions and mobile applications that solve real business problems and scale with your growth.</p>
-            <ul class="service-features">
-              <li>Native iOS & Android apps</li>
-              <li>Cross-platform (Flutter / React Native)</li>
-              <li>Enterprise resource planning systems</li>
-              <li>Inventory & CRM custom solutions</li>
-              <li>API integrations & automation</li>
-            </ul>
-            <span class="service-link">Ready to build? <i class="fas fa-arrow-right"></i></span>
+            <h3>Software & Apps</h3>
+            <p>Custom mobile apps and enterprise software tailored to your workflow. From concept to deployment, we build solutions that drive efficiency.</p>
+            <span class="service-link">Learn more <i class="fas fa-arrow-right"></i></span>
           </div>
         </a>
 
@@ -380,15 +369,8 @@
           </div>
           <div class="service-content">
             <h3>Web Development</h3>
-            <p>Fast, modern, conversion-focused websites — from corporate presences to powerful e-commerce platforms.</p>
-            <ul class="service-features">
-              <li>Responsive & mobile-first design</li>
-              <li>Next.js / React / Vue applications</li>
-              <li>WordPress + headless CMS solutions</li>
-              <li>E-commerce (WooCommerce / Shopify / Custom)</li>
-              <li>SEO optimization & performance tuning</li>
-            </ul>
-            <span class="service-link">Launch your site <i class="fas fa-arrow-right"></i></span>
+            <p>High-performance e-commerce and corporate websites that convert. Modern stacks, responsive design, and SEO optimization included.</p>
+            <span class="service-link">Learn more <i class="fas fa-arrow-right"></i></span>
           </div>
         </a>
 
@@ -397,16 +379,9 @@
             <i class="fas fa-shield-alt"></i>
           </div>
           <div class="service-content">
-            <h3>Cybersecurity & Data Protection</h3>
-            <p>Proactive security services to protect your business from modern cyber threats.</p>
-            <ul class="service-features">
-              <li>24/7 monitoring & threat detection</li>
-              <li>Penetration testing & vulnerability scans</li>
-              <li>Endpoint protection & firewall management</li>
-              <li>Compliance (POPIA, GDPR readiness)</li>
-              <li>Incident response planning</li>
-            </ul>
-            <span class="service-link">Secure your business <i class="fas fa-arrow-right"></i></span>
+            <h3>Cybersecurity</h3>
+            <p>Protecting your business from threats with 24/7 monitoring, penetration testing, and compliance audits. Your data security is our priority.</p>
+            <span class="service-link">Learn more <i class="fas fa-arrow-right"></i></span>
           </div>
         </a>
 
@@ -415,21 +390,15 @@
             <i class="fas fa-cloud"></i>
           </div>
           <div class="service-content">
-            <h3>Cloud Solutions & Infrastructure</h3>
-            <p>Modern, secure and cost-efficient cloud architecture — migration, optimization and management.</p>
-            <ul class="service-features">
-              <li>AWS, Azure & Google Cloud expertise</li>
-              <li>Cloud migration & hybrid setups</li>
-              <li>Serverless & container solutions</li>
-              <li>Backup, disaster recovery & redundancy</li>
-              <li>Cost optimization & monitoring</li>
-            </ul>
-            <span class="service-link">Move to the cloud <i class="fas fa-arrow-right"></i></span>
+            <h3>Cloud Solutions</h3>
+            <p>Scale effortlessly with our managed cloud and hybrid infrastructure. AWS, Azure, and Google Cloud expertise for seamless migration.</p>
+            <span class="service-link">Learn more <i class="fas fa-arrow-right"></i></span>
           </div>
         </a>
       </div>
     </div>
   </section>
+
   <section id="contact-cta" style="background: white; text-align: center; padding: 140px 0 120px;">
     <div class="container">
       <h2 style="margin-bottom: 1.8rem;">Ready to Transform Your Technology?</h2>
@@ -439,6 +408,7 @@
       </a>
     </div>
   </section>
+
   <footer>
     <div class="container">
       <div class="footer-grid">
@@ -482,22 +452,25 @@
       </div>
     </div>
   </footer>
+
   <script>
     // Header stuck effect
     const header = document.getElementById('header');
     window.onscroll = () => header.classList.toggle('stuck', window.scrollY > 50);
-    // Mobile menu logic
+
+    // Mobile menu logic - FIXED
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const closeMenu = document.getElementById('closeMenu');
-   
+
     hamburger.onclick = () => mobileMenu.classList.add('active');
     closeMenu.onclick = () => mobileMenu.classList.remove('active');
-   
+
     // Close mobile menu when clicking a link
     document.querySelectorAll('.mobile-menu a').forEach(link => {
-        link.onclick = () => mobileMenu.classList.remove('active');
+      link.onclick = () => mobileMenu.classList.remove('active');
     });
+
     // Fade-up animations
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -506,8 +479,10 @@
         }
       });
     }, { threshold: 0.15 });
+
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-    // Firebase (Keep config)
+
+    // Firebase (keep config)
     const firebaseConfig = {
       apiKey: "AIzaSyAxBT0oESoL62oz_x_Z8cMtdENWZPx4tMI",
       authDomain: "pinotp-d7ef5.firebaseapp.com",
