@@ -10,6 +10,11 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+
   <style>
     :root {
       --primary: #0066ff;
@@ -29,7 +34,8 @@
     body { font-family: 'Inter', sans-serif; background: var(--light-2); color: var(--dark); line-height: 1.6; overflow-x: hidden; }
     .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
     a { text-decoration: none; color: inherit; }
-    /* Navbar – same as homepage */
+
+    /* ── Header (same as before) ── */
     header {
       position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1000;
       width: fit-content; max-width: 95vw; padding: 0.7rem 2rem;
@@ -45,6 +51,7 @@
     .nav-links a:hover { color: var(--primary); }
     .nav-cta .btn { background: var(--primary); color: white; padding: 0.6rem 1.4rem; border-radius: 999px; font-weight: 700; }
     .hamburger { display: none; cursor: pointer; font-size: 1.4rem; }
+
     /* Hero / Banner */
     #contact-hero {
       position: relative; min-height: 70vh; display: flex; align-items: center; justify-content: center;
@@ -60,6 +67,7 @@
     .badge { display: inline-block; padding: 0.5rem 1.2rem; background: rgba(0,102,255,0.15); border: 1px solid rgba(0,102,255,0.4); color: #60a5fa; border-radius: 999px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.5rem; letter-spacing: 1px; }
     .hero-content h1 { font-family: 'Manrope'; font-size: clamp(2.4rem, 7vw, 4.5rem); font-weight: 800; line-height: 1.1; color: white; margin-bottom: 1.5rem; }
     .text-gradient { background: linear-gradient(135deg, #60a5fa, #0066ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
     /* Contact Form Section */
     #contact-form-section { padding: 100px 0; background: white; }
     .contact-grid {
@@ -73,31 +81,49 @@
     .contact-detail { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
     .contact-detail i { font-size: 1.6rem; color: var(--primary); width: 40px; }
     .map-embed { margin-top: 2.5rem; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-card); border: 1px solid var(--border); }
+
     form { display: flex; flex-direction: column; gap: 1.4rem; }
     .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
     label { font-weight: 600; color: var(--dark); font-size: 0.95rem; }
-    input, textarea {
+
+    input, textarea, select {
       padding: 1rem 1.3rem;
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 999px;               /* ← pill shape for all */
       font-family: inherit;
       font-size: 1rem;
       background: var(--light-2);
       transition: all 0.3s ease;
+      -webkit-appearance: none;
+      appearance: none;
     }
-    input:focus, textarea:focus {
+
+    select {
+      background: var(--light-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E") no-repeat right 1.3rem center;
+      background-size: 12px;
+      padding-right: 2.8rem;
+      cursor: pointer;
+    }
+
+    input:focus, textarea:focus, select:focus {
       outline: none;
       border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(0,102,255,0.12);
       background: white;
     }
-    textarea { min-height: 160px; resize: vertical; }
+
+    textarea {
+      border-radius: 16px;   /* slightly less rounded for textarea */
+      min-height: 160px;
+      resize: vertical;
+    }
+
     .btn-submit {
       background: var(--primary);
       color: white;
       padding: 1.1rem 2.2rem;
       border: none;
-      border-radius: 50px;
+      border-radius: 999px;
       font-weight: 700;
       font-size: 1.05rem;
       cursor: pointer;
@@ -106,6 +132,7 @@
       box-shadow: 0 10px 25px rgba(0,102,255,0.3);
     }
     .btn-submit:hover { transform: translateY(-3px); background: var(--primary-dark); }
+
     /* Footer – same as homepage */
     footer {
       background: var(--dark);
@@ -157,6 +184,7 @@
     .footer-bottom-links { display: flex; gap: 2rem; }
     .footer-bottom-links a { color: #64748b; font-size: 0.9rem; transition: color 0.3s ease; }
     .footer-bottom-links a:hover { color: white; }
+
     @media (max-width: 1024px) {
       .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
@@ -176,7 +204,7 @@
   <header id="header">
     <nav>
       <div class="logo">
-        <img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png" alt="MTech Solutions">
+        <a href="index.html"><img src="https://raregradetech.com/wp-content/uploads/2025/01/Untitled-design-1024x1024.png" alt="MTech Solutions"></a>
       </div>
       <div class="nav-links">
         <a href="index.html#services">Services</a>
@@ -190,12 +218,14 @@
       <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
     </nav>
   </header>
+
   <div class="mobile-menu" id="mobileMenu">
+    <div id="closeMenu" style="position:absolute; top:30px; right:30px; font-size:2rem;"><i class="fas fa-times"></i></div>
     <a href="index.html#services">Services</a>
     <a href="index.html#shop-teaser">Hardware</a>
     <a href="contact.html">Contact</a>
-    <div id="closeMenu" style="position:absolute; top:30px; right:30px; font-size:2rem;"><i class="fas fa-times"></i></div>
   </div>
+
   <section id="contact-hero">
     <div class="hero-overlay"></div>
     <div class="container">
@@ -208,6 +238,7 @@
       </div>
     </div>
   </section>
+
   <section id="contact-form-section">
     <div class="container">
       <div class="contact-grid">
@@ -231,10 +262,11 @@
             <div>Mon – Fri: 08:00 – 17:00</div>
           </div>
           <div class="map-embed">
-            <!-- You can replace with real Google Maps embed -->
+            <!-- Replace with your actual Mokopane area embed if desired -->
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114748.123456789!2d23.789!3d-23.789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDQ3JzIwLjQiUyAyM8KwNDcnMjAuMCJF!5e0!3m2!1sen!2sza!4v1699999999999" width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
           </div>
         </div>
+
         <form id="contactForm">
           <div class="form-group">
             <label for="name">Full Name</label>
@@ -269,6 +301,7 @@
       </div>
     </div>
   </section>
+
   <footer>
     <div class="container">
       <div class="footer-grid">
@@ -322,6 +355,7 @@
       </div>
     </div>
   </footer>
+
   <script>
     // Mobile menu toggle
     const hamburger = document.getElementById('hamburger');
@@ -329,14 +363,49 @@
     const closeMenu = document.getElementById('closeMenu');
     hamburger.onclick = () => mobileMenu.classList.add('active');
     closeMenu.onclick = () => mobileMenu.classList.remove('active');
+
     // Sticky header
     const header = document.getElementById('header');
     window.onscroll = () => header.classList.toggle('stuck', window.scrollY > 50);
-    // Very basic form feedback (you can connect to Firebase/Formspree later)
-    document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+
+    // Firebase config (same as your admin dashboard)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAxBT0oESoL62oz_x_Z8cMtdENWZPx4tMI",
+      authDomain: "pinotp-d7ef5.firebaseapp.com",
+      databaseURL: "https://pinotp-d7ef5-default-rtdb.firebaseio.com",
+      projectId: "pinotp-d7ef5",
+      storageBucket: "pinotp-d7ef5.firebasestorage.app",
+      messagingSenderId: "708458917827",
+      appId: "1:708458917827:web:375de278577df0adcf9776"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Form submission to Firebase
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      alert("✅ Thank you! Your message has been sent. We'll get back to you soon.");
-      this.reset();
+
+      const formData = {
+        name: document.getElementById('name').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim() || null,
+        service: document.getElementById('service').value,
+        message: document.getElementById('message').value.trim(),
+        submittedAt: firebase.database.ServerValue.TIMESTAMP,
+        read: false
+      };
+
+      // Push new submission
+      db.ref('contactSubmissions').push(formData)
+        .then(() => {
+          alert("✅ Thank you! Your message has been sent. We'll get back to you soon.");
+          document.getElementById('contactForm').reset();
+        })
+        .catch((error) => {
+          console.error("Error saving message:", error);
+          alert("❌ Something went wrong. Please try again or email us directly.");
+        });
     });
   </script>
 </body>
