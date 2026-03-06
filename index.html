@@ -33,7 +33,7 @@
    
       --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
+    /* --- Resets --- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
@@ -49,77 +49,21 @@
     img { max-width: 100%; height: auto; display: block; }
  
     .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-
+    /* --- Typography --- */
     h1, h2, h3, h4 { font-family: 'Manrope', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
     h2 { font-size: clamp(2.2rem, 5vw, 3.5rem); text-align: center; margin-bottom: 1rem; color: var(--text-main); }
     .section-subtitle { text-align: center; color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 4rem; }
-
-    /* --- Skeleton / Shimmer --- */
+    /* --- Loading State --- */
     .skeleton {
-      background: linear-gradient(90deg, rgba(255,255,255,0.08) 25%, rgba(255,255,255,0.16) 50%, rgba(255,255,255,0.08) 75%);
+      background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
       background-size: 200% 100%;
-      animation: shimmer 1.6s infinite;
-      border-radius: 8px;
-      position: relative;
-      overflow: hidden;
+      animation: loading 1.5s infinite;
+      border-radius: 4px;
     }
-    @keyframes shimmer {
-      0%   { background-position: 200% 0; }
+    @keyframes loading {
+      0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
-
-    /* --- Loading State for Hero --- */
-    .hero-loading .badge,
-    .hero-loading h1,
-    .hero-loading p,
-    .hero-loading .btn-primary,
-    .hero-loading .btn-secondary {
-      visibility: hidden;
-      position: relative;
-    }
-
-    .hero-loading .badge::after,
-    .hero-loading h1::after,
-    .hero-loading p::after,
-    .hero-loading .btn-primary::after,
-    .hero-loading .btn-secondary::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: inherit;
-    }
-
-    /* Specific skeleton sizes for hero elements */
-    .hero-loading .badge { 
-      width: 180px; 
-      height: 32px; 
-      border-radius: 999px; 
-    }
-    .hero-loading h1 { 
-      width: 80%; 
-      height: 1.1em; 
-      margin: 0 auto 1.5rem; 
-      border-radius: 8px; 
-    }
-    .hero-loading p { 
-      width: 65%; 
-      height: 1.3em; 
-      margin: 0 auto 3rem; 
-      border-radius: 6px; 
-    }
-    .hero-loading .hero-btns {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-    }
-    .hero-loading .btn-primary,
-    .hero-loading .btn-secondary {
-      width: 160px;
-      height: 52px;
-      border-radius: 999px;
-    }
-
     /* --- Navbar (Glassmorphism) --- */
     header {
       position: fixed; top: 24px; left: 50%; transform: translateX(-50%); z-index: 1000;
@@ -137,7 +81,6 @@
     .nav-cta .btn { background: #0404d8; color: white; padding: 0.7rem 1.5rem; border-radius: 100px; font-weight: 600; font-size: 0.9rem; transition: var(--transition); }
     .nav-cta .btn:hover { background: #0303b0; transform: translateY(-2px); }
     .hamburger { display: none; cursor: pointer; font-size: 1.5rem; color: var(--text-main); }
-
     /* --- Hero Section --- */
     #hero {
       position: relative; min-height: 100svh; display: flex; align-items: center; justify-content: center;
@@ -176,13 +119,139 @@
     .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(255,255,255,0.2); }
     .btn-secondary { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); padding: 1rem 2rem; border-radius: 100px; font-weight: 600; backdrop-filter: blur(10px); transition: var(--transition); }
     .btn-secondary:hover { background: rgba(255,255,255,0.1); transform: translateY(-3px); }
-
-    /* ... rest of your existing styles remain unchanged ... */
-
+    /* --- Services Section (Modern Bento Layout) --- */
+    section { padding: 100px 0; }
+ 
+    .services-bento {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+    }
+    .bento-card {
+      background: var(--bg-white); border-radius: 24px; padding: 3rem 2.5rem;
+      border: 1px solid var(--border); transition: var(--transition);
+      display: flex; flex-direction: column; position: relative; overflow: hidden;
+    }
+    .bento-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent)); opacity: 0; transition: var(--transition);
+    }
+    .bento-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-xl); border-color: rgba(37,99,235,0.2); }
+    .bento-card:hover::before { opacity: 1; }
+ 
+    /* Grid Spans */
+    .bento-card:nth-child(1) { grid-column: span 8; }
+    .bento-card:nth-child(2) { grid-column: span 4; }
+    .bento-card:nth-child(3) { grid-column: span 4; }
+    .bento-card:nth-child(4) { grid-column: span 8; }
+    .bento-icon { width: 60px; height: 60px; border-radius: 16px; background: var(--bg-light); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary); margin-bottom: 1.5rem; border: 1px solid var(--border); transition: var(--transition); }
+    .bento-card:hover .bento-icon { background: var(--primary); color: white; transform: scale(1.05) rotate(-5deg); }
+ 
+    .bento-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+    .bento-card p { color: var(--text-muted); margin-bottom: 2rem; flex-grow: 1; }
+ 
+    .bento-link { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--text-main); width: fit-content; transition: var(--transition); }
+    .bento-link i { font-size: 0.8rem; transition: transform 0.3s; }
+    .bento-card:hover .bento-link { color: var(--primary); }
+    .bento-card:hover .bento-link i { transform: translateX(5px); }
+    /* --- Hardware Shop --- */
+    #shop-teaser { background: var(--bg-white); }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; }
+    .product-card {
+      background: var(--bg-light); border-radius: 20px; overflow: hidden;
+      border: 1px solid var(--border); transition: var(--transition);
+      position: relative; cursor: pointer;
+    }
+    .product-image {
+      height: 240px;
+      overflow: hidden;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .product-info { padding: 1.5rem; text-align: center; background: var(--bg-light); border-top: 1px solid var(--border); }
+    .product-info h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .product-info p { color: var(--text-muted); font-size: 0.95rem; }
+ 
+    .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-xl); border-color: var(--primary); }
+    .product-card:hover .product-image img { transform: scale(1.1); }
+    /* --- Stats Section --- */
+    #stats { background: var(--dark-surface-2); color: white; position: relative; overflow: hidden; padding: 80px 0; }
+    #stats::before { content: ''; position: absolute; inset: 0; background: url('https://www.transparenttextures.com/patterns/cubes.png'); opacity: 0.05; }
+    .stats-flex { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 3rem; position: relative; z-index: 2; }
+    .stat-item { text-align: center; }
+    .stat-number { font-size: 4.5rem; font-weight: 800; color: var(--accent); font-family: 'Manrope'; line-height: 1; margin-bottom: 0.5rem; }
+    .stat-label { font-weight: 500; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; }
+    /* --- CTA / Contact --- */
+    #contact { background: var(--primary); color: white; text-align: center; padding: 100px 0; position: relative; overflow: hidden; }
+    #contact h2 { color: white; }
+    #contact p { color: rgba(255,255,255,0.8); font-size: 1.2rem; margin-bottom: 3rem; }
+    .btn-dark { background: var(--dark-surface); color: white; padding: 1.2rem 3rem; border-radius: 100px; font-size: 1.1rem; font-weight: 600; display: inline-flex; align-items: center; gap: 10px; transition: var(--transition); }
+    .btn-dark:hover { background: black; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+    /* --- Footer --- */
+    footer { background: var(--dark-surface); color: #94a3b8; padding: 80px 0 0; position: relative; border-top: 1px solid var(--border-dark); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 4rem; padding-bottom: 4rem; }
+ 
+    .footer-brand img { height: 40px; margin-bottom: 1.5rem; filter: brightness(0) invert(1); }
+    .footer-brand p { line-height: 1.8; margin-bottom: 2rem; max-width: 320px; font-size: 0.95rem; }
+ 
+    .social-links { display: flex; gap: 1rem; }
+    .social-links a { width: 40px; height: 40px; border-radius: 50%; background: var(--border-dark); display: flex; align-items: center; justify-content: center; color: white; transition: var(--transition); }
+    .social-links a:hover { background: var(--primary); transform: translateY(-3px); }
+ 
+    .footer-column h4 { color: white; font-size: 1.1rem; margin-bottom: 1.5rem; font-family: 'Inter', sans-serif; font-weight: 600; }
+    .footer-links li { margin-bottom: 1rem; }
+    .footer-links a { transition: var(--transition); font-size: 0.95rem; }
+    .footer-links a:hover { color: white; padding-left: 5px; }
+ 
+    .footer-contact p { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.2rem; font-size: 0.95rem; }
+    .footer-contact i { color: var(--accent); margin-top: 4px; }
+ 
+    .newsletter-form { display: flex; gap: 0.5rem; margin-top: 1rem; background: rgba(255,255,255,0.05); padding: 5px; border-radius: 100px; border: 1px solid var(--border-dark); transition: var(--transition); }
+    .newsletter-form:focus-within { border-color: var(--primary); background: rgba(255,255,255,0.1); }
+    .newsletter-form input { flex: 1; padding: 0.8rem 1rem; background: transparent; border: none; color: white; outline: none; font-family: inherit; }
+    .newsletter-form button { padding: 0.8rem 1.5rem; border-radius: 100px; border: none; background: var(--primary); color: white; cursor: pointer; font-weight: 600; transition: var(--transition); }
+    .newsletter-form button:hover { background: var(--primary-hover); }
+ 
+    .footer-bottom { border-top: 1px solid var(--border-dark); padding: 2rem 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.9rem; }
+    .footer-bottom-links { display: flex; gap: 2rem; }
+    .footer-bottom-links a:hover { color: white; }
+    /* --- Animations --- */
+    .fade-up { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    /* --- Mobile Menu --- */
+    .mobile-menu {
+      position: fixed; inset: 0; background: var(--bg-white); z-index: 2000;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 2rem; transform: translateX(100%); transition: var(--transition);
+    }
+    .mobile-menu.active { transform: translateX(0); }
+    .mobile-menu a { font-size: 2rem; font-family: 'Manrope'; font-weight: 700; color: var(--text-main); }
+    /* --- Media Queries --- */
+    @media (max-width: 1024px) {
+      .services-bento { grid-template-columns: repeat(12, 1fr); }
+      .bento-card:nth-child(n) { grid-column: span 6; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+    }
     @media (max-width: 768px) {
-      .hero-loading .hero-btns { flex-direction: column; }
-      .hero-loading .btn-primary,
-      .hero-loading .btn-secondary { width: 100%; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: block; }
+      #hero { padding-top: 140px; }
+      .hero-content h1 { font-size: 2.8rem; }
+      .hero-btns { flex-direction: column; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .bento-card:nth-child(n) { grid-column: span 12; }
+      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .footer-brand p { max-width: 100%; }
+      .social-links, .footer-contact p { justify-content: center; }
+      .footer-bottom { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
@@ -204,54 +273,56 @@
       <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
     </nav>
   </header>
-
   <div class="mobile-menu" id="mobileMenu">
     <a href="#services">Services</a>
     <a href="gallery.html">Gallery</a>
     <a href="contact.html">Contact</a>
     <div id="closeMenu" style="position:absolute; top:30px; right:30px; font-size:2rem; cursor:pointer;"><i class="fas fa-times"></i></div>
   </div>
-
-  <!-- HERO SECTION -->
-  <section id="hero" class="hero-loading">
+  <!-- HERO SECTION - Dynamic from Firebase -->
+  <section id="hero">
     <div class="container">
-      <div class="hero-content">
-        <div class="badge skeleton"></div>
-        <h1 class="skeleton"></h1>
-        <p class="skeleton"></p>
+      <div class="hero-content fade-up visible">
+        <div class="badge" id="heroBadge"><span></span>Loading...</div>
+        <h1 id="heroTitle">Loading...</h1>
+        <p id="heroDesc">Loading content from admin panel...</p>
         <div class="hero-btns">
-          <a href="#" class="btn-primary skeleton"></a>
-          <a href="#" class="btn-secondary skeleton"></a>
+          <a href="#contact" class="btn-primary" id="heroBtn1">Loading...</a>
+          <a href="#shop-teaser" class="btn-secondary" id="heroBtn2">Loading...</a>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- SERVICES SECTION -->
+  <!-- SERVICES SECTION - Dynamic from Firebase -->
   <section id="services">
     <div class="container">
       <h2 class="fade-up">Enterprise-Grade Solutions</h2>
       <p class="section-subtitle fade-up">End-to-end technology services designed for scale, security, and exceptional performance.</p>
-      <div class="services-bento" id="servicesContainer"></div>
+   
+      <div class="services-bento" id="servicesContainer">
+        <!-- Services injected here by Firebase -->
+      </div>
     </div>
   </section>
-
-  <!-- SHOP SECTION -->
+  <!-- SHOP SECTION - Dynamic from Firebase -->
   <section id="shop-teaser">
     <div class="container">
       <h2 class="fade-up">Premium Hardware Shop</h2>
       <p class="section-subtitle fade-up">Equip your workforce with industry-leading technology, sourced directly for enterprise reliability.</p>
-      <div class="products-grid" id="shopContainer"></div>
+   
+      <div class="products-grid" id="shopContainer">
+        <!-- Products injected here by Firebase -->
+      </div>
     </div>
   </section>
-
-  <!-- STATS SECTION -->
+  <!-- STATS SECTION - Dynamic from Firebase -->
   <section id="stats">
     <div class="container">
-      <div class="stats-flex" id="statsContainer"></div>
+      <div class="stats-flex" id="statsContainer">
+        <!-- Stats injected here by Firebase -->
+      </div>
     </div>
   </section>
-
   <!-- CONTACT SECTION -->
   <section id="contact">
     <div class="container fade-up">
@@ -262,17 +333,18 @@
       </a>
     </div>
   </section>
-
-  <!-- FOOTER SECTION -->
+  <!-- FOOTER SECTION - Dynamic from Firebase -->
   <footer>
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand fade-up">
           <img src="https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png" alt="MTech Solutions">
           <p id="footerAbout">Loading...</p>
-          <div class="social-links" id="socialLinks"></div>
+          <div class="social-links" id="socialLinks">
+            <!-- Social links injected here -->
+          </div>
         </div>
-        <!-- rest of footer remains the same -->
+     
         <div class="footer-column fade-up" style="transition-delay: 0.1s;">
           <h4>Services</h4>
           <ul class="footer-links">
@@ -283,6 +355,7 @@
             <li><a href="#shop-teaser">Hardware Sales</a></li>
           </ul>
         </div>
+     
         <div class="footer-column fade-up" style="transition-delay: 0.2s;">
           <h4>Company</h4>
           <ul class="footer-links">
@@ -292,6 +365,7 @@
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
+     
         <div class="footer-column fade-up" style="transition-delay: 0.3s;">
           <h4>Contact Us</h4>
           <div class="footer-contact">
@@ -300,6 +374,7 @@
             <p><i class="fas fa-envelope"></i> <span id="footerEmail">Loading...</span></p>
             <p><i class="fas fa-clock"></i> <span id="footerHours">Loading...</span></p>
           </div>
+       
           <div style="margin-top: 2rem;">
             <h4 style="margin-bottom: 0.5rem;">Tech Insights Newsletter</h4>
             <form class="newsletter-form">
@@ -309,6 +384,7 @@
           </div>
         </div>
       </div>
+   
       <div class="footer-bottom">
         <p id="footerCopyright">Loading...</p>
         <div class="footer-bottom-links">
@@ -318,49 +394,48 @@
       </div>
     </div>
   </footer>
-
   <script>
     // --- Scroll & Navbar Logic ---
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
       header.classList.toggle('stuck', window.scrollY > 50);
     });
-
     // --- Mobile Menu ---
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const closeMenu = document.getElementById('closeMenu');
-
+ 
     hamburger.onclick = () => mobileMenu.classList.add('active');
     closeMenu.onclick = () => mobileMenu.classList.remove('active');
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.onclick = () => mobileMenu.classList.remove('active');
     });
-
-    // --- Intersection Observer ---
+    // --- Intersection Observer (Fade Ups & Counters) ---
     const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+       
+          // Trigger Counters if it's the stats section
           if (entry.target.id === 'stats') {
-            const nums = entry.target.querySelectorAll('.stat-number');
-            nums.forEach(animateStat);
-            observer.unobserve(entry.target);
+             const nums = entry.target.querySelectorAll('.stat-number');
+             nums.forEach(animateStat);
+             observer.unobserve(entry.target);
           }
         }
       });
     }, observerOptions);
-
     document.querySelectorAll('.fade-up, #stats').forEach(el => observer.observe(el));
-
     function animateStat(el) {
       if(el.classList.contains('animated')) return;
       el.classList.add('animated');
+   
       const target = +el.getAttribute('data-target');
       let count = 0;
       const duration = 2000;
       const stepTime = Math.abs(Math.floor(duration / target));
+   
       const interval = setInterval(() => {
         count += 1;
         if (count >= target) {
@@ -371,8 +446,7 @@
         }
       }, stepTime > 10 ? stepTime : 10);
     }
-
-    // ================ FIREBASE ================
+    // ================ FIREBASE REALTIME DATABASE INTEGRATION ================
     const firebaseConfig = {
       apiKey: "AIzaSyAxBT0oESoL62oz_x_Z8cMtdENWZPx4tMI",
       authDomain: "pinotp-d7ef5.firebaseapp.com",
@@ -382,31 +456,24 @@
       messagingSenderId: "708458917827",
       appId: "1:708458917827:web:375de278577df0adcf9776"
     };
-
+ 
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
     const db = firebase.database();
-
+    // Helper function to parse [blue]text[/blue] to styled spans
     function parseStyledText(text) {
       if (!text) return '';
       return text.replace(/\[blue\](.*?)\[\/blue\]/g, '<span class="text-accent">$1</span>');
     }
-
+    // Load Website Content from Firebase
     function loadWebsiteContent() {
       db.ref('websiteContent').once('value').then(snapshot => {
         const data = snapshot.val();
-        const heroSection = document.getElementById('hero');
-
-        // Remove loading state
-        heroSection.classList.remove('hero-loading');
-
         if (!data) {
-          console.log('No data found in Firebase');
-          // Optional: set fallback content here if desired
+          console.log('No data found in Firebase, using defaults');
           return;
         }
-
         // --- HERO SECTION ---
         if (data.hero) {
           const hero = data.hero;
@@ -415,27 +482,129 @@
           document.getElementById('heroDesc').textContent = hero.desc || 'From high-performance custom Software Development to premium Enterprise Hardware.';
           document.getElementById('heroBtn1').innerHTML = `${hero.btn1 || 'Start a Project'} <i class="fas fa-arrow-right"></i>`;
           document.getElementById('heroBtn2').textContent = hero.btn2 || 'Explore Hardware';
-
+       
+          // Set background image if exists
           if (hero.background) {
             document.getElementById('hero').style.backgroundImage = `linear-gradient(rgba(2,6,23,0.8), rgba(2,6,23,0.8)), url(${hero.background})`;
           }
         }
-
-        // ... rest of your loadWebsiteContent function remains unchanged ...
-
-        // Re-observe elements after content is loaded
+        // --- SERVICES SECTION ---
+        if (data.services && Array.isArray(data.services)) {
+          const servicesContainer = document.getElementById('servicesContainer');
+          servicesContainer.innerHTML = '';
+       
+          data.services.forEach((service, index) => {
+            const delay = index * 0.1;
+            const iconClass = service.icon || 'fa-code';
+            const card = document.createElement('div');
+            card.className = 'bento-card fade-up';
+            card.style.transitionDelay = `${delay}s`;
+         
+            // Determine grid span based on index (matching your CSS)
+            if (index === 0) card.style.gridColumn = 'span 8';
+            else if (index === 1) card.style.gridColumn = 'span 4';
+            else if (index === 2) card.style.gridColumn = 'span 4';
+            else if (index === 3) card.style.gridColumn = 'span 8';
+         
+            card.innerHTML = `
+              <div class="bento-icon"><i class="fas ${iconClass}"></i></div>
+              <h3>${service.title || 'Service Title'}</h3>
+              <p>${service.desc || 'Service description goes here.'}</p>
+              <a href="service.html" class="bento-link">${service.link || 'Learn More'} <i class="fas fa-chevron-right"></i></a>
+            `;
+            servicesContainer.appendChild(card);
+          });
+        }
+        // --- SHOP SECTION ---
+        if (data.shop && Array.isArray(data.shop)) {
+          const shopContainer = document.getElementById('shopContainer');
+          shopContainer.innerHTML = '';
+       
+          data.shop.forEach((product, index) => {
+            const delay = index * 0.1;
+            const card = document.createElement('div');
+            card.className = 'product-card fade-up';
+            card.style.transitionDelay = `${delay}s`;
+            card.onclick = () => window.location.href = 'shop.html';
+         
+            card.innerHTML = `
+              <div class="product-image">
+                <img src="${product.image || 'https://via.placeholder.com/400'}" alt="${product.title || 'Product'}">
+              </div>
+              <div class="product-info">
+                <h3>${product.title || 'Product Name'}</h3>
+                <p>${product.desc || 'Product description'}</p>
+              </div>
+            `;
+            shopContainer.appendChild(card);
+          });
+        }
+        // --- STATS SECTION ---
+        if (data.stats && Array.isArray(data.stats)) {
+          const statsContainer = document.getElementById('statsContainer');
+          statsContainer.innerHTML = '';
+       
+          data.stats.forEach((stat, index) => {
+            const delay = index * 0.1;
+            const item = document.createElement('div');
+            item.className = 'stat-item fade-up';
+            item.style.transitionDelay = `${delay}s`;
+         
+            const suffix = stat.suffix || (index === 0 ? '%' : '+');
+            const value = stat.num || '0';
+         
+            item.innerHTML = `
+              <div class="stat-number" data-target="${value}" data-suffix="${suffix}">0</div>
+              <div class="stat-label">${stat.label || 'Stat Label'}</div>
+            `;
+            statsContainer.appendChild(item);
+          });
+       
+          // Re-observe stats for animation
+          observer.observe(document.getElementById('stats'));
+        }
+        // --- FOOTER SECTION ---
+        if (data.footer) {
+          const f = data.footer;
+          document.getElementById('footerAbout').textContent = f.about || 'Premium IT services and tech solutions.';
+          document.getElementById('footerAddress').innerHTML = f.address || 'Mokopane, Limpopo,<br>South Africa';
+          document.getElementById('footerPhone').textContent = f.phone || '+27 (0) 15 123 4567';
+          document.getElementById('footerEmail').textContent = f.email || 'info@mtechsolutions.com';
+          document.getElementById('footerHours').textContent = f.hours || 'Mon - Fri: 08:00 - 17:00';
+          document.getElementById('footerCopyright').textContent = f.copyright || '© 2026 MTech Solutions. All rights reserved.';
+       
+          // Social Links
+          const socialContainer = document.getElementById('socialLinks');
+          socialContainer.innerHTML = '';
+       
+          const socials = [
+            { url: f.socialFb, icon: 'fa-facebook-f', label: 'Facebook' },
+            { url: f.socialTw, icon: 'fa-twitter', label: 'Twitter' },
+            { url: f.socialLi, icon: 'fa-linkedin-in', label: 'LinkedIn' },
+            { url: f.socialIg, icon: 'fa-instagram', label: 'Instagram' }
+          ];
+       
+          socials.forEach(social => {
+            if (social.url) {
+              const link = document.createElement('a');
+              link.href = social.url;
+              link.setAttribute('aria-label', social.label);
+              link.target = '_blank';
+              link.innerHTML = `<i class="fab ${social.icon}"></i>`;
+              socialContainer.appendChild(link);
+            }
+          });
+        }
+        // Re-trigger fade-up animations for new elements
         document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
-
+     
       }).catch(error => {
         console.error('Error loading Firebase data:', error);
-        // Optional: remove loading class even on error
-        document.getElementById('hero').classList.remove('hero-loading');
       });
     }
-
+    // Load content when page loads
     document.addEventListener('DOMContentLoaded', loadWebsiteContent);
-
-    // Newsletter form handler remains unchanged
+    // Newsletter Form Handler
     const newsletterForm = document.querySelector('.newsletter-form');
     if (newsletterForm) {
       newsletterForm.addEventListener('submit', function(e) {
@@ -444,11 +613,10 @@
         const email = emailInput.value.trim();
         const btn = this.querySelector('button');
         if (!email) return;
-
+     
         const originalText = btn.innerText;
         btn.innerText = 'Sending...';
         btn.disabled = true;
-
         const newSubscriberRef = db.ref('mtech_newsletter_signups').push();
         newSubscriberRef.set({
           email: email,
@@ -475,4 +643,4 @@
     }
   </script>
 </body>
-</html>
+</html> 
