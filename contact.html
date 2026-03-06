@@ -787,8 +787,8 @@
     function showDefaultContactInfo() {
       const defaults = [
         { icon: 'fa-map-marker-alt', label: 'Address', value: '69 Hooge Street Mokopane, Limpopo<br>South Africa' },
-        { icon: 'fa-phone', label: 'Phone', value: '+27 (0) 15 123 4567', link: 'tel:0699021037' },
-        { icon: 'fa-envelope', label: 'Email', value: 'info@mtechsolutions.com', link: 'mailto:info@raregradetech.com' },
+        { icon: 'fa-phone', label: 'Phone', value: '0699021037', link: 'tel:0699021037' },
+        { icon: 'fa-envelope', label: 'Email', value: 'info@raregradetech.com', link: 'mailto:info@raregradetech.com' },
         { icon: 'fa-clock', label: 'Business Hours', value: 'Mon - Fri: 08:00 - 17:00<br>' }
       ];
       const infoCards = document.getElementById('infoCards');
@@ -913,7 +913,7 @@
           document.getElementById('footerAddress').innerHTML = data.address || 'Mokopane, Limpopo,<br>South Africa';
           document.getElementById('footerPhone').textContent = data.phone || '+27 (0) 15 123 4567';
           document.getElementById('footerEmail').textContent = data.email || 'info@mtechsolutions.com';
-          document.getElementById('footerHours').textContent = data.hours || 'Mon - Fri: 08:00 - 17:00';
+          document.getElementById('footerHours').textContent = data.hours || '08:00 - 17:00';
           document.getElementById('footerCopyright').textContent = data.copyright || '© 2026 MTech Solutions. All rights reserved.';
           
           // Update contact info cards from admin dashboard
