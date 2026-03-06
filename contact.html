@@ -783,12 +783,6 @@
       email: { icon: 'fa-envelope', label: 'Email', link: 'mailto:' },
       hours: { icon: 'fa-clock', label: 'Business Hours', link: null }
     };
-    const socialConfig = {
-      socialFb: { icon: 'fa-facebook-f', label: 'Facebook', color: '#1877f2' },
-      socialTw: { icon: 'fa-twitter', label: 'Twitter', color: '#1da1f2' },
-      socialLi: { icon: 'fa-linkedin-in', label: 'LinkedIn', color: '#0077b5' },
-      socialIg: { icon: 'fa-instagram', label: 'Instagram', color: '#e4405f' }
-    };
     
     function showDefaultContactInfo() {
       const defaults = [
@@ -810,42 +804,6 @@
       });
       document.getElementById('mapAddress').textContent = 'Mokopane, Limpopo, South Africa';
       document.getElementById('mapLink').href = 'https://www.google.com/maps/search/?api=1&query=Mokopane,+Limpopo,+South+Africa';
-    }
-    
-    function loadFooterContent() {
-      db.ref('websiteContent/footer').once('value').then(snapshot => {
-        const data = snapshot.val();
-        if (!data) {
-          return;
-        }
-        document.getElementById('footerAbout').textContent = data.about || 'Premium IT services and tech solutions in Mokopane.';
-        document.getElementById('footerAddress').innerHTML = data.address || 'Mokopane, Limpopo,<br>South Africa';
-        document.getElementById('footerPhone').textContent = data.phone || '+27 (0) 15 123 4567';
-        document.getElementById('footerEmail').textContent = data.email || 'info@mtechsolutions.com';
-        document.getElementById('footerHours').textContent = data.hours || 'Mon - Fri: 08:00 - 17:00';
-        document.getElementById('footerCopyright').textContent = data.copyright || '© 2026 MTech Solutions. All rights reserved.';
-        
-        const socialContainer = document.getElementById('footerSocialLinks');
-        socialContainer.innerHTML = '';
-        const socials = [
-          { url: data.socialFb, icon: 'fa-facebook-f', label: 'Facebook' },
-          { url: data.socialTw, icon: 'fa-twitter', label: 'Twitter' },
-          { url: data.socialLi, icon: 'fa-linkedin-in', label: 'LinkedIn' },
-          { url: data.socialIg, icon: 'fa-instagram', label: 'Instagram' }
-        ];
-        socials.forEach(social => {
-          if (social.url) {
-            const link = document.createElement('a');
-            link.href = social.url;
-            link.setAttribute('aria-label', social.label);
-            link.target = '_blank';
-            link.innerHTML = `<i class="fab ${social.icon}"></i>`;
-            socialContainer.appendChild(link);
-          }
-        });
-      }).catch(error => {
-        console.error('Error loading footer:', error);
-      });
     }
     
     const contactForm = document.getElementById('contactForm');
@@ -942,9 +900,67 @@
         });
       });
     }
+    
     document.addEventListener('DOMContentLoaded', () => {
       showDefaultContactInfo();
-      loadFooterContent();
+      
+      // Real-time listener for Firebase changes
+      db.ref('websiteContent/footer').on('value', snapshot => {
+        const data = snapshot.val();
+        if (data) {
+          // Update footer content from admin dashboard
+          document.getElementById('footerAbout').textContent = data.about || 'Premium IT services and tech solutions in Mokopane.';
+          document.getElementById('footerAddress').innerHTML = data.address || 'Mokopane, Limpopo,<br>South Africa';
+          document.getElementById('footerPhone').textContent = data.phone || '+27 (0) 15 123 4567';
+          document.getElementById('footerEmail').textContent = data.email || 'info@mtechsolutions.com';
+          document.getElementById('footerHours').textContent = data.hours || 'Mon - Fri: 08:00 - 17:00';
+          document.getElementById('footerCopyright').textContent = data.copyright || '© 2026 MTech Solutions. All rights reserved.';
+          
+          // Update contact info cards from admin dashboard
+          const infoCards = document.getElementById('infoCards');
+          infoCards.innerHTML = '';
+         
+          Object.keys(contactConfig).forEach(key => {
+            if (data[key]) {
+              const config = contactConfig[key];
+              const value = data[key];
+              const card = document.createElement('div');
+              card.className = 'info-card';
+              let contentHtml = `<h4>${config.label}</h4>`;
+              if (config.link) { contentHtml += `<a href="${config.link}${value}">${value}</a>`; }
+              else { contentHtml += `<p>${value.replace(/,/g, '<br>')}</p>`; }
+              card.innerHTML = `<div class="info-icon"><i class="fas ${config.icon}"></i></div><div class="info-content">${contentHtml}</div>`;
+              infoCards.appendChild(card);
+            }
+          });
+          
+          // Update map from admin dashboard
+          if (data.address) {
+            document.getElementById('mapAddress').textContent = data.address;
+            document.getElementById('mapLink').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.address)}`;
+          }
+          
+          // Update social links from admin dashboard
+          const socialContainer = document.getElementById('footerSocialLinks');
+          socialContainer.innerHTML = '';
+          const socials = [
+            { url: data.socialFb, icon: 'fa-facebook-f', label: 'Facebook' },
+            { url: data.socialTw, icon: 'fa-twitter', label: 'Twitter' },
+            { url: data.socialLi, icon: 'fa-linkedin-in', label: 'LinkedIn' },
+            { url: data.socialIg, icon: 'fa-instagram', label: 'Instagram' }
+          ];
+          socials.forEach(social => {
+            if (social.url) {
+              const link = document.createElement('a');
+              link.href = social.url;
+              link.setAttribute('aria-label', social.label);
+              link.target = '_blank';
+              link.innerHTML = `<i class="fab ${social.icon}"></i>`;
+              socialContainer.appendChild(link);
+            }
+          });
+        }
+      });
     });
   </script>
 </body>
