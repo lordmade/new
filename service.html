@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
-  <title>Services | MTech Solutions</title>
-  <meta name="description" content="Enterprise-grade IT services, software development, cybersecurity, and cloud solutions in Mokopane, Limpopo.">
+  <title>Our Services | MTech Solutions</title>
+  <meta name="description" content="Premium IT services, Custom Software Development, and Tech Hardware Shop in Mokopane, Limpopo.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -12,6 +12,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
   <style>
+    /* --- CSS Variables & Theming --- */
     :root {
       --primary: #2563eb;
       --primary-hover: #1d4ed8;
@@ -24,16 +25,15 @@
       --dark-surface-2: #0f172a;
       --border: #e2e8f0;
       --border-dark: rgba(255, 255, 255, 0.1);
-    
+   
       --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
       --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
       --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-      --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      --shadow-glow: 0 0 40px rgba(37, 99, 235, 0.15);
-    
+      --shadow-glow: 0 0 40px rgba(37, 99, 235, 0.2);
+   
       --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
+    /* --- Resets --- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
@@ -47,10 +47,29 @@
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
     img { max-width: 100%; height: auto; display: block; }
-  
+ 
     .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    /* --- Typography --- */
     h1, h2, h3, h4 { font-family: 'Manrope', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
-  
+    h2 { font-size: clamp(2.2rem, 5vw, 3.5rem); text-align: center; margin-bottom: 1rem; color: var(--text-main); }
+    .section-subtitle { text-align: center; color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 4rem; }
+    /* --- Loading State --- */
+    .skeleton {
+      background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: 4px;
+    }
+    .skeleton-dark {
+      background: linear-gradient(90deg, rgba(30,41,59,0.8) 25%, rgba(51,65,85,0.9) 50%, rgba(30,41,59,0.8) 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: 4px;
+    }
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
     /* --- Navbar --- */
     header {
       position: fixed; top: 24px; left: 50%; transform: translateX(-50%); z-index: 1000;
@@ -63,22 +82,10 @@
     nav { display: flex; align-items: center; justify-content: space-between; }
     .logo img { height: 32px; filter: brightness(0); }
     .nav-links { display: flex; gap: 2.5rem; }
-    .nav-links a { font-weight: 500; font-size: 0.95rem; color: var(--text-main); transition: color 0.2s; position: relative; }
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
-      background: var(--primary); transition: width 0.3s;
-    }
+    .nav-links a { font-weight: 500; font-size: 0.95rem; color: var(--text-main); transition: color 0.2s; }
     .nav-links a:hover { color: var(--primary); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-cta .btn { background: #0404d8; color: white; padding: 0.7rem 1.5rem; border-radius: 100px; font-weight: 600; font-size: 0.9rem; transition: var(--transition); position: relative; overflow: hidden; }
-    .nav-cta .btn::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      opacity: 0; transition: opacity 0.3s;
-    }
-   .nav-cta .btn:hover { background: #0303b0; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(4, 4, 216, 0.3); }
-    .nav-cta .btn:hover::before { opacity: 1; }
-    .nav-cta .btn span { position: relative; z-index: 1; }
+    .nav-cta .btn { background: #0404d8; color: white; padding: 0.7rem 1.5rem; border-radius: 100px; font-weight: 600; font-size: 0.9rem; transition: var(--transition); }
+    .nav-cta .btn:hover { background: #0303b0; transform: translateY(-2px); }
     .hamburger { display: none; cursor: pointer; font-size: 1.5rem; color: var(--text-main); }
     /* --- Page Header --- */
     .page-header {
@@ -91,8 +98,8 @@
     .page-header::before {
       content: ''; position: absolute; inset: 0;
       background:
-        radial-gradient(circle at 20% 50%, rgba(37,99,235,0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 50%, rgba(56,189,248,0.1) 0%, transparent 50%);
+        radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(37, 99, 235, 0.1) 0%, transparent 50%);
     }
     .page-header::after {
       content: ''; position: absolute; inset: 0;
@@ -118,336 +125,156 @@
       margin: 0 auto;
       font-weight: 400;
     }
-    /* --- Services Grid --- */
-    .services-section {
-      padding: 80px 0;
-    }
-  
-    .services-grid {
+    /* --- Services Section --- */
+    section { padding: 100px 0; }
+    .services-bento {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
     }
-  
-    .service-card {
-      background: var(--bg-white);
-      border-radius: 24px;
-      padding: 3rem;
-      border: 1px solid var(--border);
+    .bento-card {
+      background: var(--bg-white); 
+      border-radius: 24px; 
+      padding: 3rem 2.5rem;
+      border: 1px solid var(--border); 
       transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-  
-    .service-card::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      transform: scaleX(0);
-      transition: transform 0.4s var(--ease-out);
-    }
-  
-    .service-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-2xl);
-      border-color: rgba(37,99,235,0.2);
-    }
-  
-    .service-card:hover::before {
-      transform: scaleX(1);
-    }
-  
-    .service-icon {
-      width: 80px;
-      height: 80px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, rgba(37,99,235,0.1), rgba(56,189,248,0.1));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      color: var(--primary);
-      margin-bottom: 2rem;
-      transition: var(--transition);
-      border: 1px solid rgba(37,99,235,0.2);
-    }
-  
-    .service-card:hover .service-icon {
-      background: var(--primary);
-      color: white;
-      transform: scale(1.1) rotate(-5deg);
-      box-shadow: var(--shadow-glow);
-    }
-  
-    .service-card h3 {
-      font-size: 1.75rem;
-      margin-bottom: 1rem;
-      color: var(--text-main);
-    }
-  
-    .service-card p {
-      color: var(--text-muted);
-      line-height: 1.8;
-      margin-bottom: 2rem;
-      flex-grow: 1;
-    }
-  
-    .service-features {
-      margin-bottom: 2rem;
-    }
-  
-    .service-features li {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 0.75rem;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-  
-    .service-features li i {
-      color: var(--primary);
-      font-size: 0.8rem;
-    }
-  
-    .service-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 1rem 2rem;
-      background: var(--bg-light);
-      border-radius: 100px;
-      color: var(--text-main);
-      font-weight: 600;
-      transition: var(--transition);
-      border: 1px solid var(--border);
-      width: fit-content;
-    }
-  
-    .service-cta:hover {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-      transform: translateX(5px);
-    }
-  
-    .service-cta i {
-      transition: transform 0.3s;
-    }
-  
-    .service-cta:hover i {
-      transform: translateX(5px);
-    }
-    /* --- Loading State --- */
-    .loading-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
-    }
-  
-    .service-skeleton {
-      background: var(--bg-white);
-      border-radius: 24px;
-      padding: 3rem;
-      border: 1px solid var(--border);
-    }
-  
-    .skeleton-icon {
-      width: 80px;
-      height: 80px;
-      border-radius: 20px;
-      background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-      margin-bottom: 2rem;
-    }
-  
-    .skeleton-text {
-      height: 20px;
-      border-radius: 8px;
-      background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-      margin-bottom: 1rem;
-    }
-  
-    .skeleton-text.short { width: 60%; }
-    .skeleton-text.long { width: 100%; height: 80px; margin-top: 1.5rem; }
-  
-    @keyframes shimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-    /* --- CTA Section --- */
-    .cta-section {
-      background: var(--primary);
-      padding: 100px 0;
-      text-align: center;
-      position: relative;
+      display: flex; 
+      flex-direction: column; 
+      position: relative; 
       overflow: hidden;
     }
-  
-    .cta-section::before {
-      content: ''; position: absolute; inset: 0;
-      background: url('https://www.transparenttextures.com/patterns/cubes.png');
-      opacity: 0.1;
-    }
-  
-    .cta-section h2 {
-      color: white;
-      font-size: clamp(2rem, 4vw, 3rem);
-      margin-bottom: 1rem;
-      position: relative;
-    }
-  
-    .cta-section p {
-      color: rgba(255,255,255,0.8);
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto 2rem;
-      position: relative;
-    }
-  
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 1.2rem 3rem;
-      background: white;
-      color: var(--primary);
-      border-radius: 100px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      transition: var(--transition);
-      position: relative;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
-  
-    .cta-btn:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    }
-    /* --- Why Choose Us --- */
-    .why-section {
-      padding: 100px 0;
-      background: var(--bg-white);
-    }
-  
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-  
-    .why-card {
-      text-align: center;
-      padding: 2rem;
-      border-radius: 16px;
+    .bento-card::before {
+      content: ''; 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent)); 
+      opacity: 0; 
       transition: var(--transition);
     }
-  
-    .why-card:hover {
-      background: var(--bg-light);
-      transform: translateY(-5px);
+    .bento-card:hover { 
+      transform: translateY(-5px); 
+      box-shadow: var(--shadow-xl); 
+      border-color: rgba(37,99,235,0.2); 
     }
-  
-    .why-icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.5rem;
-      color: white;
-      font-size: 1.5rem;
-      box-shadow: var(--shadow-glow);
+    .bento-card:hover::before { 
+      opacity: 1; 
     }
-  
-    .why-card h4 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
+ 
+    /* Grid Spans */
+    .bento-card:nth-child(1) { grid-column: span 8; }
+    .bento-card:nth-child(2) { grid-column: span 4; }
+    .bento-card:nth-child(3) { grid-column: span 4; }
+    .bento-card:nth-child(4) { grid-column: span 8; }
+    .bento-icon { 
+      width: 60px; 
+      height: 60px; 
+      border-radius: 16px; 
+      background: var(--bg-light); 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 1.5rem; 
+      color: var(--primary); 
+      margin-bottom: 1.5rem; 
+      border: 1px solid var(--border); 
+      transition: var(--transition); 
     }
-  
-    .why-card p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
+    .bento-card:hover .bento-icon { 
+      background: var(--primary); 
+      color: white; 
+      transform: scale(1.05) rotate(-5deg); 
     }
-    /* --- Process Section --- */
-    .process-section {
-      padding: 100px 0;
-      background: var(--dark-surface);
-      color: white;
+ 
+    .bento-card h3 { 
+      font-size: 1.5rem; 
+      margin-bottom: 1rem; 
+      color: var(--text-main); 
     }
-  
-    .process-section h2 {
-      color: white;
-      text-align: center;
+    .bento-card p { 
+      color: var(--text-muted); 
+      margin-bottom: 2rem; 
+      flex-grow: 1; 
     }
-  
-    .process-section .section-subtitle {
-      color: #64748b;
-      text-align: center;
+ 
+    .bento-link { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 8px; 
+      font-weight: 600; 
+      color: var(--text-main); 
+      width: fit-content; 
+      transition: var(--transition); 
     }
-  
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-      margin-top: 4rem;
-      position: relative;
+    .bento-link i { 
+      font-size: 0.8rem; 
+      transition: transform 0.3s; 
     }
-  
-    .process-grid::before {
-      content: ''; position: absolute; top: 40px; left: 12.5%; right: 12.5%;
-      height: 2px; background: linear-gradient(90deg, var(--primary), var(--accent));
-      opacity: 0.3;
+    .bento-card:hover .bento-link { 
+      color: var(--primary); 
     }
-  
-    .process-card {
-      text-align: center;
-      position: relative;
-      z-index: 1;
+    .bento-card:hover .bento-link i { 
+      transform: translateX(5px); 
     }
-  
-    .process-number {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: var(--dark-surface-2);
-      border: 2px solid var(--primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.5rem;
-      font-family: 'Manrope', sans-serif;
-      font-size: 1.75rem;
-      font-weight: 800;
-      color: var(--accent);
-      box-shadow: 0 0 30px rgba(37,99,235,0.2);
+
+    /* Services Skeleton Styles */
+    .services-skeleton-grid { 
+      display: grid; 
+      grid-template-columns: repeat(12, 1fr); 
+      gap: 24px; 
     }
-  
-    .process-card h4 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
+    .services-skeleton-card { 
+      background: var(--bg-white); 
+      border-radius: 24px; 
+      padding: 3rem 2.5rem; 
+      border: 1px solid var(--border); 
+      display: flex; 
+      flex-direction: column; 
     }
-  
-    .process-card p {
-      color: #64748b;
-      font-size: 0.9rem;
+    .services-skeleton-icon { 
+      width: 60px; 
+      height: 60px; 
+      border-radius: 16px; 
+      margin-bottom: 1.5rem; 
+      background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%); 
+      background-size: 200% 100%; 
+      animation: loading 1.5s infinite; 
     }
-    /* --- Mobile Menu --- */
-    .mobile-menu {
-      position: fixed; inset: 0; background: var(--bg-white); z-index: 2000;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 2rem; transform: translateX(100%); transition: var(--transition);
+    .services-skeleton-title { 
+      width: 70%; 
+      height: 28px; 
+      margin-bottom: 1rem; 
+      background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%); 
+      background-size: 200% 100%; 
+      animation: loading 1.5s infinite; 
+      border-radius: 4px; 
     }
-    .mobile-menu.active { transform: translateX(0); }
-    .mobile-menu a { font-size: 2rem; font-family: 'Manrope'; font-weight: 700; color: var(--text-main); }
-    /* --- Footer (Same as Home Page) --- */
+    .services-skeleton-text { 
+      width: 100%; 
+      height: 80px; 
+      margin-bottom: 2rem; 
+      background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%); 
+      background-size: 200% 100%; 
+      animation: loading 1.5s infinite; 
+      border-radius: 4px; 
+    }
+    .services-skeleton-link { 
+      width: 100px; 
+      height: 20px; 
+      background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%); 
+      background-size: 200% 100%; 
+      animation: loading 1.5s infinite; 
+      border-radius: 4px; 
+    }
+    
+    .services-skeleton-card:nth-child(1) { grid-column: span 8; }
+    .services-skeleton-card:nth-child(2) { grid-column: span 4; }
+    .services-skeleton-card:nth-child(3) { grid-column: span 4; }
+    .services-skeleton-card:nth-child(4) { grid-column: span 8; }
+
+    /* --- Footer --- */
     footer { background: var(--dark-surface); color: #94a3b8; padding: 80px 0 0; position: relative; border-top: 1px solid var(--border-dark); }
     .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 4rem; padding-bottom: 4rem; }
  
@@ -475,32 +302,150 @@
     .footer-bottom { border-top: 1px solid var(--border-dark); padding: 2rem 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.9rem; }
     .footer-bottom-links { display: flex; gap: 2rem; }
     .footer-bottom-links a:hover { color: white; }
+
     /* --- Animations --- */
     .fade-up { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
-    /* --- Responsive --- */
+
+    /* --- Mobile Menu --- */
+    .mobile-menu {
+      position: fixed; inset: 0; background: var(--bg-white); z-index: 2000;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 2rem; transform: translateX(100%); transition: var(--transition);
+    }
+    .mobile-menu.active { transform: translateX(0); }
+    .mobile-menu a { font-size: 2rem; font-family: 'Manrope'; font-weight: 700; color: var(--text-main); }
+    .mobile-menu .btn-mobile {
+      background: #0404d8;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    /* --- Media Queries --- */
     @media (max-width: 1024px) {
-      .services-grid, .loading-grid { grid-template-columns: 1fr; }
-      .why-grid { grid-template-columns: repeat(2, 1fr); }
-      .process-grid { grid-template-columns: repeat(2, 1fr); }
-      .process-grid::before { display: none; }
+      .services-bento, .services-skeleton-grid { grid-template-columns: repeat(12, 1fr); }
+      .bento-card:nth-child(n), .services-skeleton-card:nth-child(n) { grid-column: span 6; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
     }
-  
+
     @media (max-width: 768px) {
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: block; }
+
       .page-header { padding: 140px 0 60px; }
       .page-header h1 { font-size: 2.5rem; }
-      .service-card { padding: 2rem; }
-      .why-grid { grid-template-columns: 1fr; }
-      .process-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .process-card { display: flex; align-items: center; gap: 1.5rem; text-align: left; }
-      .process-number { margin: 0; flex-shrink: 0; }
-      .footer-grid { grid-template-columns: 1fr; text-align: center; }
+      .page-header p { font-size: 1rem; }
+
+      section { padding: 60px 0; }
+
+      .bento-card:nth-child(n), .services-skeleton-card:nth-child(n) { grid-column: span 12; }
+      .bento-card { padding: 2rem 1.5rem; }
+      .bento-card h3 { font-size: 1.3rem; margin-bottom: 0.8rem; }
+      .bento-card p { font-size: 0.95rem; margin-bottom: 1.5rem; }
+      .bento-icon { width: 50px; height: 50px; font-size: 1.3rem; margin-bottom: 1rem; }
+      .bento-link { font-size: 0.95rem; }
+
+      .services-skeleton-card { padding: 2rem 1.5rem; }
+      .services-skeleton-icon { width: 50px; height: 50px; margin-bottom: 1rem; }
+      .services-skeleton-title { height: 26px; }
+      .services-skeleton-text { height: 70px; margin-bottom: 1.5rem; }
+
+      .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
       .footer-brand p { max-width: 100%; }
       .social-links, .footer-contact p { justify-content: center; }
       .footer-bottom { flex-direction: column; text-align: center; }
+
+      .mobile-menu a { font-size: 1.5rem; }
+      .mobile-menu .btn-mobile { font-size: 1rem; padding: 0.8rem 1.5rem; }
+
+      h2 { font-size: clamp(2rem, 5vw, 2.8rem); }
+      .section-subtitle { font-size: 1rem; margin-bottom: 2.5rem; }
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 0 16px; }
+      header { top: 16px; padding: 0.6rem 1rem; max-width: calc(100% - 32px); }
+      header.stuck { top: 8px; max-width: calc(100% - 16px); }
+      
+      .logo img { height: 28px; }
+      
+      .page-header { padding: 120px 0 50px; }
+      .page-header h1 { font-size: 2rem; }
+      .page-header p { font-size: 0.95rem; }
+
+      .bento-card { padding: 1.5rem; border-radius: 16px; }
+      .bento-card h3 { font-size: 1.15rem; margin-bottom: 0.75rem; }
+      .bento-card p { font-size: 0.9rem; margin-bottom: 1.2rem; line-height: 1.5; }
+      .bento-icon { width: 45px; height: 45px; font-size: 1.2rem; margin-bottom: 0.8rem; border-radius: 12px; }
+      .bento-link { font-size: 0.9rem; }
+
+      .services-skeleton-card { padding: 1.5rem; border-radius: 16px; }
+      .services-skeleton-icon { width: 45px; height: 45px; border-radius: 12px; }
+      .services-skeleton-title { height: 22px; }
+      .services-skeleton-text { height: 60px; margin-bottom: 1.2rem; }
+      .services-skeleton-link { width: 90px; }
+
+      .services-bento, .services-skeleton-grid { gap: 16px; }
+
+      h2 { font-size: 1.8rem; }
+      .section-subtitle { font-size: 0.95rem; margin-bottom: 2rem; }
+
+      .footer-grid { gap: 1.5rem; padding-bottom: 2rem; }
+      .footer-brand img { height: 32px; }
+      .footer-brand p { font-size: 0.9rem; }
+      .footer-column h4 { font-size: 1rem; margin-bottom: 1rem; }
+      .footer-links a { font-size: 0.9rem; }
+      .footer-contact p { font-size: 0.9rem; }
+      .footer-bottom { padding: 1.5rem 0; font-size: 0.85rem; }
+      .footer-bottom-links { gap: 1rem; }
+
+      .mobile-menu a { font-size: 1.3rem; }
+      .mobile-menu .btn-mobile { font-size: 0.95rem; padding: 0.7rem 1.2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 12px; }
+      header { top: 12px; padding: 0.5rem 0.8rem; max-width: calc(100% - 24px); }
+      
+      .logo img { height: 24px; }
+      
+      .page-header { padding: 100px 0 40px; }
+      .page-header h1 { font-size: 1.6rem; }
+      .page-header p { font-size: 0.9rem; }
+
+      .bento-card { padding: 1.2rem; border-radius: 14px; gap: 0.5rem; }
+      .bento-card h3 { font-size: 1.05rem; margin-bottom: 0.6rem; }
+      .bento-card p { font-size: 0.85rem; margin-bottom: 1rem; line-height: 1.4; }
+      .bento-icon { width: 40px; height: 40px; font-size: 1rem; margin-bottom: 0.7rem; }
+      .bento-link { font-size: 0.85rem; gap: 6px; }
+      .bento-link i { font-size: 0.7rem; }
+
+      .services-skeleton-card { padding: 1.2rem; border-radius: 14px; }
+      .services-skeleton-icon { width: 40px; height: 40px; border-radius: 10px; }
+
+      .services-bento, .services-skeleton-grid { gap: 12px; }
+
+      section { padding: 50px 0; }
+
+      h2 { font-size: 1.5rem; }
+      .section-subtitle { font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+      .footer-grid { gap: 1rem; padding-bottom: 1.5rem; }
+      .footer-brand img { height: 28px; margin-bottom: 1rem; }
+      .footer-brand p { font-size: 0.85rem; }
+      .footer-column h4 { font-size: 0.95rem; margin-bottom: 0.8rem; }
+      .footer-links a { font-size: 0.85rem; }
+      .footer-contact p { font-size: 0.85rem; gap: 0.6rem; }
+      .footer-contact i { font-size: 0.8rem; }
+      .footer-bottom { padding: 1.2rem 0; gap: 0.5rem; }
+      .footer-bottom-links { gap: 0.8rem; font-size: 0.8rem; }
+
+      .mobile-menu a { font-size: 1.2rem; }
+      .mobile-menu .btn-mobile { font-size: 0.9rem; padding: 0.65rem 1rem; }
     }
   </style>
 </head>
@@ -517,130 +462,67 @@
         <a href="contact.html">Contact</a>
       </div>
       <div class="nav-cta">
-        <a href="shop.html" class="btn"><span>Shop Now</span></a>
+        <a href="shop.html" class="btn">Shop Now</a>
       </div>
       <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
     </nav>
   </header>
+
   <div class="mobile-menu" id="mobileMenu">
     <a href="index.html">Home</a>
     <a href="service.html">Services</a>
     <a href="gallery.html">Gallery</a>
     <a href="contact.html">Contact</a>
+    <a href="shop.html" class="btn-mobile">Shop Now</a>
     <div id="closeMenu" style="position:absolute; top:30px; right:30px; font-size:2rem; cursor:pointer;"><i class="fas fa-times"></i></div>
   </div>
+
   <section class="page-header">
     <div class="container">
       <h1>Our Services</h1>
-      <p>Comprehensive technology solutions tailored to your business needs. From custom software to enterprise infrastructure, we deliver excellence.</p>
+      <p>Enterprise-grade technology solutions built for scale, security, and exceptional performance.</p>
     </div>
   </section>
-  <section class="services-section">
+
+  <section id="services">
     <div class="container">
-      <div class="loading-grid" id="servicesLoading">
-        <div class="service-skeleton">
-          <div class="skeleton-icon"></div>
-          <div class="skeleton-text short"></div>
-          <div class="skeleton-text long"></div>
+      <h2 class="fade-up">What We Offer</h2>
+      <p class="section-subtitle fade-up">Comprehensive IT services designed to accelerate your business transformation.</p>
+   
+      <!-- Skeleton Loading State -->
+      <div class="services-skeleton-grid" id="servicesSkeleton">
+        <div class="services-skeleton-card">
+          <div class="services-skeleton-icon"></div>
+          <div class="services-skeleton-title"></div>
+          <div class="services-skeleton-text"></div>
+          <div class="services-skeleton-link"></div>
         </div>
-        <div class="service-skeleton">
-          <div class="skeleton-icon"></div>
-          <div class="skeleton-text short"></div>
-          <div class="skeleton-text long"></div>
+        <div class="services-skeleton-card">
+          <div class="services-skeleton-icon"></div>
+          <div class="services-skeleton-title"></div>
+          <div class="services-skeleton-text"></div>
+          <div class="services-skeleton-link"></div>
         </div>
-        <div class="service-skeleton">
-          <div class="skeleton-icon"></div>
-          <div class="skeleton-text short"></div>
-          <div class="skeleton-text long"></div>
+        <div class="services-skeleton-card">
+          <div class="services-skeleton-icon"></div>
+          <div class="services-skeleton-title"></div>
+          <div class="services-skeleton-text"></div>
+          <div class="services-skeleton-link"></div>
         </div>
-        <div class="service-skeleton">
-          <div class="skeleton-icon"></div>
-          <div class="skeleton-text short"></div>
-          <div class="skeleton-text long"></div>
+        <div class="services-skeleton-card">
+          <div class="services-skeleton-icon"></div>
+          <div class="services-skeleton-title"></div>
+          <div class="services-skeleton-text"></div>
+          <div class="services-skeleton-link"></div>
         </div>
       </div>
-    
-      <div class="services-grid" id="servicesGrid" style="display: none;">
-        <!-- Services injected here -->
-      </div>
-    </div>
-  </section>
-  <section class="why-section">
-    <div class="container">
-      <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">Why Choose Rare Grade Tech?</h2>
-      <p class="section-subtitle" style="text-align: center; color: var(--text-muted); max-width: 600px; margin: 0 auto;">We combine technical expertise with local understanding to deliver solutions that work.</p>
-    
-      <div class="why-grid">
-        <div class="why-card">
-          <div class="why-icon"><i class="fas fa-clock"></i></div>
-          <h4>24/7 Support</h4>
-          <p>Round-the-clock technical assistance and monitoring for your critical systems.</p>
-        </div>
-        <div class="why-card">
-          <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
-          <h4>Secure by Design</h4>
-          <p>Security built into every solution from the ground up, not bolted on later.</p>
-        </div>
-        <div class="why-card">
-          <div class="why-icon"><i class="fas fa-map-marker-alt"></i></div>
-          <h4>Local Presence</h4>
-          <p>Based in Mokopane with understanding of local business needs and challenges.</p>
-        </div>
-        <div class="why-card">
-          <div class="why-icon"><i class="fas fa-chart-line"></i></div>
-          <h4>Scalable Solutions</h4>
-          <p>Grow without limits. Our solutions scale with your business success.</p>
-        </div>
+   
+      <div class="services-bento" id="servicesContainer" style="display: none;">
+        <!-- Services injected here by Firebase -->
       </div>
     </div>
   </section>
-  <section class="process-section">
-    <div class="container">
-      <h2 style="margin-bottom: 1rem;">How We Work</h2>
-      <p class="section-subtitle">Our proven process ensures successful project delivery every time.</p>
-    
-      <div class="process-grid">
-        <div class="process-card">
-          <div class="process-number">01</div>
-          <div>
-            <h4>Discovery</h4>
-            <p>We analyze your needs, challenges, and goals to understand the full picture.</p>
-          </div>
-        </div>
-        <div class="process-card">
-          <div class="process-number">02</div>
-          <div>
-            <h4>Strategy</h4>
-            <p>Custom solution design tailored to your specific requirements and budget.</p>
-          </div>
-        </div>
-        <div class="process-card">
-          <div class="process-number">03</div>
-          <div>
-            <h4>Implementation</h4>
-            <p>Expert deployment with minimal disruption to your ongoing operations.</p>
-          </div>
-        </div>
-        <div class="process-card">
-          <div class="process-number">04</div>
-          <div>
-            <h4>Support</h4>
-            <p>Ongoing maintenance, training, and optimization for long-term success.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="cta-section">
-    <div class="container">
-      <h2>Ready to Start Your Project?</h2>
-      <p>Let's discuss how we can help transform your business with technology.</p>
-      <a href="contact.html" class="cta-btn">
-        Get Free Consultation <i class="fas fa-arrow-right"></i>
-      </a>
-    </div>
-  </section>
-  <!-- FOOTER SECTION - Dynamic from Firebase (Same as Home Page) -->
+
   <footer>
     <div class="container">
       <div class="footer-grid">
@@ -684,7 +566,7 @@
        
           <div style="margin-top: 2rem;">
             <h4 style="margin-bottom: 0.5rem;">Tech Insights Newsletter</h4>
-            <form class="newsletter-form" id="newsletterForm">
+            <form class="newsletter-form">
               <input type="email" placeholder="Enter your email address" required>
               <button type="submit">Subscribe</button>
             </form>
@@ -701,23 +583,23 @@
       </div>
     </div>
   </footer>
+
   <script>
-    // --- Navbar Logic ---
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
       header.classList.toggle('stuck', window.scrollY > 50);
     });
-    // --- Mobile Menu ---
+
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const closeMenu = document.getElementById('closeMenu');
-  
+ 
     hamburger.onclick = () => mobileMenu.classList.add('active');
     closeMenu.onclick = () => mobileMenu.classList.remove('active');
     mobileMenu.querySelectorAll('a').forEach(link => {
       link.onclick = () => mobileMenu.classList.remove('active');
     });
-    // --- Intersection Observer (Fade Ups) ---
+
     const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -727,7 +609,7 @@
       });
     }, observerOptions);
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-    // --- Firebase Integration ---
+
     const firebaseConfig = {
       apiKey: "AIzaSyAxBT0oESoL62oz_x_Z8cMtdENWZPx4tMI",
       authDomain: "pinotp-d7ef5.firebaseapp.com",
@@ -737,158 +619,95 @@
       messagingSenderId: "708458917827",
       appId: "1:708458917827:web:375de278577df0adcf9776"
     };
-  
+ 
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
     const db = firebase.database();
-    // Service features data (extended descriptions for each service type)
-    const serviceFeatures = {
-      'fa-code': ['Custom Software Development', 'Mobile App Creation', 'Legacy System Modernization', 'API Integration'],
-      'fa-globe': ['Web Application Development', 'E-commerce Solutions', 'CMS Implementation', 'Performance Optimization'],
-      'fa-shield-alt': ['Security Audits', 'Penetration Testing', 'Compliance Consulting', 'Incident Response'],
-      'fa-cloud': ['Cloud Migration', 'AWS/Azure/GCP Setup', 'DevOps Automation', 'Serverless Architecture'],
-      'fa-laptop': ['IT Infrastructure Setup', 'Hardware Procurement', 'Network Configuration', 'System Integration'],
-      'fa-server': ['Data Center Management', 'Virtualization', 'Backup Solutions', 'Disaster Recovery'],
-      'fa-network-wired': ['Network Design', 'WiFi Solutions', 'VPN Setup', 'SD-WAN Implementation'],
-      'fa-database': ['Database Design', 'Data Migration', 'Performance Tuning', 'Business Intelligence'],
-      'fa-mobile-alt': ['iOS Development', 'Android Development', 'Cross-platform Apps', 'Mobile Strategy'],
-      'fa-cogs': ['Process Automation', 'Workflow Optimization', 'System Integration', 'Custom Tools'],
-      'fa-headset': ['Help Desk Support', 'Remote Assistance', 'On-site Support', 'Training & Documentation'],
-      'fa-chart-line': ['IT Consulting', 'Digital Strategy', 'Technology Roadmapping', 'ROI Analysis']
-    };
-    function loadServices() {
-      db.ref('websiteContent/services').once('value').then(snapshot => {
-        const services = snapshot.val();
-        const loadingGrid = document.getElementById('servicesLoading');
-        const servicesGrid = document.getElementById('servicesGrid');
-      
-        if (!services || !Array.isArray(services) || services.length === 0) {
-          // Show default services if none in database
-          renderDefaultServices();
+
+    function hideSkeletons() {
+      document.getElementById('servicesSkeleton').style.display = 'none';
+      document.getElementById('servicesContainer').style.display = 'grid';
+    }
+
+    function loadWebsiteContent() {
+      db.ref('websiteContent').once('value').then(snapshot => {
+        const data = snapshot.val();
+        if (!data) {
+          console.log('No data found in Firebase, using defaults');
+          hideSkeletons();
           return;
         }
-      
-        loadingGrid.style.display = 'none';
-        servicesGrid.style.display = 'grid';
-        servicesGrid.innerHTML = '';
-      
-        services.forEach((service, index) => {
-          const iconClass = service.icon || 'fa-code';
-          const features = serviceFeatures[iconClass] || serviceFeatures['fa-code'];
+
+        if (data.services && Array.isArray(data.services)) {
+          const servicesContainer = document.getElementById('servicesContainer');
+          servicesContainer.innerHTML = '';
+       
+          data.services.forEach((service, index) => {
+            const delay = index * 0.1;
+            const iconClass = service.icon || 'fa-code';
+            const card = document.createElement('div');
+            card.className = 'bento-card fade-up';
+            card.style.transitionDelay = `${delay}s`;
+         
+            if (index === 0) card.style.gridColumn = 'span 8';
+            else if (index === 1) card.style.gridColumn = 'span 4';
+            else if (index === 2) card.style.gridColumn = 'span 4';
+            else if (index === 3) card.style.gridColumn = 'span 8';
+         
+            card.innerHTML = `
+              <div class="bento-icon"><i class="fas ${iconClass}"></i></div>
+              <h3>${service.title || 'Service Title'}</h3>
+              <p>${service.desc || 'Service description goes here.'}</p>
+              <a href="contact.html" class="bento-link">${service.link || 'Learn More'} <i class="fas fa-chevron-right"></i></a>
+            `;
+            servicesContainer.appendChild(card);
+          });
+        }
+
+        if (data.footer) {
+          const f = data.footer;
+          document.getElementById('footerAbout').textContent = f.about || 'Premium IT services and tech solutions.';
+          document.getElementById('footerAddress').innerHTML = f.address || 'Mokopane, Limpopo,<br>South Africa';
+          document.getElementById('footerPhone').textContent = f.phone || '+27 (0) 15 123 4567';
+          document.getElementById('footerEmail').textContent = f.email || 'info@mtechsolutions.com';
+          document.getElementById('footerHours').textContent = f.hours || 'Mon - Fri: 08:00 - 17:00';
+          document.getElementById('footerCopyright').textContent = f.copyright || '© 2026 MTech Solutions. All rights reserved.';
+       
+          const socialContainer = document.getElementById('socialLinks');
+          socialContainer.innerHTML = '';
+       
+          const socials = [
+            { url: f.socialFb, icon: 'fa-facebook-f', label: 'Facebook' },
+            { url: f.socialTw, icon: 'fa-twitter', label: 'Twitter' },
+            { url: f.socialLi, icon: 'fa-linkedin-in', label: 'LinkedIn' },
+            { url: f.socialIg, icon: 'fa-instagram', label: 'Instagram' }
+          ];
+       
+          socials.forEach(social => {
+            if (social.url) {
+              const link = document.createElement('a');
+              link.href = social.url;
+              link.setAttribute('aria-label', social.label);
+              link.target = '_blank';
+              link.innerHTML = `<i class="fab ${social.icon}"></i>`;
+              socialContainer.appendChild(link);
+            }
+          });
+        }
         
-          const card = document.createElement('div');
-          card.className = 'service-card';
-          card.style.animation = `fadeUp 0.6s ease ${index * 0.1}s both`;
-        
-          card.innerHTML = `
-            <div class="service-icon">
-              <i class="fas ${iconClass}"></i>
-            </div>
-            <h3>${service.title || 'Service Title'}</h3>
-            <p>${service.desc || 'Comprehensive technology solutions tailored to your business needs.'}</p>
-            <ul class="service-features">
-              ${features.map(f => `<li><i class="fas fa-check-circle"></i> ${f}</li>`).join('')}
-            </ul>
-            <a href="contact.html" class="service-cta">
-              ${service.link || 'Learn More'} <i class="fas fa-arrow-right"></i>
-            </a>
-          `;
-        
-          servicesGrid.appendChild(card);
-        });
-      
+        hideSkeletons();
+        document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
+     
       }).catch(error => {
-        console.error('Error loading services:', error);
-        renderDefaultServices();
+        console.error('Error loading Firebase data:', error);
+        hideSkeletons();
       });
     }
-    function renderDefaultServices() {
-      const loadingGrid = document.getElementById('servicesLoading');
-      const servicesGrid = document.getElementById('servicesGrid');
-    
-      loadingGrid.style.display = 'none';
-      servicesGrid.style.display = 'grid';
-    
-      const defaults = [
-        { icon: 'fa-code', title: 'Software Development', desc: 'Custom software solutions built for your specific business workflows and requirements.', link: 'Start Project' },
-        { icon: 'fa-shield-alt', title: 'Cybersecurity', desc: 'Protect your digital assets with enterprise-grade security solutions and monitoring.', link: 'Secure Business' },
-        { icon: 'fa-cloud', title: 'Cloud Solutions', desc: 'Seamless cloud migration and management for improved scalability and efficiency.', link: 'Go Cloud' },
-        { icon: 'fa-laptop', title: 'IT Infrastructure', desc: 'Complete hardware and network solutions from procurement to deployment.', link: 'Build Infrastructure' }
-      ];
-    
-      servicesGrid.innerHTML = '';
-      defaults.forEach((service, index) => {
-        const features = serviceFeatures[service.icon];
-        const card = document.createElement('div');
-        card.className = 'service-card';
-      
-        card.innerHTML = `
-          <div class="service-icon">
-            <i class="fas ${service.icon}"></i>
-          </div>
-          <h3>${service.title}</h3>
-          <p>${service.desc}</p>
-          <ul class="service-features">
-            ${features.map(f => `<li><i class="fas fa-check-circle"></i> ${f}</li>`).join('')}
-          </ul>
-          <a href="contact.html" class="service-cta">
-            ${service.link} <i class="fas fa-arrow-right"></i>
-          </a>
-        `;
-      
-        servicesGrid.appendChild(card);
-      });
-    }
-    // Add fadeUp animation
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-    `;
-    document.head.appendChild(style);
-    // Load Footer Data from Firebase (Same as Home Page)
-    function loadFooterData() {
-      db.ref('websiteContent/footer').once('value').then(snapshot => {
-        const f = snapshot.val();
-        if (!f) return;
-        
-        document.getElementById('footerAbout').textContent = f.about || 'Premium IT services and tech solutions.';
-        document.getElementById('footerAddress').innerHTML = f.address || 'Mokopane, Limpopo,<br>South Africa';
-        document.getElementById('footerPhone').textContent = f.phone || '+27 (0) 15 123 4567';
-        document.getElementById('footerEmail').textContent = f.email || 'info@mtechsolutions.com';
-        document.getElementById('footerHours').textContent = f.hours || 'Mon - Fri: 08:00 - 17:00';
-        document.getElementById('footerCopyright').textContent = f.copyright || '© 2026 MTech Solutions. All rights reserved.';
-      
-        // Social Links
-        const socialContainer = document.getElementById('socialLinks');
-        socialContainer.innerHTML = '';
-      
-        const socials = [
-          { url: f.socialFb, icon: 'fa-facebook-f', label: 'Facebook' },
-          { url: f.socialTw, icon: 'fa-twitter', label: 'Twitter' },
-          { url: f.socialLi, icon: 'fa-linkedin-in', label: 'LinkedIn' },
-          { url: f.socialIg, icon: 'fa-instagram', label: 'Instagram' }
-        ];
-      
-        socials.forEach(social => {
-          if (social.url) {
-            const link = document.createElement('a');
-            link.href = social.url;
-            link.setAttribute('aria-label', social.label);
-            link.target = '_blank';
-            link.innerHTML = `<i class="fab ${social.icon}"></i>`;
-            socialContainer.appendChild(link);
-          }
-        });
-      }).catch(error => {
-        console.error('Error loading footer:', error);
-      });
-    }
-    // Newsletter Form Handler
-    const newsletterForm = document.getElementById('newsletterForm');
+
+    document.addEventListener('DOMContentLoaded', loadWebsiteContent);
+
+    const newsletterForm = document.querySelector('.newsletter-form');
     if (newsletterForm) {
       newsletterForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -904,7 +723,7 @@
         newSubscriberRef.set({
           email: email,
           subscribedAt: firebase.database.ServerValue.TIMESTAMP,
-          source: "website_footer"
+          source: "services_page_footer"
         })
         .then(() => {
           btn.innerText = 'Subscribed!';
@@ -924,11 +743,6 @@
         });
       });
     }
-    // Load everything on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      loadServices();
-      loadFooterData();
-    });
   </script>
 </body>
 </html>
