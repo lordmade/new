@@ -603,13 +603,7 @@
           <p>Fill out the form and our team will get back to you within 24 hours. For urgent inquiries, please call us directly.</p>
          
           <div class="info-cards" id="infoCards">
-            <div class="info-card">
-              <div class="info-icon"><i class="fas fa-spinner fa-spin"></i></div>
-              <div class="info-content">
-                <h4>Loading...</h4>
-                <p>Fetching contact details</p>
-              </div>
-            </div>
+            <!-- Contact cards injected here -->
           </div>
          
           <div class="social-section" id="socialSection" style="display: none;">
@@ -679,8 +673,8 @@
         <div class="map-placeholder">
           <i class="fas fa-map-marked-alt"></i>
           <h3>Find Us</h3>
-          <p id="mapAddress">Loading address...</p>
-          <a href="#" class="map-link" id="mapLink" target="_blank">
+          <p id="mapAddress">Mokopane, Limpopo, South Africa</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Mokopane,+Limpopo,+South+Africa" class="map-link" id="mapLink" target="_blank">
             <i class="fas fa-external-link-alt"></i>
             Open in Google Maps
           </a>
@@ -700,7 +694,7 @@
       <div class="footer-grid">
         <div class="footer-brand fade-up">
           <img src="https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png " alt="MTech Solutions">
-          <p id="footerAbout">Loading...</p>
+          <p id="footerAbout">Premium IT services and tech solutions in Mokopane.</p>
           <div class="social-links" id="footerSocialLinks">
             <!-- Social links injected here -->
           </div>
@@ -709,11 +703,11 @@
         <div class="footer-column fade-up" style="transition-delay: 0.1s;">
           <h4>Services</h4>
           <ul class="footer-links">
-            <li><a href="#services">Software Development</a></li>
-            <li><a href="#services">Web Architecture</a></li>
-            <li><a href="#services">Cybersecurity</a></li>
-            <li><a href="#services">Cloud Migrations</a></li>
-            <li><a href="#shop-teaser">Hardware Sales</a></li>
+            <li><a href="service.html">Software Development</a></li>
+            <li><a href="service.html">Web Architecture</a></li>
+            <li><a href="service.html">Cybersecurity</a></li>
+            <li><a href="service.html">Cloud Migrations</a></li>
+            <li><a href="shop.html">Hardware Sales</a></li>
           </ul>
         </div>
      
@@ -723,17 +717,17 @@
             <li><a href="#">About Us</a></li>
             <li><a href="#">Our Team</a></li>
             <li><a href="#">Careers</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
      
         <div class="footer-column fade-up" style="transition-delay: 0.3s;">
           <h4>Contact Us</h4>
           <div class="footer-contact">
-            <p><i class="fas fa-map-marker-alt"></i> <span id="footerAddress">Loading...</span></p>
-            <p><i class="fas fa-phone"></i> <span id="footerPhone">Loading...</span></p>
-            <p><i class="fas fa-envelope"></i> <span id="footerEmail">Loading...</span></p>
-            <p><i class="fas fa-clock"></i> <span id="footerHours">Loading...</span></p>
+            <p><i class="fas fa-map-marker-alt"></i> <span id="footerAddress">Mokopane, Limpopo,<br>South Africa</span></p>
+            <p><i class="fas fa-phone"></i> <span id="footerPhone">+27 (0) 15 123 4567</span></p>
+            <p><i class="fas fa-envelope"></i> <span id="footerEmail">info@mtechsolutions.com</span></p>
+            <p><i class="fas fa-clock"></i> <span id="footerHours">Mon - Fri: 08:00 - 17:00</span></p>
           </div>
        
           <div style="margin-top: 2rem;">
@@ -747,7 +741,7 @@
       </div>
    
       <div class="footer-bottom">
-        <p id="footerCopyright">Loading...</p>
+        <p id="footerCopyright">© 2026 MTech Solutions. All rights reserved.</p>
         <div class="footer-bottom-links">
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Service</a>
@@ -795,49 +789,7 @@
       socialLi: { icon: 'fa-linkedin-in', label: 'LinkedIn', color: '#0077b5' },
       socialIg: { icon: 'fa-instagram', label: 'Instagram', color: '#e4405f' }
     };
-    function loadContactInfo() {
-      db.ref('websiteContent/footer').once('value').then(snapshot => {
-        const data = snapshot.val();
-        if (!data) { showDefaultContactInfo(); loadFooterContent(); return; }
-        const infoCards = document.getElementById('infoCards');
-        infoCards.innerHTML = '';
-       
-        Object.keys(contactConfig).forEach(key => {
-          if (data[key]) {
-            const config = contactConfig[key];
-            const value = data[key];
-            const card = document.createElement('div');
-            card.className = 'info-card';
-            let contentHtml = `<h4>${config.label}</h4>`;
-            if (config.link) { contentHtml += `<a href="${config.link}${value}">${value}</a>`; }
-            else { contentHtml += `<p>${value.replace(/,/g, '<br>')}</p>`; }
-            card.innerHTML = `<div class="info-icon"><i class="fas ${config.icon}"></i></div><div class="info-content">${contentHtml}</div>`;
-            infoCards.appendChild(card);
-          }
-        });
-        const socialSection = document.getElementById('socialSection');
-        const socialLinks = document.getElementById('socialLinks');
-        let hasSocial = false;
-        Object.keys(socialConfig).forEach(key => {
-          if (data[key]) {
-            hasSocial = true;
-            const config = socialConfig[key];
-            const link = document.createElement('a');
-            link.className = 'social-link';
-            link.href = data[key];
-            link.target = '_blank';
-            link.innerHTML = `<i class="fab ${config.icon}"></i>`;
-            socialLinks.appendChild(link);
-          }
-        });
-        if (hasSocial) socialSection.style.display = 'block';
-        if (data.address) {
-          document.getElementById('mapAddress').textContent = data.address;
-          document.getElementById('mapLink').href = `https://www.google.com/maps/search/?api=1&query= ${encodeURIComponent(data.address)}`;
-        }
-        loadFooterContent();
-      }).catch(error => { showDefaultContactInfo(); loadFooterContent(); });
-    }
+    
     function showDefaultContactInfo() {
       const defaults = [
         { icon: 'fa-map-marker-alt', label: 'Address', value: 'Mokopane, Limpopo<br>South Africa' },
@@ -857,16 +809,16 @@
         infoCards.appendChild(card);
       });
       document.getElementById('mapAddress').textContent = 'Mokopane, Limpopo, South Africa';
-      document.getElementById('mapLink').href = 'https://www.google.com/maps/search/?api=1&query=Mokopane ,+Limpopo,+South+Africa';
+      document.getElementById('mapLink').href = 'https://www.google.com/maps/search/?api=1&query=Mokopane,+Limpopo,+South+Africa';
     }
+    
     function loadFooterContent() {
       db.ref('websiteContent/footer').once('value').then(snapshot => {
         const data = snapshot.val();
         if (!data) {
-          setDefaultFooter();
           return;
         }
-        document.getElementById('footerAbout').textContent = data.about || 'Premium IT services and tech solutions.';
+        document.getElementById('footerAbout').textContent = data.about || 'Premium IT services and tech solutions in Mokopane.';
         document.getElementById('footerAddress').innerHTML = data.address || 'Mokopane, Limpopo,<br>South Africa';
         document.getElementById('footerPhone').textContent = data.phone || '+27 (0) 15 123 4567';
         document.getElementById('footerEmail').textContent = data.email || 'info@mtechsolutions.com';
@@ -893,17 +845,9 @@
         });
       }).catch(error => {
         console.error('Error loading footer:', error);
-        setDefaultFooter();
       });
     }
-    function setDefaultFooter() {
-      document.getElementById('footerAbout').textContent = 'Premium IT services and tech solutions in Mokopane.';
-      document.getElementById('footerAddress').innerHTML = 'Mokopane, Limpopo,<br>South Africa';
-      document.getElementById('footerPhone').textContent = '+27 (0) 15 123 4567';
-      document.getElementById('footerEmail').textContent = 'info@mtechsolutions.com';
-      document.getElementById('footerHours').textContent = 'Mon - Fri: 08:00 - 17:00';
-      document.getElementById('footerCopyright').textContent = '© 2026 MTech Solutions. All rights reserved.';
-    }
+    
     const contactForm = document.getElementById('contactForm');
     const submitBtn = document.getElementById('submitBtn');
     const toast = document.getElementById('toast');
@@ -998,7 +942,10 @@
         });
       });
     }
-    document.addEventListener('DOMContentLoaded', loadContactInfo);
+    document.addEventListener('DOMContentLoaded', () => {
+      showDefaultContactInfo();
+      loadFooterContent();
+    });
   </script>
 </body>
 </html>
