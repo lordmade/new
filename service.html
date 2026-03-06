@@ -5,16 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
   <title>Services | MTech Solutions</title>
   <meta name="description" content="Enterprise-grade IT services, software development, cybersecurity, and cloud solutions in Mokopane, Limpopo.">
- 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
- 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
- 
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
- 
   <style>
     :root {
       --primary: #2563eb;
@@ -28,13 +24,13 @@
       --dark-surface-2: #0f172a;
       --border: #e2e8f0;
       --border-dark: rgba(255, 255, 255, 0.1);
-     
+    
       --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
       --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
       --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
       --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       --shadow-glow: 0 0 40px rgba(37, 99, 235, 0.15);
-     
+    
       --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -51,10 +47,10 @@
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
     img { max-width: 100%; height: auto; display: block; }
-   
+  
     .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
     h1, h2, h3, h4 { font-family: 'Manrope', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
-   
+  
     /* --- Navbar --- */
     header {
       position: fixed; top: 24px; left: 50%; transform: translateX(-50%); z-index: 1000;
@@ -84,6 +80,7 @@
     .nav-cta .btn:hover::before { opacity: 1; }
     .nav-cta .btn span { position: relative; z-index: 1; }
     .hamburger { display: none; cursor: pointer; font-size: 1.5rem; color: var(--text-main); }
+
     /* --- Page Header --- */
     .page-header {
       padding: 180px 0 100px;
@@ -122,17 +119,18 @@
       margin: 0 auto;
       font-weight: 400;
     }
+
     /* --- Services Grid --- */
     .services-section {
       padding: 80px 0;
     }
-   
+  
     .services-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 2rem;
     }
-   
+  
     .service-card {
       background: var(--bg-white);
       border-radius: 24px;
@@ -144,24 +142,24 @@
       display: flex;
       flex-direction: column;
     }
-   
+  
     .service-card::before {
       content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
       background: linear-gradient(90deg, var(--primary), var(--accent));
       transform: scaleX(0);
       transition: transform 0.4s var(--ease-out);
     }
-   
+  
     .service-card:hover {
       transform: translateY(-8px);
       box-shadow: var(--shadow-2xl);
       border-color: rgba(37,99,235,0.2);
     }
-   
+  
     .service-card:hover::before {
       transform: scaleX(1);
     }
-   
+  
     .service-icon {
       width: 80px;
       height: 80px;
@@ -176,31 +174,31 @@
       transition: var(--transition);
       border: 1px solid rgba(37,99,235,0.2);
     }
-   
+  
     .service-card:hover .service-icon {
       background: var(--primary);
       color: white;
       transform: scale(1.1) rotate(-5deg);
       box-shadow: var(--shadow-glow);
     }
-   
+  
     .service-card h3 {
       font-size: 1.75rem;
       margin-bottom: 1rem;
       color: var(--text-main);
     }
-   
+  
     .service-card p {
       color: var(--text-muted);
       line-height: 1.8;
       margin-bottom: 2rem;
       flex-grow: 1;
     }
-   
+  
     .service-features {
       margin-bottom: 2rem;
     }
-   
+  
     .service-features li {
       display: flex;
       align-items: center;
@@ -209,12 +207,12 @@
       color: var(--text-muted);
       font-size: 0.95rem;
     }
-   
+  
     .service-features li i {
       color: var(--primary);
       font-size: 0.8rem;
     }
-   
+  
     .service-cta {
       display: inline-flex;
       align-items: center;
@@ -228,35 +226,36 @@
       border: 1px solid var(--border);
       width: fit-content;
     }
-   
+  
     .service-cta:hover {
       background: var(--primary);
       color: white;
       border-color: var(--primary);
       transform: translateX(5px);
     }
-   
+  
     .service-cta i {
       transition: transform 0.3s;
     }
-   
+  
     .service-cta:hover i {
       transform: translateX(5px);
     }
+
     /* --- Loading State --- */
     .loading-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 2rem;
     }
-   
+  
     .service-skeleton {
       background: var(--bg-white);
       border-radius: 24px;
       padding: 3rem;
       border: 1px solid var(--border);
     }
-   
+  
     .skeleton-icon {
       width: 80px;
       height: 80px;
@@ -266,7 +265,7 @@
       animation: shimmer 1.5s infinite;
       margin-bottom: 2rem;
     }
-   
+  
     .skeleton-text {
       height: 20px;
       border-radius: 8px;
@@ -275,14 +274,15 @@
       animation: shimmer 1.5s infinite;
       margin-bottom: 1rem;
     }
-   
+  
     .skeleton-text.short { width: 60%; }
     .skeleton-text.long { width: 100%; height: 80px; margin-top: 1.5rem; }
-   
+  
     @keyframes shimmer {
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
+
     /* --- CTA Section --- */
     .cta-section {
       background: var(--primary);
@@ -291,20 +291,20 @@
       position: relative;
       overflow: hidden;
     }
-   
+  
     .cta-section::before {
       content: ''; position: absolute; inset: 0;
       background: url('https://www.transparenttextures.com/patterns/cubes.png');
       opacity: 0.1;
     }
-   
+  
     .cta-section h2 {
       color: white;
       font-size: clamp(2rem, 4vw, 3rem);
       margin-bottom: 1rem;
       position: relative;
     }
-   
+  
     .cta-section p {
       color: rgba(255,255,255,0.8);
       font-size: 1.2rem;
@@ -312,7 +312,7 @@
       margin: 0 auto 2rem;
       position: relative;
     }
-   
+  
     .cta-btn {
       display: inline-flex;
       align-items: center;
@@ -327,36 +327,37 @@
       position: relative;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
-   
+  
     .cta-btn:hover {
       transform: translateY(-3px) scale(1.02);
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
+
     /* --- Why Choose Us --- */
     .why-section {
       padding: 100px 0;
       background: var(--bg-white);
     }
-   
+  
     .why-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 2rem;
       margin-top: 3rem;
     }
-   
+  
     .why-card {
       text-align: center;
       padding: 2rem;
       border-radius: 16px;
       transition: var(--transition);
     }
-   
+  
     .why-card:hover {
       background: var(--bg-light);
       transform: translateY(-5px);
     }
-   
+  
     .why-icon {
       width: 60px;
       height: 60px;
@@ -370,33 +371,34 @@
       font-size: 1.5rem;
       box-shadow: var(--shadow-glow);
     }
-   
+  
     .why-card h4 {
       font-size: 1.2rem;
       margin-bottom: 0.5rem;
     }
-   
+  
     .why-card p {
       color: var(--text-muted);
       font-size: 0.9rem;
     }
+
     /* --- Process Section --- */
     .process-section {
       padding: 100px 0;
       background: var(--dark-surface);
       color: white;
     }
-   
+  
     .process-section h2 {
       color: white;
       text-align: center;
     }
-   
+  
     .process-section .section-subtitle {
       color: #64748b;
       text-align: center;
     }
-   
+  
     .process-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -404,19 +406,19 @@
       margin-top: 4rem;
       position: relative;
     }
-   
+  
     .process-grid::before {
       content: ''; position: absolute; top: 40px; left: 12.5%; right: 12.5%;
       height: 2px; background: linear-gradient(90deg, var(--primary), var(--accent));
       opacity: 0.3;
     }
-   
+  
     .process-card {
       text-align: center;
       position: relative;
       z-index: 1;
     }
-   
+  
     .process-number {
       width: 80px;
       height: 80px;
@@ -433,16 +435,17 @@
       color: var(--accent);
       box-shadow: 0 0 30px rgba(37,99,235,0.2);
     }
-   
+  
     .process-card h4 {
       font-size: 1.2rem;
       margin-bottom: 0.5rem;
     }
-   
+  
     .process-card p {
       color: #64748b;
       font-size: 0.9rem;
     }
+
     /* --- Mobile Menu --- */
     .mobile-menu {
       position: fixed; inset: 0; background: var(--bg-white); z-index: 2000;
@@ -451,16 +454,7 @@
     }
     .mobile-menu.active { transform: translateX(0); }
     .mobile-menu a { font-size: 2rem; font-family: 'Manrope'; font-weight: 700; color: var(--text-main); }
-    /* --- Footer --- */
-    footer {
-      background: var(--dark-surface);
-      color: #64748b;
-      padding: 60px 0;
-      text-align: center;
-      border-top: 1px solid var(--border-dark);
-    }
-   
-    footer p { font-size: 0.9rem; }
+
     /* --- Responsive --- */
     @media (max-width: 1024px) {
       .services-grid, .loading-grid { grid-template-columns: 1fr; }
@@ -468,7 +462,7 @@
       .process-grid { grid-template-columns: repeat(2, 1fr); }
       .process-grid::before { display: none; }
     }
-   
+  
     @media (max-width: 768px) {
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: block; }
@@ -500,6 +494,7 @@
       <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
     </nav>
   </header>
+
   <div class="mobile-menu" id="mobileMenu">
     <a href="index.html">Home</a>
     <a href="service.html">Services</a>
@@ -507,12 +502,14 @@
     <a href="contact.html">Contact</a>
     <div id="closeMenu" style="position:absolute; top:30px; right:30px; font-size:2rem; cursor:pointer;"><i class="fas fa-times"></i></div>
   </div>
+
   <section class="page-header">
     <div class="container">
       <h1>Our Services</h1>
       <p>Comprehensive technology solutions tailored to your business needs. From custom software to enterprise infrastructure, we deliver excellence.</p>
     </div>
   </section>
+
   <section class="services-section">
     <div class="container">
       <div class="loading-grid" id="servicesLoading">
@@ -537,17 +534,18 @@
           <div class="skeleton-text long"></div>
         </div>
       </div>
-     
+    
       <div class="services-grid" id="servicesGrid" style="display: none;">
         <!-- Services injected here -->
       </div>
     </div>
   </section>
+
   <section class="why-section">
     <div class="container">
       <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">Why Choose Rare Grade Tech?</h2>
       <p class="section-subtitle" style="text-align: center; color: var(--text-muted); max-width: 600px; margin: 0 auto;">We combine technical expertise with local understanding to deliver solutions that work.</p>
-     
+    
       <div class="why-grid">
         <div class="why-card">
           <div class="why-icon"><i class="fas fa-clock"></i></div>
@@ -572,11 +570,12 @@
       </div>
     </div>
   </section>
+
   <section class="process-section">
     <div class="container">
       <h2 style="margin-bottom: 1rem;">How We Work</h2>
       <p class="section-subtitle">Our proven process ensures successful project delivery every time.</p>
-     
+    
       <div class="process-grid">
         <div class="process-card">
           <div class="process-number">01</div>
@@ -609,6 +608,7 @@
       </div>
     </div>
   </section>
+
   <section class="cta-section">
     <div class="container">
       <h2>Ready to Start Your Project?</h2>
@@ -618,11 +618,69 @@
       </a>
     </div>
   </section>
+
+  <!-- Footer - exact match from your main index.html -->
   <footer>
     <div class="container">
-      <p>© 2026 MTech Solutions. All rights reserved. Premium IT & Hardware in Mokopane.</p>
+      <div class="footer-grid">
+        <div class="footer-brand fade-up">
+          <img src="https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png" alt="MTech Solutions">
+          <p id="footerAbout">Premium IT services and tech solutions in Mokopane, Limpopo. We build reliable, scalable technology that drives real business results.</p>
+          <div class="social-links" id="socialLinks">
+            <!-- Social links injected here -->
+          </div>
+        </div>
+      
+        <div class="footer-column fade-up" style="transition-delay: 0.1s;">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="#services">Software Development</a></li>
+            <li><a href="#services">Web Architecture</a></li>
+            <li><a href="#services">Cybersecurity</a></li>
+            <li><a href="#services">Cloud Migrations</a></li>
+            <li><a href="#shop-teaser">Hardware Sales</a></li>
+          </ul>
+        </div>
+      
+        <div class="footer-column fade-up" style="transition-delay: 0.2s;">
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Team</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      
+        <div class="footer-column fade-up" style="transition-delay: 0.3s;">
+          <h4>Contact Us</h4>
+          <div class="footer-contact">
+            <p><i class="fas fa-map-marker-alt"></i> <span id="footerAddress">Mokopane, Limpopo,<br>South Africa</span></p>
+            <p><i class="fas fa-phone"></i> <span id="footerPhone">+27 (0) 15 123 4567</span></p>
+            <p><i class="fas fa-envelope"></i> <span id="footerEmail">info@mtechsolutions.com</span></p>
+            <p><i class="fas fa-clock"></i> <span id="footerHours">Mon - Fri: 08:00 - 17:00</span></p>
+          </div>
+        
+          <div style="margin-top: 2rem;">
+            <h4 style="margin-bottom: 0.5rem;">Tech Insights Newsletter</h4>
+            <form class="newsletter-form">
+              <input type="email" placeholder="Enter your email address" required>
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    
+      <div class="footer-bottom">
+        <p id="footerCopyright">© 2026 MTech Solutions. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
     </div>
   </footer>
+
   <script>
     // --- Navbar Logic ---
     const header = document.getElementById('header');
@@ -633,7 +691,7 @@
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
     const closeMenu = document.getElementById('closeMenu');
-   
+  
     hamburger.onclick = () => mobileMenu.classList.add('active');
     closeMenu.onclick = () => mobileMenu.classList.remove('active');
     mobileMenu.querySelectorAll('a').forEach(link => {
@@ -649,7 +707,7 @@
       messagingSenderId: "708458917827",
       appId: "1:708458917827:web:375de278577df0adcf9776"
     };
-   
+  
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
@@ -674,25 +732,25 @@
         const services = snapshot.val();
         const loadingGrid = document.getElementById('servicesLoading');
         const servicesGrid = document.getElementById('servicesGrid');
-       
+      
         if (!services || !Array.isArray(services) || services.length === 0) {
           // Show default services if none in database
           renderDefaultServices();
           return;
         }
-       
+      
         loadingGrid.style.display = 'none';
         servicesGrid.style.display = 'grid';
         servicesGrid.innerHTML = '';
-       
+      
         services.forEach((service, index) => {
           const iconClass = service.icon || 'fa-code';
           const features = serviceFeatures[iconClass] || serviceFeatures['fa-code'];
-         
+        
           const card = document.createElement('div');
           card.className = 'service-card';
           card.style.animation = `fadeUp 0.6s ease ${index * 0.1}s both`;
-         
+        
           card.innerHTML = `
             <div class="service-icon">
               <i class="fas ${iconClass}"></i>
@@ -706,10 +764,10 @@
               ${service.link || 'Learn More'} <i class="fas fa-arrow-right"></i>
             </a>
           `;
-         
+        
           servicesGrid.appendChild(card);
         });
-       
+      
       }).catch(error => {
         console.error('Error loading services:', error);
         renderDefaultServices();
@@ -718,23 +776,23 @@
     function renderDefaultServices() {
       const loadingGrid = document.getElementById('servicesLoading');
       const servicesGrid = document.getElementById('servicesGrid');
-     
+    
       loadingGrid.style.display = 'none';
       servicesGrid.style.display = 'grid';
-     
+    
       const defaults = [
         { icon: 'fa-code', title: 'Software Development', desc: 'Custom software solutions built for your specific business workflows and requirements.', link: 'Start Project' },
         { icon: 'fa-shield-alt', title: 'Cybersecurity', desc: 'Protect your digital assets with enterprise-grade security solutions and monitoring.', link: 'Secure Business' },
         { icon: 'fa-cloud', title: 'Cloud Solutions', desc: 'Seamless cloud migration and management for improved scalability and efficiency.', link: 'Go Cloud' },
         { icon: 'fa-laptop', title: 'IT Infrastructure', desc: 'Complete hardware and network solutions from procurement to deployment.', link: 'Build Infrastructure' }
       ];
-     
+    
       servicesGrid.innerHTML = '';
       defaults.forEach((service, index) => {
         const features = serviceFeatures[service.icon];
         const card = document.createElement('div');
         card.className = 'service-card';
-       
+      
         card.innerHTML = `
           <div class="service-icon">
             <i class="fas ${service.icon}"></i>
@@ -748,7 +806,7 @@
             ${service.link} <i class="fas fa-arrow-right"></i>
           </a>
         `;
-       
+      
         servicesGrid.appendChild(card);
       });
     }
