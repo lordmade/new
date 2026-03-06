@@ -80,7 +80,6 @@
     .nav-cta .btn:hover::before { opacity: 1; }
     .nav-cta .btn span { position: relative; z-index: 1; }
     .hamburger { display: none; cursor: pointer; font-size: 1.5rem; color: var(--text-main); }
-
     /* --- Page Header --- */
     .page-header {
       padding: 180px 0 100px;
@@ -119,7 +118,6 @@
       margin: 0 auto;
       font-weight: 400;
     }
-
     /* --- Services Grid --- */
     .services-section {
       padding: 80px 0;
@@ -241,7 +239,6 @@
     .service-cta:hover i {
       transform: translateX(5px);
     }
-
     /* --- Loading State --- */
     .loading-grid {
       display: grid;
@@ -282,7 +279,6 @@
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
-
     /* --- CTA Section --- */
     .cta-section {
       background: var(--primary);
@@ -332,7 +328,6 @@
       transform: translateY(-3px) scale(1.02);
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
-
     /* --- Why Choose Us --- */
     .why-section {
       padding: 100px 0;
@@ -381,7 +376,6 @@
       color: var(--text-muted);
       font-size: 0.9rem;
     }
-
     /* --- Process Section --- */
     .process-section {
       padding: 100px 0;
@@ -445,7 +439,6 @@
       color: #64748b;
       font-size: 0.9rem;
     }
-
     /* --- Mobile Menu --- */
     .mobile-menu {
       position: fixed; inset: 0; background: var(--bg-white); z-index: 2000;
@@ -454,7 +447,16 @@
     }
     .mobile-menu.active { transform: translateX(0); }
     .mobile-menu a { font-size: 2rem; font-family: 'Manrope'; font-weight: 700; color: var(--text-main); }
-
+    /* --- Footer --- */
+    footer {
+      background: var(--dark-surface);
+      color: #64748b;
+      padding: 60px 0;
+      text-align: center;
+      border-top: 1px solid var(--border-dark);
+    }
+  
+    footer p { font-size: 0.9rem; }
     /* --- Responsive --- */
     @media (max-width: 1024px) {
       .services-grid, .loading-grid { grid-template-columns: 1fr; }
@@ -494,7 +496,6 @@
       <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
     </nav>
   </header>
-
   <div class="mobile-menu" id="mobileMenu">
     <a href="index.html">Home</a>
     <a href="service.html">Services</a>
@@ -502,14 +503,12 @@
     <a href="contact.html">Contact</a>
     <div id="closeMenu" style="position:absolute; top:30px; right:30px; font-size:2rem; cursor:pointer;"><i class="fas fa-times"></i></div>
   </div>
-
   <section class="page-header">
     <div class="container">
       <h1>Our Services</h1>
       <p>Comprehensive technology solutions tailored to your business needs. From custom software to enterprise infrastructure, we deliver excellence.</p>
     </div>
   </section>
-
   <section class="services-section">
     <div class="container">
       <div class="loading-grid" id="servicesLoading">
@@ -540,7 +539,6 @@
       </div>
     </div>
   </section>
-
   <section class="why-section">
     <div class="container">
       <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 1rem;">Why Choose Rare Grade Tech?</h2>
@@ -570,7 +568,6 @@
       </div>
     </div>
   </section>
-
   <section class="process-section">
     <div class="container">
       <h2 style="margin-bottom: 1rem;">How We Work</h2>
@@ -608,7 +605,6 @@
       </div>
     </div>
   </section>
-
   <section class="cta-section">
     <div class="container">
       <h2>Ready to Start Your Project?</h2>
@@ -618,69 +614,11 @@
       </a>
     </div>
   </section>
-
-  <!-- Footer - exact match from your main index.html -->
   <footer>
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand fade-up">
-          <img src="https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png" alt="MTech Solutions">
-          <p id="footerAbout">Premium IT services and tech solutions in Mokopane, Limpopo. We build reliable, scalable technology that drives real business results.</p>
-          <div class="social-links" id="socialLinks">
-            <!-- Social links injected here -->
-          </div>
-        </div>
-      
-        <div class="footer-column fade-up" style="transition-delay: 0.1s;">
-          <h4>Services</h4>
-          <ul class="footer-links">
-            <li><a href="#services">Software Development</a></li>
-            <li><a href="#services">Web Architecture</a></li>
-            <li><a href="#services">Cybersecurity</a></li>
-            <li><a href="#services">Cloud Migrations</a></li>
-            <li><a href="#shop-teaser">Hardware Sales</a></li>
-          </ul>
-        </div>
-      
-        <div class="footer-column fade-up" style="transition-delay: 0.2s;">
-          <h4>Company</h4>
-          <ul class="footer-links">
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Our Team</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-      
-        <div class="footer-column fade-up" style="transition-delay: 0.3s;">
-          <h4>Contact Us</h4>
-          <div class="footer-contact">
-            <p><i class="fas fa-map-marker-alt"></i> <span id="footerAddress">Mokopane, Limpopo,<br>South Africa</span></p>
-            <p><i class="fas fa-phone"></i> <span id="footerPhone">+27 (0) 15 123 4567</span></p>
-            <p><i class="fas fa-envelope"></i> <span id="footerEmail">info@mtechsolutions.com</span></p>
-            <p><i class="fas fa-clock"></i> <span id="footerHours">Mon - Fri: 08:00 - 17:00</span></p>
-          </div>
-        
-          <div style="margin-top: 2rem;">
-            <h4 style="margin-bottom: 0.5rem;">Tech Insights Newsletter</h4>
-            <form class="newsletter-form">
-              <input type="email" placeholder="Enter your email address" required>
-              <button type="submit">Subscribe</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    
-      <div class="footer-bottom">
-        <p id="footerCopyright">© 2026 MTech Solutions. All rights reserved.</p>
-        <div class="footer-bottom-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-        </div>
-      </div>
+      <p>© 2026 MTech Solutions. All rights reserved. Premium IT & Hardware in Mokopane.</p>
     </div>
   </footer>
-
   <script>
     // --- Navbar Logic ---
     const header = document.getElementById('header');
@@ -823,4 +761,4 @@
     document.addEventListener('DOMContentLoaded', loadServices);
   </script>
 </body>
-</html>
+</html> 
