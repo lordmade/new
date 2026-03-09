@@ -642,6 +642,64 @@
 
     .fade-up { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* Shimmer Loading Effect */
+    .shimmer {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 8px;
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    
+    .shimmer-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: var(--bg-white);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+    
+    .shimmer-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      flex-shrink: 0;
+    }
+    
+    .shimmer-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .shimmer-title {
+      height: 16px;
+      width: 40%;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 4px;
+    }
+    
+    .shimmer-text {
+      height: 14px;
+      width: 70%;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 4px;
+    }
   </style>
 </head>
 <body>
@@ -684,7 +742,35 @@
           <p>Fill out the form and our team will get back to you within 24 hours. For urgent inquiries, please call us directly.</p>
          
           <div class="info-cards" id="infoCards">
-            <!-- Contact cards injected here -->
+            <!-- Shimmer loading placeholders -->
+            <div class="shimmer-card">
+              <div class="shimmer-icon"></div>
+              <div class="shimmer-content">
+                <div class="shimmer-title"></div>
+                <div class="shimmer-text"></div>
+              </div>
+            </div>
+            <div class="shimmer-card">
+              <div class="shimmer-icon"></div>
+              <div class="shimmer-content">
+                <div class="shimmer-title"></div>
+                <div class="shimmer-text"></div>
+              </div>
+            </div>
+            <div class="shimmer-card">
+              <div class="shimmer-icon"></div>
+              <div class="shimmer-content">
+                <div class="shimmer-title"></div>
+                <div class="shimmer-text"></div>
+              </div>
+            </div>
+            <div class="shimmer-card">
+              <div class="shimmer-icon"></div>
+              <div class="shimmer-content">
+                <div class="shimmer-title"></div>
+                <div class="shimmer-text"></div>
+              </div>
+            </div>
           </div>
          
           <div class="social-section" id="socialSection" style="display: none;">
@@ -1042,7 +1128,7 @@
     }
     
     document.addEventListener('DOMContentLoaded', () => {
-      showDefaultContactInfo();
+      // Show shimmer initially, don't show hardcoded data
       
       // Real-time listener for Firebase changes from admin dashboard
       db.ref('websiteContent/footer').on('value', snapshot => {
@@ -1056,7 +1142,7 @@
           document.getElementById('footerHours').textContent = data.hours || '08:00 - 17:00';
           document.getElementById('footerCopyright').textContent = data.copyright || '© 2026 MTech Solutions. All rights reserved.';
           
-          // Update contact info cards from admin dashboard
+          // Update contact info cards from admin dashboard - replace shimmer with actual data
           const infoCards = document.getElementById('infoCards');
           infoCards.innerHTML = '';
          
@@ -1099,6 +1185,9 @@
               socialContainer.appendChild(link);
             }
           });
+        } else {
+          // If no admin data, show default contact info (fallback)
+          showDefaultContactInfo();
         }
       });
     });
