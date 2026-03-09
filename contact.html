@@ -922,6 +922,7 @@
     
     function closeSuccessModal() {
       document.getElementById('successModal').classList.remove('show');
+      contactForm.reset();
     }
     
     contactForm.addEventListener('submit', async (e) => {
@@ -938,7 +939,8 @@
         status: 'new'
       };
       if (!data.firstName || !data.lastName || !data.email || !data.service || !data.message) {
-        showToast('Error', 'Please fill in all required fields.', 'error'); return;
+        showToast('Error', 'Please fill in all required fields.', 'error'); 
+        return;
       }
       submitBtn.classList.add('loading');
       submitBtn.disabled = true;
@@ -948,7 +950,6 @@
         submitBtn.classList.add('success');
         submitBtn.innerHTML = '<span>Message Sent!</span> <i class="fas fa-check"></i>';
         showSuccessModal();
-        contactForm.reset();
         setTimeout(() => {
           submitBtn.classList.remove('success');
           submitBtn.disabled = false;
@@ -957,6 +958,7 @@
       } catch (error) {
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
+        console.error('Firebase error:', error);
         showToast('Error', 'Failed to send message. Please try again.', 'error');
       }
     });
