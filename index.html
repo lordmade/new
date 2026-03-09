@@ -12,25 +12,25 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
   <style>
-    /* --- xAI-inspired Design System --- */
+    /* --- xAI-inspired Design System - LIGHT THEME --- */
     :root {
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #111111;
-      --bg-tertiary: #1a1a1a;
-      --bg-card: #141414;
-      --text-primary: #ffffff;
-      --text-secondary: #a1a1aa;
-      --text-muted: #71717a;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-tertiary: #f1f5f9;
+      --bg-card: #ffffff;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
       --accent: #3b82f6;
-      --accent-glow: rgba(59, 130, 246, 0.5);
+      --accent-glow: rgba(59, 130, 246, 0.3);
       --accent-secondary: #06b6d4;
-      --border: rgba(255, 255, 255, 0.1);
-      --border-hover: rgba(255, 255, 255, 0.2);
+      --border: rgba(0, 0, 0, 0.08);
+      --border-hover: rgba(0, 0, 0, 0.15);
       
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
       --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.15);
-      --shadow-glow-strong: 0 0 60px rgba(59, 130, 246, 0.3);
+      --shadow-glow-strong: 0 0 60px rgba(59, 130, 246, 0.2);
       
       --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -76,7 +76,7 @@
       font-size: clamp(2.5rem, 6vw, 4rem); 
       text-align: center; 
       margin-bottom: 1rem; 
-      background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+      background: linear-gradient(135deg, #0f172a 0%, #3b82f6 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -93,7 +93,7 @@
 
     /* --- Loading States --- */
     .skeleton {
-      background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+      background: linear-gradient(90deg, rgba(0,0,0,0.03) 25%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.03) 75%);
       background-size: 200% 100%;
       animation: loading 1.5s infinite;
       border-radius: 8px;
@@ -117,10 +117,11 @@
     }
 
     header.scrolled {
-      background: rgba(10, 10, 10, 0.8);
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     }
 
     nav { 
@@ -144,7 +145,7 @@
 
     .logo img { 
       height: 32px; 
-      filter: brightness(0) invert(1);
+      filter: none;
       transition: var(--transition-fast);
     }
 
@@ -186,19 +187,19 @@
     }
 
     .nav-cta .btn {
-      background: var(--text-primary);
-      color: var(--bg-primary);
-      padding: 0.6rem 1.25rem;
-      border-radius: 6px;
+      background: var(--accent);
+      color: #ffffff;
+      padding: 0.6rem 1.5rem;
+      border-radius: 999px;
       font-weight: 600;
       font-size: 0.875rem;
       transition: var(--transition-fast);
-      border: 1px solid var(--text-primary);
+      border: 2px solid var(--accent);
     }
 
     .nav-cta .btn:hover {
       background: transparent;
-      color: var(--text-primary);
+      color: var(--accent);
       transform: translateY(-1px);
     }
 
@@ -221,8 +222,8 @@
       justify-content: center;
       padding: 120px 0 80px;
       overflow: hidden;
-      background: radial-gradient(ellipse at top, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-                  radial-gradient(ellipse at bottom right, rgba(6, 182, 212, 0.1) 0%, transparent 40%),
+      background: radial-gradient(ellipse at top, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+                  radial-gradient(ellipse at bottom right, rgba(6, 182, 212, 0.05) 0%, transparent 40%),
                   var(--bg-primary);
     }
 
@@ -231,8 +232,8 @@
       position: absolute;
       inset: 0;
       background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
       background-size: 60px 60px;
       mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
     }
@@ -252,7 +253,7 @@
       background: rgba(59, 130, 246, 0.1);
       border: 1px solid rgba(59, 130, 246, 0.2);
       color: var(--accent);
-      border-radius: 100px;
+      border-radius: 999px;
       font-size: 0.875rem;
       font-weight: 600;
       margin-bottom: 2rem;
@@ -261,8 +262,8 @@
     }
 
     @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); }
-      50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.4); }
+      0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.15); }
+      50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.25); }
     }
 
     .badge span {
@@ -284,10 +285,11 @@
       line-height: 1.05;
       margin-bottom: 1.5rem;
       letter-spacing: -0.03em;
+      color: var(--text-primary);
     }
 
     .text-gradient {
-      background: linear-gradient(135deg, #fff 0%, var(--accent-secondary) 50%, var(--accent) 100%);
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -309,33 +311,35 @@
       flex-wrap: wrap;
     }
 
+    /* PILL-SHAPED BUTTONS */
     .btn-primary {
-      background: var(--text-primary);
-      color: var(--bg-primary);
-      padding: 1rem 2rem;
-      border-radius: 8px;
+      background: var(--accent);
+      color: #ffffff;
+      padding: 1rem 2.5rem;
+      border-radius: 999px;
       font-weight: 600;
       font-size: 1rem;
       transition: var(--transition-base);
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      border: 1px solid var(--text-primary);
+      border: 2px solid var(--accent);
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
     }
 
     .btn-primary:hover {
       background: transparent;
-      color: var(--text-primary);
+      color: var(--accent);
       transform: translateY(-2px);
-      box-shadow: 0 10px 40px rgba(255,255,255,0.1);
+      box-shadow: 0 10px 40px rgba(59, 130, 246, 0.2);
     }
 
     .btn-secondary {
-      background: rgba(255,255,255,0.05);
+      background: transparent;
       color: var(--text-primary);
-      border: 1px solid var(--border);
-      padding: 1rem 2rem;
-      border-radius: 8px;
+      border: 2px solid var(--border);
+      padding: 1rem 2.5rem;
+      border-radius: 999px;
       font-weight: 600;
       font-size: 1rem;
       backdrop-filter: blur(10px);
@@ -346,17 +350,18 @@
     }
 
     .btn-secondary:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: var(--border-hover);
+      background: var(--bg-secondary);
+      border-color: var(--accent);
+      color: var(--accent);
       transform: translateY(-2px);
     }
 
     /* Hero Skeleton */
-    .hero-skeleton-badge { width: 200px; height: 36px; margin: 0 auto 2rem; border-radius: 100px; }
+    .hero-skeleton-badge { width: 200px; height: 36px; margin: 0 auto 2rem; border-radius: 999px; }
     .hero-skeleton-title { width: 90%; height: clamp(2.5rem, 7vw, 5rem); margin: 0 auto 1.5rem; max-width: 700px; }
     .hero-skeleton-desc { width: 60%; height: 1.5rem; margin: 0 auto 2.5rem; max-width: 500px; }
     .hero-skeleton-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .hero-skeleton-btn { width: 160px; height: 52px; border-radius: 8px; }
+    .hero-skeleton-btn { width: 160px; height: 52px; border-radius: 999px; }
 
     /* --- Services Section --- */
     section { padding: 120px 0; }
@@ -393,13 +398,14 @@
       position: relative;
       overflow: hidden;
       cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     }
 
     .bento-card::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(59,130,246,0.06), transparent 40%);
+      background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(59,130,246,0.08), transparent 40%);
       opacity: 0;
       transition: opacity 0.3s;
       pointer-events: none;
@@ -412,7 +418,7 @@
     .bento-card:hover {
       transform: translateY(-4px);
       border-color: var(--border-hover);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     }
 
     /* Grid Spans */
@@ -438,7 +444,7 @@
 
     .bento-card:hover .bento-icon {
       background: var(--accent);
-      color: var(--text-primary);
+      color: #ffffff;
       transform: scale(1.1);
       box-shadow: 0 0 20px var(--accent-glow);
     }
@@ -487,6 +493,7 @@
       border: 1px solid var(--border); 
       display: flex; 
       flex-direction: column; 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     }
     .services-skeleton-icon { width: 48px; height: 48px; border-radius: 12px; margin-bottom: 1.5rem; }
     .services-skeleton-title { width: 60%; height: 28px; margin-bottom: 1rem; }
@@ -506,7 +513,7 @@
 
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 24px;
     }
 
@@ -518,13 +525,13 @@
       transition: var(--transition-slow);
       position: relative;
       cursor: pointer;
-      group: true;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     }
 
     .product-card:hover {
       transform: translateY(-8px);
       border-color: var(--border-hover);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
     }
 
     .product-image {
@@ -577,6 +584,14 @@
       color: var(--text-secondary);
       font-size: 0.9rem;
       line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+
+    .product-price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent);
     }
 
     .product-tag {
@@ -586,23 +601,39 @@
       color: var(--accent);
       font-size: 0.75rem;
       font-weight: 600;
-      border-radius: 100px;
+      border-radius: 999px;
       margin-bottom: 0.75rem;
       border: 1px solid rgba(59, 130, 246, 0.2);
     }
 
+    .product-tag.hot { background: rgba(239, 68, 68, 0.1); color: #ef4444; border-color: rgba(239, 68, 68, 0.2); }
+    .product-tag.new { background: rgba(34, 197, 94, 0.1); color: #22c55e; border-color: rgba(34, 197, 94, 0.2); }
+    .product-tag.sale { background: rgba(249, 115, 22, 0.1); color: #f97316; border-color: rgba(249, 115, 22, 0.2); }
+
+    .product-stock {
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+
+    .stock-in { color: #22c55e; }
+    .stock-low { color: #f97316; }
+    .stock-out { color: #ef4444; }
+
     /* Shop Skeleton */
-    .shop-skeleton-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .shop-skeleton-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .shop-skeleton-card { 
       background: var(--bg-card); 
       border-radius: 16px; 
       overflow: hidden; 
       border: 1px solid var(--border); 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     }
     .shop-skeleton-image { height: 260px; }
     .shop-skeleton-info { padding: 1.5rem; }
     .shop-skeleton-title { width: 70%; height: 20px; margin-bottom: 0.5rem; }
-    .shop-skeleton-text { width: 100%; height: 16px; }
+    .shop-skeleton-text { width: 100%; height: 16px; margin-bottom: 0.5rem; }
+    .shop-skeleton-price { width: 40%; height: 20px; }
 
     /* --- Stats Section --- */
     #stats {
@@ -679,7 +710,7 @@
       transform: translate(-50%, -50%);
       width: 600px;
       height: 600px;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
       filter: blur(60px);
       pointer-events: none;
     }
@@ -703,40 +734,28 @@
     }
 
     .btn-dark {
-      background: transparent;
-      color: var(--text-primary);
+      background: var(--accent);
+      color: #ffffff;
       padding: 1rem 2.5rem;
-      border-radius: 8px;
+      border-radius: 999px;
       font-size: 1rem;
       font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 10px;
       transition: var(--transition-base);
-      border: 1px solid var(--border);
+      border: 2px solid var(--accent);
       position: relative;
       z-index: 1;
       overflow: hidden;
-    }
-
-    .btn-dark::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-      opacity: 0;
-      transition: opacity 0.3s;
-      z-index: -1;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
     }
 
     .btn-dark:hover {
-      border-color: transparent;
+      background: transparent;
+      color: var(--accent);
       transform: translateY(-2px);
-      box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
-    }
-
-    .btn-dark:hover::before {
-      opacity: 1;
+      box-shadow: 0 10px 40px rgba(59, 130, 246, 0.2);
     }
 
     /* --- Footer --- */
@@ -757,7 +776,7 @@
     .footer-brand img {
       height: 32px;
       margin-bottom: 1.5rem;
-      filter: brightness(0) invert(1);
+      filter: none;
     }
 
     .footer-brand p {
@@ -776,7 +795,7 @@
     .social-links a {
       width: 40px;
       height: 40px;
-      border-radius: 8px;
+      border-radius: 50%;
       background: var(--bg-tertiary);
       display: flex;
       align-items: center;
@@ -788,7 +807,7 @@
 
     .social-links a:hover {
       background: var(--accent);
-      color: var(--text-primary);
+      color: #ffffff;
       border-color: var(--accent);
       transform: translateY(-2px);
     }
@@ -814,7 +833,7 @@
     }
 
     .footer-links a:hover {
-      color: var(--text-primary);
+      color: var(--accent);
       padding-left: 4px;
     }
 
@@ -844,7 +863,7 @@
       padding: 0.75rem 1rem;
       background: var(--bg-tertiary);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 999px;
       color: var(--text-primary);
       outline: none;
       font-family: inherit;
@@ -862,11 +881,11 @@
     }
 
     .newsletter-form button {
-      padding: 0.75rem 1.25rem;
-      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
       border: none;
       background: var(--accent);
-      color: var(--text-primary);
+      color: #ffffff;
       cursor: pointer;
       font-weight: 600;
       font-size: 0.875rem;
@@ -896,7 +915,7 @@
     }
 
     .footer-bottom-links a:hover {
-      color: var(--text-primary);
+      color: var(--accent);
     }
 
     /* --- Animations --- */
@@ -944,14 +963,14 @@
     }
 
     .mobile-menu .btn-mobile {
-      background: var(--text-primary);
-      color: var(--bg-primary);
+      background: var(--accent);
+      color: #ffffff;
       padding: 1rem 2rem;
-      border-radius: 8px;
+      border-radius: 999px;
       font-weight: 600;
       font-size: 1.1rem;
       margin-top: 1rem;
-      border: 1px solid var(--text-primary);
+      border: 2px solid var(--accent);
     }
 
     .close-menu {
@@ -968,7 +987,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 8px;
+      border-radius: 50%;
       transition: var(--transition-fast);
     }
 
@@ -981,7 +1000,7 @@
       .services-bento, .services-skeleton-grid { grid-template-columns: repeat(2, 1fr); }
       .bento-card:nth-child(n), .services-skeleton-card:nth-child(n) { grid-column: span 1; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
-      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .products-grid, .shop-skeleton-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 768px) {
@@ -1015,7 +1034,7 @@
       .bento-card { padding: 1.5rem; }
       .bento-card:nth-child(n), .services-skeleton-card:nth-child(n) { grid-column: span 1; }
       
-      .products-grid { grid-template-columns: 1fr; }
+      .products-grid, .shop-skeleton-grid { grid-template-columns: 1fr; }
       .product-image { height: 220px; }
       
       .stats-flex { flex-direction: column; gap: 2.5rem; }
@@ -1036,6 +1055,9 @@
       #contact { padding: 80px 0; }
       
       .mobile-menu a { font-size: 1.5rem; }
+      
+      .newsletter-form { flex-direction: column; }
+      .newsletter-form button { width: 100%; }
     }
 
     @media (max-width: 480px) {
@@ -1050,9 +1072,6 @@
       .bento-icon { width: 40px; height: 40px; font-size: 1.1rem; }
       
       .stat-number { font-size: 2.5rem; }
-      
-      .newsletter-form { flex-direction: column; }
-      .newsletter-form button { width: 100%; }
     }
   </style>
 </head>
@@ -1158,11 +1177,11 @@
     </div>
   </section>
 
-  <!-- SHOP SECTION -->
+  <!-- SHOP SECTION - SHOWS 6 NEWEST PRODUCTS -->
   <section id="shop-teaser">
     <div class="container">
       <h2 class="fade-up">Premium Hardware</h2>
-      <p class="section-subtitle fade-up">Enterprise-grade technology, curated for performance and reliability.</p>
+      <p class="section-subtitle fade-up">Enterprise-grade technology, curated for performance and reliability. Latest arrivals.</p>
    
       <!-- Skeleton Loading State -->
       <div class="shop-skeleton-grid" id="shopSkeleton">
@@ -1171,6 +1190,7 @@
           <div class="shop-skeleton-info">
             <div class="skeleton shop-skeleton-title"></div>
             <div class="skeleton shop-skeleton-text"></div>
+            <div class="skeleton shop-skeleton-price"></div>
           </div>
         </div>
         <div class="shop-skeleton-card">
@@ -1178,6 +1198,7 @@
           <div class="shop-skeleton-info">
             <div class="skeleton shop-skeleton-title"></div>
             <div class="skeleton shop-skeleton-text"></div>
+            <div class="skeleton shop-skeleton-price"></div>
           </div>
         </div>
         <div class="shop-skeleton-card">
@@ -1185,12 +1206,41 @@
           <div class="shop-skeleton-info">
             <div class="skeleton shop-skeleton-title"></div>
             <div class="skeleton shop-skeleton-text"></div>
+            <div class="skeleton shop-skeleton-price"></div>
+          </div>
+        </div>
+        <div class="shop-skeleton-card">
+          <div class="skeleton shop-skeleton-image"></div>
+          <div class="shop-skeleton-info">
+            <div class="skeleton shop-skeleton-title"></div>
+            <div class="skeleton shop-skeleton-text"></div>
+            <div class="skeleton shop-skeleton-price"></div>
+          </div>
+        </div>
+        <div class="shop-skeleton-card">
+          <div class="skeleton shop-skeleton-image"></div>
+          <div class="shop-skeleton-info">
+            <div class="skeleton shop-skeleton-title"></div>
+            <div class="skeleton shop-skeleton-text"></div>
+            <div class="skeleton shop-skeleton-price"></div>
+          </div>
+        </div>
+        <div class="shop-skeleton-card">
+          <div class="skeleton shop-skeleton-image"></div>
+          <div class="shop-skeleton-info">
+            <div class="skeleton shop-skeleton-title"></div>
+            <div class="skeleton shop-skeleton-text"></div>
+            <div class="skeleton shop-skeleton-price"></div>
           </div>
         </div>
       </div>
    
       <div class="products-grid" id="shopContainer" style="display: none;">
-        <!-- Products injected here by Firebase -->
+        <!-- 6 Newest Products injected here by Firebase -->
+      </div>
+      
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href="shop.html" class="btn-secondary">View All Products <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
   </section>
@@ -1418,7 +1468,7 @@
           document.getElementById('heroBtn2').textContent = hero.btn2 || 'Explore Hardware';
        
           if (hero.background) {
-            document.getElementById('hero').style.backgroundImage = `radial-gradient(ellipse at top, rgba(59, 130, 246, 0.15) 0%, transparent 50%), radial-gradient(ellipse at bottom right, rgba(6, 182, 212, 0.1) 0%, transparent 40%), linear-gradient(rgba(10,10,10,0.9), rgba(10,10,10,0.9)), url(${hero.background})`;
+            document.getElementById('hero').style.backgroundImage = `radial-gradient(ellipse at top, rgba(59, 130, 246, 0.08) 0%, transparent 50%), radial-gradient(ellipse at bottom right, rgba(6, 182, 212, 0.05) 0%, transparent 40%), linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url(${hero.background})`;
           }
         }
 
@@ -1449,30 +1499,73 @@
           });
         }
 
-        // --- SHOP SECTION ---
+        // --- SHOP SECTION - SHOW 6 NEWEST PRODUCTS ---
         if (data.shop && Array.isArray(data.shop)) {
           const shopContainer = document.getElementById('shopContainer');
           shopContainer.innerHTML = '';
-       
-          data.shop.forEach((product, index) => {
+          
+          // Filter visible products and get the 6 newest (last 6 in array, assuming array order is chronological)
+          // If products have timestamps, we could sort by that, but assuming array order reflects addition order
+          const visibleProducts = data.shop.filter(p => p.visible !== false);
+          const newestProducts = visibleProducts.slice(-6).reverse(); // Get last 6, reverse to show newest first
+          
+          // If less than 6 products, show all visible
+          const productsToShow = newestProducts.length > 0 ? newestProducts : visibleProducts.slice(0, 6);
+          
+          productsToShow.forEach((product, index) => {
             const delay = index * 0.1;
             const card = document.createElement('div');
             card.className = 'product-card fade-up';
             card.style.transitionDelay = `${delay}s`;
             card.onclick = () => window.location.href = 'shop.html';
+            
+            // Determine tag class
+            let tagClass = '';
+            let tagText = product.tag || '';
+            if (tagText.toLowerCase().includes('hot')) tagClass = 'hot';
+            else if (tagText.toLowerCase().includes('new')) tagClass = 'new';
+            else if (tagText.toLowerCase().includes('sale')) tagClass = 'sale';
+            
+            // Stock status
+            let stockClass = 'stock-in';
+            let stockText = 'In Stock';
+            if (product.stock === 'out') {
+              stockClass = 'stock-out';
+              stockText = 'Out of Stock';
+            } else if (product.stock === 'low') {
+              stockClass = 'stock-low';
+              stockText = 'Low Stock';
+            }
+            
+            // Price display
+            let priceHTML = `<div class="product-price">R ${Number(product.price || 0).toLocaleString()}</div>`;
+            if (product.priceOrig) {
+              priceHTML += `<span style="text-decoration: line-through; color: var(--text-muted); font-size: 0.85rem; margin-left: 0.5rem;">R ${Number(product.priceOrig).toLocaleString()}</span>`;
+            }
+            
+            // Featured star
+            const featuredStar = product.featured ? `<div style="position:absolute; top:10px; right:10px; width:32px; height:32px; background: linear-gradient(135deg, #f59e0b, #f97316); border-radius: 50%; display:flex; align-items:center; justify-content:center; color:white; font-size:0.75rem; box-shadow: 0 2px 10px rgba(249, 115, 22, 0.3);"><i class="fas fa-star"></i></div>` : '';
          
             card.innerHTML = `
-              <div class="product-image">
-                <img src="${product.image || 'https://via.placeholder.com/400'}" alt="${product.title || 'Product'}">
+              <div class="product-image" style="position:relative;">
+                <img src="${product.image || 'https://via.placeholder.com/400'}" alt="${product.name || 'Product'}" loading="lazy">
+                ${featuredStar}
+                ${tagText ? `<div style="position:absolute; top:10px; left:10px;"><span class="product-tag ${tagClass}">${tagText}</span></div>` : ''}
               </div>
               <div class="product-info">
-                <span class="product-tag">Enterprise</span>
-                <h3>${product.title || 'Product Name'}</h3>
+                <h3>${product.name || 'Product Name'}</h3>
                 <p>${product.desc || 'Product description'}</p>
+                ${priceHTML}
+                <div class="product-stock ${stockClass}"><i class="fas fa-circle" style="font-size:0.5rem; margin-right:4px;"></i> ${stockText}</div>
               </div>
             `;
             shopContainer.appendChild(card);
           });
+          
+          // Update skeleton count to match actual product count for smoother transition
+          if (productsToShow.length === 0) {
+            shopContainer.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);"><i class="fas fa-box-open" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i><p>No products available at the moment.</p></div>';
+          }
         }
 
         // --- STATS SECTION ---
@@ -1564,7 +1657,7 @@
         })
         .then(() => {
           btn.innerText = 'Subscribed!';
-          btn.style.background = '#10b981';
+          btn.style.background = '#22c55e';
           emailInput.value = '';
           setTimeout(() => {
             btn.innerText = originalText;
