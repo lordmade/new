@@ -1163,7 +1163,7 @@
     footer {
       background: var(--bg-secondary);
       color: var(--text-secondary);
-      padding: 60px 0 0;
+      padding: 80px 0 0;
       border-top: 1px solid var(--border);
     }
 
@@ -1171,30 +1171,31 @@
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1.5fr;
       gap: 4rem;
-      padding-bottom: 3rem;
+      padding-bottom: 4rem;
     }
 
     .footer-brand img {
       height: 32px;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       filter: none;
     }
 
     .footer-brand p {
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
-      max-width: 300px;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      max-width: 320px;
       font-size: 0.9rem;
+      color: var(--text-secondary);
     }
 
     .social-links {
       display: flex;
-      gap: 0.75rem;
+      gap: 1rem;
     }
 
     .social-links a {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: var(--bg-tertiary);
       display: flex;
@@ -1203,46 +1204,119 @@
       color: var(--text-secondary);
       border: 1px solid var(--border);
       transition: var(--transition-fast);
-      font-size: 0.875rem;
     }
 
     .social-links a:hover {
       background: var(--accent);
       color: #ffffff;
       border-color: var(--accent);
+      transform: translateY(-2px);
     }
 
     .footer-column h4 {
       color: var(--text-primary);
-      font-size: 0.875rem;
-      margin-bottom: 1.25rem;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      font-family: 'Inter', sans-serif;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
     }
 
     .footer-links li {
-      margin-bottom: 0.625rem;
+      margin-bottom: 0.75rem;
     }
 
     .footer-links a {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
       transition: var(--transition-fast);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
     }
 
     .footer-links a:hover {
       color: var(--accent);
+      padding-left: 4px;
+    }
+
+    .footer-contact p {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .footer-contact i {
+      color: var(--accent);
+      margin-top: 4px;
+      font-size: 0.9rem;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text-primary);
+      outline: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: var(--transition-fast);
+    }
+
+    .newsletter-form input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .newsletter-form input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .newsletter-form button {
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--accent);
+      color: #ffffff;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: var(--transition-fast);
+    }
+
+    .newsletter-form button:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
     }
 
     .footer-bottom {
       border-top: 1px solid var(--border);
-      padding: 1.5rem 0;
+      padding: 2rem 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
       font-size: 0.875rem;
       color: var(--text-muted);
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--accent);
     }
 
     /* --- Mobile Menu --- */
@@ -1381,6 +1455,11 @@
         text-align: center;
       }
       .social-links { justify-content: center; }
+      .footer-contact p { 
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
       .footer-bottom {
         flex-direction: column;
         gap: 1rem;
@@ -1404,7 +1483,7 @@
     <nav>
       <a href="index.html" class="logo">
         <img src="https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png" alt="MTech Solutions">
-        <span>RARE GRADE TECH</span>
+        <span>MTech</span>
       </a>
       <div class="nav-links">
         <a href="index.html">Home</a>
@@ -1650,43 +1729,59 @@
   <footer>
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-brand">
+        <div class="footer-brand fade-up">
           <img src="https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png" alt="MTech Solutions">
-          <p>Premium IT services and tech solutions for businesses in Mokopane and beyond.</p>
-          <div class="social-links" id="socialLinks"></div>
+          <p id="footerAbout">Loading...</p>
+          <div class="social-links" id="socialLinks">
+            <!-- Social links injected here -->
+          </div>
         </div>
-        <div class="footer-column">
-          <h4>Shop</h4>
+     
+        <div class="footer-column fade-up" style="transition-delay: 0.1s;">
+          <h4>Services</h4>
           <ul class="footer-links">
-            <li><a href="#all">All Products</a></li>
-            <li><a href="#hardware">Hardware</a></li>
-            <li><a href="#software">Software</a></li>
-            <li><a href="#accessories">Accessories</a></li>
+            <li><a href="index.html#services">Software Development</a></li>
+            <li><a href="index.html#services">Web Architecture</a></li>
+            <li><a href="index.html#services">Cybersecurity</a></li>
+            <li><a href="index.html#services">Cloud Solutions</a></li>
+            <li><a href="shop.html">Hardware</a></li>
           </ul>
         </div>
-        <div class="footer-column">
-          <h4>Support</h4>
+     
+        <div class="footer-column fade-up" style="transition-delay: 0.2s;">
+          <h4>Company</h4>
           <ul class="footer-links">
-            <li><a href="contact.html">Contact Us</a></li>
-            <li><a href="#">FAQs</a></li>
-            <li><a href="#">Shipping</a></li>
-            <li><a href="#">Returns</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Team</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
-        <div class="footer-column">
+     
+        <div class="footer-column fade-up" style="transition-delay: 0.3s;">
           <h4>Contact</h4>
-          <ul class="footer-links">
-            <li><a href="mailto:info@mtechsolutions.com">info@mtechsolutions.com</a></li>
-            <li><a href="tel:+27151234567">+27 (0) 15 123 4567</a></li>
-            <li>Mokopane, Limpopo</li>
-          </ul>
+          <div class="footer-contact">
+            <p><i class="fas fa-map-marker-alt"></i> <span id="footerAddress">Loading...</span></p>
+            <p><i class="fas fa-phone"></i> <span id="footerPhone">Loading...</span></p>
+            <p><i class="fas fa-envelope"></i> <span id="footerEmail">Loading...</span></p>
+            <p><i class="fas fa-clock"></i> <span id="footerHours">Loading...</span></p>
+          </div>
+       
+          <div style="margin-top: 2rem;">
+            <h4 style="margin-bottom: 0.75rem; font-size: 0.9rem;">Newsletter</h4>
+            <form class="newsletter-form">
+              <input type="email" placeholder="Enter your email" required>
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
         </div>
       </div>
+   
       <div class="footer-bottom">
-        <p>&copy; 2026 MTech Solutions. All rights reserved.</p>
-        <div style="display: flex; gap: 1.5rem;">
-          <a href="#" style="color: var(--text-muted); font-size: 0.875rem;">Privacy Policy</a>
-          <a href="#" style="color: var(--text-muted); font-size: 0.875rem;">Terms of Service</a>
+        <p id="footerCopyright">Loading...</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
         </div>
       </div>
     </div>
@@ -1720,6 +1815,7 @@
       loadProducts();
       updateCartUI();
       setupEventListeners();
+      loadFooter();
     });
 
     function setupEventListeners() {
@@ -1744,6 +1840,79 @@
       }, { threshold: 0.1 });
 
       document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    }
+
+    // --- Load Footer ---
+    function loadFooter() {
+      db.ref('websiteContent/footer').on('value', snapshot => {
+        const data = snapshot.val();
+        if (data) {
+          document.getElementById('footerAbout').textContent = data.about || 'Premium IT services and tech solutions in Mokopane.';
+          document.getElementById('footerAddress').innerHTML = data.address || 'Mokopane, Limpopo,<br>South Africa';
+          document.getElementById('footerPhone').textContent = data.phone || '+27 (0) 15 123 4567';
+          document.getElementById('footerEmail').textContent = data.email || 'info@mtechsolutions.com';
+          document.getElementById('footerHours').textContent = data.hours || 'Mon - Fri: 08:00 - 17:00';
+          document.getElementById('footerCopyright').textContent = data.copyright || '© 2026 MTech Solutions. All rights reserved.';
+          
+          const socialContainer = document.getElementById('socialLinks');
+          socialContainer.innerHTML = '';
+          const socials = [
+            { url: data.socialFb, icon: 'fa-facebook-f', label: 'Facebook' },
+            { url: data.socialTw, icon: 'fa-twitter', label: 'Twitter' },
+            { url: data.socialLi, icon: 'fa-linkedin-in', label: 'LinkedIn' },
+            { url: data.socialIg, icon: 'fa-instagram', label: 'Instagram' }
+          ];
+          socials.forEach(social => {
+            if (social.url) {
+              const link = document.createElement('a');
+              link.href = social.url;
+              link.setAttribute('aria-label', social.label);
+              link.target = '_blank';
+              link.innerHTML = `<i class="fab ${social.icon}"></i>`;
+              socialContainer.appendChild(link);
+            }
+          });
+        }
+      });
+
+      // Newsletter form
+      const newsletter = document.querySelector('.newsletter-form');
+      if (newsletter) {
+        newsletter.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const emailInput = this.querySelector('input[type="email"]');
+          const email = emailInput.value.trim();
+          const btn = this.querySelector('button');
+          if (!email) return;
+        
+          const originalText = btn.innerText;
+          btn.innerText = 'Sending...';
+          btn.disabled = true;
+        
+          const newSubscriberRef = db.ref('mtech_newsletter_signups').push();
+          newSubscriberRef.set({
+            email: email,
+            subscribedAt: firebase.database.ServerValue.TIMESTAMP,
+            source: "shop_page_footer"
+          })
+          .then(() => {
+            btn.innerText = 'Subscribed!';
+            btn.style.background = '#22c55e';
+            emailInput.value = '';
+            setTimeout(() => {
+              btn.innerText = originalText;
+              btn.style.background = '';
+              btn.disabled = false;
+            }, 3000);
+          })
+          .catch((error) => {
+            console.error("Firebase error:", error);
+            alert("Something went wrong. Please try again.");
+            btn.innerText = originalText;
+            btn.disabled = false;
+          });
+        });
+      }
     }
 
     // --- Load Products ---
@@ -2052,6 +2221,10 @@
       document.body.style.overflow = document.getElementById('cartSidebar').classList.contains('active') ? 'hidden' : '';
     }
 
+    function toggleMobileFilters() {
+      document.getElementById('shopSidebar').classList.toggle('active');
+    }
+
     function checkout() {
       if (cart.length === 0) return;
       
@@ -2063,7 +2236,7 @@
         status: 'pending',
         createdAt: firebase.database.ServerValue.TIMESTAMP,
         customer: {
-          name: 'Guest', // Would be populated from auth
+          name: 'Guest',
           email: 'guest@example.com'
         }
       }).then(() => {
@@ -2077,26 +2250,28 @@
       });
     }
 
-    // --- Product Modal ---
+    function toggleWishlist(productId) {
+      // Wishlist functionality - can be implemented later
+    }
+
     function openModal(productId) {
       const product = allProducts.find(p => p.id === productId);
       if (!product) return;
+      document.getElementById('productModal').classList.add('active');
+    }
 
-      const modalBody = document.getElementById('modalBody');
-      
-      let stockClass = '';
-      let stockText = '';
-      if (product.stock === 'out') {
-        stockClass = 'out';
-        stockText = 'Out of Stock';
-      } else if (product.stock === 'low') {
-        stockClass = 'low';
-        stockText = 'Low Stock - Order Soon';
-      } else {
-        stockClass = '';
-        stockText = 'In Stock';
-      }
+    function closeModal() {
+      document.getElementById('productModal').classList.remove('active');
+    }
 
-      modalBody.innerHTML = `
-        <div class="modal-image">
-          <img src="${
+    function showToast(title, message, type = 'success') {
+      const toast = document.getElementById('toast');
+      toast.className = `toast ${type === 'error' ? 'error' : 'show'}`;
+      document.getElementById('toastTitle').textContent = title;
+      document.getElementById('toastMessage').textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 5000);
+    }
+  </script>
+</body>
+</html>
